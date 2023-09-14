@@ -6,7 +6,7 @@ using UnityEngine;
 public class RenderDataRunTime : MonoBehaviour
 {
     public GameObject visCenter;
-    public static float  visRealSize=2f; //real size of wim
+    public static float  visRealSize=100f; //real size of wim
     
     public static float ratio;
     

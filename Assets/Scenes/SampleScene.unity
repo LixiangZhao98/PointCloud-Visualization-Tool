@@ -167,13 +167,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gRIDNum: 0
-  dataset: 9
+  dataset: 4
   unselected_mat: {fileID: 2100000, guid: 171b0ca585f1eaa479667601bef8be10, type: 2}
   selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
   LoadFlagNames:
   - FlagNames:
-    - 1
+    - 0
     target_mat: {fileID: 2100000, guid: 12015c000f8df92478d03ac3925b85b3, type: 2}
+  - FlagNames:
+    - 1
+    target_mat: {fileID: 2100000, guid: ccd9de810d2721c42bf1d8de578a68e1, type: 2}
+  - FlagNames:
+    - 2
+    target_mat: {fileID: 2100000, guid: 839c372ed3df0ae44a32114f6ab5c8e8, type: 2}
   LoadFlag: 1
   StoreFlagName: 1
   kde_shader: {fileID: 7200000, guid: 359a0d82f80a3e44690cfeb06a3a4699, type: 3}
@@ -388,8 +394,8 @@ MonoBehaviour:
     mouseMoveRatio: 0.28
   cameraRootTf: {fileID: 1710863952}
   cameraTf: {fileID: 963194228}
-  minDistance: 5
-  maxDistance: 100
+  minDistance: 2
+  maxDistance: 50
   mouseScroollRatio: 1.27
   zoomSensitive: 1
   yMinAngles: []

@@ -8,7 +8,7 @@ public class RunTimeController : MonoBehaviour
 {
 
         private void Start()
-    {gridNum=64;
+    {   gridNum=0;
         SwitchDatasetFromFile(dataset.ToString());
     }
 
@@ -19,7 +19,9 @@ public class RunTimeController : MonoBehaviour
     public GRIDNum GRIDNUM
         {
             get { return gRIDNum; }
-            set {        if (gRIDNum == GRIDNum.grid100)
+            set {     if (gRIDNum == GRIDNum.none)
+            gridNum = 0;    
+                if (gRIDNum == GRIDNum.grid100)
             gridNum = 99;
         if (gRIDNum == GRIDNum.grid64)
             gridNum = 64;
@@ -89,9 +91,13 @@ public class RunTimeController : MonoBehaviour
                  if (LoadFlagNames.Count!=0&&LoadFlag)
             DataMemory.LoadFlagsToStack(LoadFlagNames);
         }
-
+        
+        if(gRIDNum!=0)
+        {
         DataMemory.CreateDensityField(gridNum);
         GPUKDECsHelper.StartGpuKDE(DataMemory.allParticle, DataMemory.densityField, kde_shader);
+        }
+       
 
         RenderDataRunTime.GenerateMesh();
    
@@ -103,6 +109,6 @@ public class RunTimeController : MonoBehaviour
 [Serializable]
 public enum Dataset { disk,uniform_Lines, ball_hemisphere, ununiform_Lines, Flocculentcube1, strings, Flocculentcube2, Flocculentcube3, galaxy, nbody1, nbody2, training_torus, random_sphere , three_rings, multiEllipsolds, fiveellipsolds , stringf , stringf1, snap_C02_200_127_animation,complex };
 [Serializable]
-public enum GRIDNum { grid64,grid100,grid200 };
+public enum GRIDNum { none,grid64,grid100,grid200 };
 
 
