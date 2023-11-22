@@ -45,7 +45,6 @@ public class RunTimeController : MonoBehaviour
     public string StoreFlagName;
   
     
-    public ComputeShader kde_shader;
 
 
 

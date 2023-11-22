@@ -181,7 +181,6 @@ MonoBehaviour:
     target_mat: {fileID: 2100000, guid: 839c372ed3df0ae44a32114f6ab5c8e8, type: 2}
   LoadFlag: 0
   StoreFlagName: 1
-  kde_shader: {fileID: 7200000, guid: 359a0d82f80a3e44690cfeb06a3a4699, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
