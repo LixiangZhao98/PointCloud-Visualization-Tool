@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gRIDNum: 0
   dataset: 4
   unselected_mat: {fileID: 2100000, guid: 171b0ca585f1eaa479667601bef8be10, type: 2}
   selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
@@ -180,7 +179,7 @@ MonoBehaviour:
   - FlagNames:
     - 2
     target_mat: {fileID: 2100000, guid: 839c372ed3df0ae44a32114f6ab5c8e8, type: 2}
-  LoadFlag: 1
+  LoadFlag: 0
   StoreFlagName: 1
   kde_shader: {fileID: 7200000, guid: 359a0d82f80a3e44690cfeb06a3a4699, type: 3}
 --- !u!1 &963194225
@@ -260,7 +259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -114.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -395,7 +394,7 @@ MonoBehaviour:
   cameraRootTf: {fileID: 1710863952}
   cameraTf: {fileID: 963194228}
   minDistance: 2
-  maxDistance: 50
+  maxDistance: 150
   mouseScroollRatio: 1.27
   zoomSensitive: 1
   yMinAngles: []

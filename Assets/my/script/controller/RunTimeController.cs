@@ -8,29 +8,11 @@ public class RunTimeController : MonoBehaviour
 {
 
         private void Start()
-    {   gridNum=0;
+    {   
         SwitchDatasetFromFile(dataset.ToString());
     }
 
 
-  private int gridNum;
-  [SerializeField, SetProperty("GRIDNUM")]
-    private GRIDNum gRIDNum;
-    public GRIDNum GRIDNUM
-        {
-            get { return gRIDNum; }
-            set {     if (gRIDNum == GRIDNum.none)
-            gridNum = 0;    
-                if (gRIDNum == GRIDNum.grid100)
-            gridNum = 99;
-        if (gRIDNum == GRIDNum.grid64)
-            gridNum = 64;
-        if (gRIDNum == GRIDNum.grid200)
-            gridNum = 200;
-
-       SwitchDatasetFromFile(dataset.ToString());
-            }
-        }
 
 
   [SerializeField, SetProperty("DATASET")]
@@ -92,11 +74,7 @@ public class RunTimeController : MonoBehaviour
             DataMemory.LoadFlagsToStack(LoadFlagNames);
         }
         
-        if(gRIDNum!=0)
-        {
-        DataMemory.CreateDensityField(gridNum);
-        GPUKDECsHelper.StartGpuKDE(DataMemory.allParticle, DataMemory.densityField, kde_shader);
-        }
+
        
 
         RenderDataRunTime.GenerateMesh();
