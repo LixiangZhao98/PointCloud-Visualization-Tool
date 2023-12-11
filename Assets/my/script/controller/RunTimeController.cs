@@ -10,6 +10,13 @@ public class RunTimeController : MonoBehaviour
         private void Start()
     {   
         SwitchDatasetFromFile(dataset.ToString());
+        // Vector3[] v= new Vector3[DataMemory.allParticle.GetParticlenum()];
+        // for(int i=0;i<DataMemory.allParticle.GetParticlenum();i++)
+        // {
+        //     v[i]=DataMemory.allParticle.GetParticlePosition(i);
+        // }
+        // DataMemory.LoadDataByVec3s(v,"a");
+        // RenderDataRunTime.GenerateMesh();
     }
 
 
