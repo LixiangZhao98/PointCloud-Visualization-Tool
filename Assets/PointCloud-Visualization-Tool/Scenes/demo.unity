@@ -167,8 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataset: 4
-  unselected_mat: {fileID: 2100000, guid: 171b0ca585f1eaa479667601bef8be10, type: 2}
-  selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
   LoadFlagNames:
   - FlagNames:
     - 1
@@ -302,6 +300,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visCenter: {fileID: 1710863951}
+  unselected_mat: {fileID: 2100000, guid: 171b0ca585f1eaa479667601bef8be10, type: 2}
+  selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
 --- !u!1 &1710863951
 GameObject:
   m_ObjectHideFlags: 0

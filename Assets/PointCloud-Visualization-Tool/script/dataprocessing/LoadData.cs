@@ -10,6 +10,7 @@ public class LoadDataBybyte
 
     static public Vector3[] StartLoad(string filename)
     {
+
         return FloatsToVec3s(BytesToFloats(FileToBytes(filename)));
     }
     static byte[] FileToBytes(string filename)
@@ -24,14 +25,16 @@ public class LoadDataBybyte
             }
         }
         catch(Exception e)
-        {Debug.LogException(e);
-            Debug.LogError("load fail");
-            return null;
+        {
+            Debug.LogException(e);
+            
+            return new byte[0];
         }
     }
 
     static float[] BytesToFloats(byte[] bs)
     {
+
         float[] floatArray = new float[bs.Length / sizeof(float)];
         for(int i=0;i< floatArray.Length;i++)
         {
@@ -62,6 +65,7 @@ public class LoadDataBybyte
     //load flag
     static public int[] StartLoadFlags(string filename)
     {
+
         return BytesToInts(FileToBytes(filename));
     }
 
@@ -92,12 +96,12 @@ public class csvController
     static csvController csv;
     public List<string[]> arrayData;
 
-    private csvController()   //µ¥Àý£¬¹¹Ôì·½·¨ÎªË½ÓÐ
+    private csvController()   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì·½ï¿½ï¿½ÎªË½ï¿½ï¿½
     {
         arrayData = new List<string[]>();
     }
 
-    public static csvController GetInstance()   //µ¥Àý·½·¨»ñÈ¡¶ÔÏó
+    public static csvController GetInstance()   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
     {
         if (csv == null)
         {
@@ -112,7 +116,7 @@ public class csvController
         StreamReader sr = null;
         try
         {
-            string file_url =fileName;    //¸ù¾ÝÂ·¾¶´ò¿ªÎÄ¼þ
+            string file_url =fileName;    //ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
             sr = File.OpenText(file_url);
             Debug.Log("File Find in " + file_url);
         }
@@ -124,10 +128,10 @@ public class csvController
 
         string line;
         int count = 0;
-        while ((line = sr.ReadLine()) != null)   //°´ÐÐ¶ÁÈ¡
+        while ((line = sr.ReadLine()) != null)   //ï¿½ï¿½ï¿½Ð¶ï¿½È¡
         {
             count++;
-            arrayData.Add(line.Split(','));   //Ã¿ÐÐ¶ººÅ·Ö¸ô,split()·½·¨·µ»Ø string[]
+            arrayData.Add(line.Split(','));   //Ã¿ï¿½Ð¶ï¿½ï¿½Å·Ö¸ï¿½,split()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ string[]
         }
         sr.Close();
         sr.Dispose();
@@ -149,10 +153,10 @@ public class csvController
 
    public Vector3[] StartLoad(string filename)
     {
-        //csvController¼ÓÔØcsvÎÄ¼þ£¬µ¥ÀýÄ£Ê½£¬Õâ¸öÀàÖ»ÓÐÒ»¸ö¶ÔÏó£¬Õâ¸ö¶ÔÏóÖ»ÄÜ¼ÓÔØÒ»¸öcsvÎÄ¼þ
+        //csvControllerï¿½ï¿½ï¿½ï¿½csvï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½Ü¼ï¿½ï¿½ï¿½Ò»ï¿½ï¿½csvï¿½Ä¼ï¿½
        int count= csvController.GetInstance().loadFile(filename);
         Vector3[] vs = new Vector3[count];
-        //¸ù¾ÝË÷Òý¶ÁÈ¡csvControllerÖÐµÄlist£¨csvÎÄ¼þµÄÄÚÈÝ£©Êý¾Ý
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡csvControllerï¿½Ðµï¿½listï¿½ï¿½csvï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i=1;i<count;i++)
         {
             vs[i - 1] = new Vector3(csvController.GetInstance().getFloat(i,1), csvController.GetInstance().getFloat(i, 2), csvController.GetInstance().getFloat(i, 3));
@@ -168,7 +172,7 @@ public class csvController
         {
             File.Create(path).Dispose();
         }
-        //UTF-8·½Ê½±£´æ
+        //UTF-8ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
         using (StreamWriter stream = new StreamWriter(path, false, Encoding.UTF8))
         {
             for (int i = 0; i < strs.Length; i++)

@@ -25,7 +25,7 @@ namespace PavelKouril.MarchingCubesGPU
         ComputeBuffer appendVertexBuffer;
         ComputeBuffer argBuffer;
         int[] args;
-        RenderDataRunTime r;
+        RenderDataRunTime_demo r;
         Bounds bounds;
         //Triangle[] ts;
         //Mesh m;
@@ -33,7 +33,7 @@ namespace PavelKouril.MarchingCubesGPU
 
         public void Init()
         {
-            r = transform.parent.GetComponentInChildren<RenderDataRunTime>();
+            r = transform.parent.GetComponentInChildren<RenderDataRunTime_demo>();
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
             ResolutionX = DataMemory.densityField.XNUM;
             ResolutionY = DataMemory.densityField.YNUM;

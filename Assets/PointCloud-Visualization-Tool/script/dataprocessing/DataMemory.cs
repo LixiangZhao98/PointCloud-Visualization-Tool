@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ParticleProperty;
 using ScalarField;
+
 public class DataMemory : MonoBehaviour
 {
 
@@ -19,16 +20,16 @@ public class DataMemory : MonoBehaviour
         pOperateStack=new Stack<List<int>>();
 
     }
-    public static void LoadFlagsToStack(List<RunTimeController.FlagNamesCollection> names)
+    public static void LoadFlagsToStack(List<FlagNamesCollection> names)
     {
         foreach(var name in names)
         {
           for(int n=0;n<name.FlagNames.Length;n++)
         {
-        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/my/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
+        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
         for (int i = 0; i < flags.Length; i++)
         {
-           
+
             DataMemory.allParticle.SetTarget(flags[i], true, names.IndexOf(name)); 
         }
         }
@@ -85,7 +86,7 @@ public class DataMemory : MonoBehaviour
 
 
 
-    public static void DisplayAllParticle(bool loadFlag, List<RunTimeController.FlagNamesCollection>  LoadFlagNames)
+    public static void DisplayAllParticle(bool loadFlag, List<FlagNamesCollection>  LoadFlagNames)
     {
         StacksInitialize();
             LoadFlagsToStack(LoadFlagNames);
@@ -102,13 +103,13 @@ public class DataMemory : MonoBehaviour
     public static void LoadDataByByte(string loadFileName)
     {
 
-        allParticle.LoadDatasetByByte(Application.dataPath + "/my/data/data/" + loadFileName,loadFileName);
+        allParticle.LoadDatasetByByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength().x + " " + allParticle.GetSmoothLength().y + " " + allParticle.GetSmoothLength().z);
     }
     static public void LoadDataByCsv(string loadFileName)
     {
 
-        allParticle.LoadDatasetByCsv(Application.dataPath + "/my/data/data/" + loadFileName, loadFileName);
+        allParticle.LoadDatasetByCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
     }
    
@@ -163,22 +164,21 @@ public class DataMemory : MonoBehaviour
 
         public static void StoreFlags(string ExtendstoreFileName)
     {
-        allParticle.StoreFlags(Application.dataPath + "/my/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.StoreFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
 
         public static void SaveSelectedAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveSelectedAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.SaveSelectedAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
 
             public static void SaveTargetAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveTargetAsNewData(Application.dataPath + "/my/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        allParticle.SaveTargetAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
 
     }
-   
 
 
 }

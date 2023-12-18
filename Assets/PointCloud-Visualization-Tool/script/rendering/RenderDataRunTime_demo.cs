@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RenderDataRunTime : MonoBehaviour
+public class RenderDataRunTime_demo : MonoBehaviour
 {
     public GameObject visCenter;
     public static float  visRealSize=100f; //real size of wim
     
     public static float ratio;
+   public Material unselected_mat;
+    public Material selected_mat;
     
     [SerializeField]
    public static Mesh unselected_mesh;
@@ -40,7 +42,7 @@ public class RenderDataRunTime : MonoBehaviour
         DestroyImmediate(selected_mesh, true);
             foreach(var m in target_mesh)
         DestroyImmediate(m, true);
-
+          
         unselected_mesh = new Mesh();
         selected_mesh= new Mesh();
         target_mesh = new Mesh[tarMeshNum];
@@ -68,8 +70,8 @@ public class RenderDataRunTime : MonoBehaviour
     {
      
   if(drawEnable)
-       { Graphics.DrawMesh(unselected_mesh, m, RC.unselected_mat, 1);
-            Graphics.DrawMesh(selected_mesh, m, RC.selected_mat, 1);
+       { Graphics.DrawMesh(unselected_mesh, m, unselected_mat, 1);
+            Graphics.DrawMesh(selected_mesh, m, selected_mat, 1);
             for(int i=0;i<target_mesh.Length;i++)
             Graphics.DrawMesh(target_mesh[i], m, RC.LoadFlagNames[i].target_mat, 1);}
     }

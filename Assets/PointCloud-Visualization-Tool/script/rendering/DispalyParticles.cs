@@ -46,7 +46,8 @@ using UnityEngine;
 
         m_unsel.SetIndices(indecies, MeshTopology.Points, 0);
 
-        m_sel.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        if(m_sel!=null)
+        {m_sel.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
          indecies = new int[selected.Count];
 
         for (int i = 0; i < selected.Count; ++i)
@@ -57,7 +58,8 @@ using UnityEngine;
         }
         m_sel.vertices = selected.ToArray();
 
-        m_sel.SetIndices(indecies, MeshTopology.Points, 0);
+        m_sel.SetIndices(indecies, MeshTopology.Points, 0);}
+        
 
         for(int n=0;n<m_targets.Length;n++)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 public class EditorController : MonoBehaviour
 {
     public string loadFileName;
-    public List<RunTimeController.FlagNamesCollection>  loadFlagNames;
+    public List<FlagNamesCollection>  loadFlagNames;
     public bool LoadFlag;
     public int gridNum = 64;
    

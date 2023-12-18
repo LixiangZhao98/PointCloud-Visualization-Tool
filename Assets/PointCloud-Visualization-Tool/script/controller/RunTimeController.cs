@@ -1,8 +1,6 @@
-using PavelKouril.MarchingCubesGPU;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enum;
 
 public class RunTimeController : MonoBehaviour
 {
@@ -10,13 +8,7 @@ public class RunTimeController : MonoBehaviour
         private void Start()
     {   
         SwitchDatasetFromFile(dataset.ToString());
-        // Vector3[] v= new Vector3[DataMemory.allParticle.GetParticlenum()];
-        // for(int i=0;i<DataMemory.allParticle.GetParticlenum();i++)
-        // {
-        //     v[i]=DataMemory.allParticle.GetParticlePosition(i);
-        // }
-        // DataMemory.LoadDataByVec3s(v,"a");
-        // RenderDataRunTime.GenerateMesh();
+
     }
 
 
@@ -28,20 +20,14 @@ public class RunTimeController : MonoBehaviour
         {
             get { return dataset; }
             set { 
+              dataset=value;
+              if(Application.isPlaying)
             SwitchDatasetFromFile(dataset.ToString());
                     
             }
         }
-   [Serializable]
-    public class FlagNamesCollection
-    {
-        
-        public string[] FlagNames;
-        public Material target_mat;
-    }
 
-    public Material unselected_mat;
-    public Material selected_mat;
+
     
     [SerializeField]
     public List<FlagNamesCollection> LoadFlagNames;
@@ -83,16 +69,13 @@ public class RunTimeController : MonoBehaviour
 
        
 
-        RenderDataRunTime.GenerateMesh();
+        RenderDataRunTime_demo.GenerateMesh();
    
 
     }
 
     }
 
-[Serializable]
-public enum Dataset { disk,uniform_Lines, ball_hemisphere, ununiform_Lines, Flocculentcube1, Flocculentcube2, nbody1, nbody2, training_torus ,training_sphere,training_pyramid,training_cylinder, three_rings, fiveellipsolds};
-[Serializable]
-public enum GRIDNum { none,grid64,grid100,grid200 };
+
 
 
