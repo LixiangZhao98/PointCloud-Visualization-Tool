@@ -42,7 +42,7 @@ void Start()
 {
 Vector3[] v= Generate_Cube();  // Generate random points in Cubic shape
 DataMemory.StacksInitialize();//Initialize
-DataMemory.LoadDataByVec3s(v,"sphere");  // the first input is Vector[], the second is the name of the data (you can name it as you like)
+DataMemory.LoadDataByVec3s(v,"cube");  // the first input is Vector[], the second is the name of the data (you can name it as you like)
 RenderDataRunTime.GenerateMesh();
 }
 public Vector3[] Generate_Cube()  // Generate random points in Cubic shape
