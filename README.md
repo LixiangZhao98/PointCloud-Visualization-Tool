@@ -35,7 +35,7 @@ We visualize the pointcloud data in the scene and it follows the movement and th
 RenderDataRunTime.visSize=20f;
 ```
 The binary files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. They stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
-Here is a full review of the `binary data included in this repo` ([Point Cloud Data](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data")).
+Here is a full review of the ([Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data")).
 ### Load data by point positions and visualize
 ```c#
 void Start()
