@@ -11,11 +11,11 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 # Install the project and Play the demo
 - Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/PointCloud-Visualization-Tool/file/UnitySetup.pdf "Unity Setup")).
-- Clone the repo with git lfs installed and open the project using Unity (versions over 2020.3.38f1 have been tested).
+- Clone the repo with git lfs installed and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
 - `Assets/PointCloud-Visualization-Tool/Scenes/demo.unity` is the demo.
 - To switch `datasets`, click the gameobject `script/RunTime` in Hierarchy and switch them in the inspector window
 
-# How to integrate into your scene
+# How to integrate into your project
 - Copy `Asset/PointCloud-Visualization-Tool` folder in this repo to your `Asset` folder.
 - Add `RenderDataRunTime` script to an empty GameObject (you can name it whatever you like, here we call it "scriptObj"). Assign the `particleMat` and `Vis center` in the public field. The visualization will always follow the `Vis center` when start. 
 - Create a new script and add it to GamoObject "scriptObj". And we can write the C# code in it. The following are some examples to visualize the point cloud data.
@@ -24,17 +24,19 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 void Start()
 {
 DataMemory.StacksInitialize();  //Initialize
-DataMemory.LoadDataByByte("Flocculentcube1");  //load the data from the the binary file; the input is the name of the binary file
+DataMemory.LoadDataByByte("Flocculentcube2");  //load the data from the the binary file; the input is the name of the binary file
 RenderDataRunTime.GenerateMesh();  // Draw the pointcloud Mesh and render in `RenderDataRunTime/cs`
 }
 ```
 We visualize the pointcloud data in the scene and it follows the movement and the rotation of the GameObject `Vis center` in the public field of `RenderDataRunTime`.
+![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/Flocculentcube2.png "Image")
 The overall size of pointcloud data can be set by:
 ```c#
 RenderDataRunTime.visSize=20f;
 ```
-The binary files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. They stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. Here is a full review of the binary data include this repo ([Data](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/PointCloud-Visualization-Tool/file/Data.pdf "Data"))\
-### Load data from point positions and visualize
+The binary files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. They stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
+Here is a full review of the `binary data include this repo` ([Point Cloud Data](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.doc "Data")).
+### Load data by point positions and visualize
 ```c#
 void Start()
 {
@@ -45,7 +47,6 @@ RenderDataRunTime.GenerateMesh();
 }
 public Vector3[] Generate_Cube()  // Generate random points in Cubic shape
     {
-        float positionScale = 16f;
         Random.InitState(2);
         int num = 10000;
         int i = 0;
@@ -59,7 +60,7 @@ public Vector3[] Generate_Cube()  // Generate random points in Cubic shape
         return v;
     }
 ```
-With these 
+
 
 
 
