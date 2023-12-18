@@ -10,8 +10,8 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 # Install the project and Play the demo
-- Download Unity3D  and Create a new project. Here is a tutorial ([Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup")).
-- Clone the repo with git lfs installed and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
+- Download Unity3D  and Create a new project. Here is a tutorial for [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
+- Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
 - `Assets/PointCloud-Visualization-Tool/Scenes/demo.unity` is the demo.
 - To switch `datasets`, click the gameobject `script/RunTime` in Hierarchy and switch them in the inspector window
 
