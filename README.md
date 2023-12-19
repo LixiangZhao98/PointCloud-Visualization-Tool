@@ -20,6 +20,7 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 - Add `RenderDataRunTime` script to an empty GameObject (you can name it whatever you like, here we call it "scriptObj"). Assign the `particleMat` and `Vis center` in the public field. The visualization will always follow the `Vis center` when start. 
 - Create a new script and add it to GamoObject "scriptObj". And we can write the C# code in it. The following are some examples to visualize the point cloud data.
 ### Load data from binary files and visualize
+To load data from binary files, we can simply call `DataMemory.LoadDataByByte(fileName)`. An example is as follows:
 ```c#
 void Start()
 {
@@ -28,16 +29,16 @@ DataMemory.LoadDataByByte("Flocculentcube2");  //load the data from the the bina
 RenderDataRunTime.GenerateMesh();  // Draw the pointcloud Mesh and render in `RenderDataRunTime/cs`
 }
 ```
-We visualize the pointcloud data in the scene and it follows the movement and the rotation of the GameObject `Vis center` in the public field of `RenderDataRunTime`.
-<!-- ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/Flocculentcube2.png "Image") -->
-
+The visualization follows the movement and the rotation of the GameObject `Vis center`, which is assigned in the public field of `RenderDataRunTime`.\
 The size of pointcloud data can be set by:
 ```c#
 RenderDataRunTime.visSize=20f;
 ```
 The binary files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. They stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
 Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
+
 ### Load data by point positions and visualize
+To load data by point positions, we can build a `Vector3[]` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
 ```c#
 void Start()
 {
@@ -54,13 +55,25 @@ public Vector3[] Generate_Cube()  // Generate random points in Cubic shape
         Vector3[] v = new Vector3[num];
         while (i < num)
         {
-            Vector3 pos = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
-            v[i] = pos;
+            v[i] = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
             i++;
         }
         return v;
     }
 ```
+
+### Traversal of points
+To get information of each point, such as the position. We can simply do as following:
+```c#
+void Start()
+{
+for(int i=0;i<DataMemory.allParticle.GetParticlenum();i++)
+{
+    Debug.Log(DataMemory.allParticle.GetParticlePosition(i));
+}
+}
+```
+
 
 
 
