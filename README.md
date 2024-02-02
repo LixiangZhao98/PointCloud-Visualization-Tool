@@ -20,13 +20,13 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 - Download Unity3D  and Create a new project. Here is a tutorial for [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
 - `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity` is a demo to read and visualize point cloud data.
-- `Assets/PointCloud-Visualization-Tool/Scenes/Density estimation.unity` is a demo to calculate the density field of pint cloud by KDE and generate iso-surface.
+- `Assets/PointCloud-Visualization-Tool/Scenes/Density estimation.unity` is a demo to calculate the density field of pint cloud by KDE and generate iso-surface. To change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 - `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity` is a demo to show color mapping based on density information.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
 - `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` is a code replicate of halo visualization for point cloud data([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")). 
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
-- To switch `datasets`, click the gameobject `script/RunTime` in Hierarchy and switch them in the inspector window
+- To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window.
 
 # Scripting
 - Copy `Asset/PointCloud-Visualization-Tool` folder in this repo to your `Asset` folder.
