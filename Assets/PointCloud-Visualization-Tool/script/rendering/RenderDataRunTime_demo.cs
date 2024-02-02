@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+using UnityEngine;
+namespace LixaingZhao.PointcloudTool{
 public class RenderDataRunTime_demo : MonoBehaviour
 {
     public GameObject visCenter;
@@ -54,7 +52,11 @@ public class RenderDataRunTime_demo : MonoBehaviour
     }
 
 
+   public  void SetBuffer(Vector3[] lp)
+   {
 
+       unselected_mesh.SetUVs(1,lp);
+   }
        private void Update()
     {
        
@@ -78,3 +80,4 @@ public class RenderDataRunTime_demo : MonoBehaviour
 }
 
 
+}

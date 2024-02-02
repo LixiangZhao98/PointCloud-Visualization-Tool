@@ -1,8 +1,7 @@
-﻿using ParticleProperty;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ScalarField
+namespace LixaingZhao.PointcloudTool
 {
 
     [System.Serializable]

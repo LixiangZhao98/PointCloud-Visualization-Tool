@@ -1,11 +1,10 @@
-﻿using ScalarField;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using LixaingZhao.PointcloudTool;
 using UnityEngine;
 
-namespace PavelKouril.MarchingCubesGPU
-{
+
     public class MarchingCubeGPU : MonoBehaviour
     {
         public float MCGPUThreshold;
@@ -25,15 +24,16 @@ namespace PavelKouril.MarchingCubesGPU
         ComputeBuffer appendVertexBuffer;
         ComputeBuffer argBuffer;
         int[] args;
-        RenderDataRunTime_demo r;
+        RunTimeController r;
         Bounds bounds;
         //Triangle[] ts;
         //Mesh m;
         //int[] index; Vector3[] norm; Vector3[] vertex;
 
+
         public void Init()
         {
-            r = transform.parent.GetComponentInChildren<RenderDataRunTime_demo>();
+            r = transform.parent.GetComponentInChildren<RunTimeController>();
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
             ResolutionX = DataMemory.densityField.XNUM;
             ResolutionY = DataMemory.densityField.YNUM;
@@ -233,4 +233,3 @@ namespace PavelKouril.MarchingCubesGPU
     }
     
     
-}

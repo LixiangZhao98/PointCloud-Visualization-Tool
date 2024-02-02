@@ -1,10 +1,9 @@
-using ParticleProperty;
-using ScalarField;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace LixaingZhao.PointcloudTool{
 public class Utility 
 {
     static public void q_sort(float[] f, int begin, int end)
@@ -234,7 +233,7 @@ public class Utility
         float sLx = sL[0] * dRatio;
         float sLy = sL[1] * dRatio;
         float sLz = sL[2] * dRatio;
-        float xmax, xmin, ymax, ymin, zmax, zmin; //×ø±ê´Ó0¿ªÊ¼
+        float xmax, xmin, ymax, ymin, zmax, zmin; //ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼
         xmax = nodePos.x + sLx;
         xmin = nodePos.x - sLx;
         ymax = nodePos.y + sLy;
@@ -242,19 +241,19 @@ public class Utility
         zmax = nodePos.z + sLz;
         zmin = nodePos.z - sLz;
 
-        xmax = xmax - pG.XMIN;  //×ø˜Ë×ƒ“Q£¬È¡ÏàŒ¦ÓÚ´ËcubeµÄposition£¬Ïà®”ÓÚ°ÑcubeµÄ(xmin,ymin,zmin)À­µ½(0,0,0)
+        xmax = xmax - pG.XMIN;  //ï¿½ï¿½ï¿½ï¿½×ƒï¿½Qï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½cubeï¿½ï¿½positionï¿½ï¿½ï¿½à®”ï¿½Ú°ï¿½cubeï¿½ï¿½(xmin,ymin,zmin)ï¿½ï¿½ï¿½ï¿½(0,0,0)
         xmin = xmin - pG.XMIN;
         ymax = ymax - pG.YMIN;
         ymin = ymin - pG.YMIN;
         zmax = zmax - pG.ZMIN;
         zmin = zmin - pG.ZMIN;
-        if (xmax > pG.XMAX - pG.XMIN)//ÅÐ”àÉÏ½ç¼ÓÍêsL³ö½ç
+        if (xmax > pG.XMAX - pG.XMIN)//ï¿½Ð”ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½sLï¿½ï¿½ï¿½ï¿½
             xmax = pG.XMAX - pG.XMIN - 1;
         if (ymax > pG.YMAX - pG.YMIN)
             ymax = pG.YMAX - pG.XMIN - 1;
         if (zmax > pG.ZMAX - pG.ZMIN)
             zmax = pG.ZMAX - pG.XMIN - 1;
-        if (xmin < 0)//ÅÐ”àÏÂ½çœpÈ¥ÍêsL³ö½ç
+        if (xmin < 0)//ï¿½Ð”ï¿½ï¿½Â½ï¿½pÈ¥ï¿½ï¿½sLï¿½ï¿½ï¿½ï¿½
             xmin = 1;
         if (ymin < 0)
             ymin = 1;
@@ -301,7 +300,7 @@ public class Utility
         
         List<int> lint = new List<int>();
   
-        float xmax, xmin, ymax, ymin, zmax, zmin; //×ø±ê´Ó0¿ªÊ¼
+        float xmax, xmin, ymax, ymin, zmax, zmin; //ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼
         xmax = nodePos.x +R;
         xmin = nodePos.x - R;
         ymax = nodePos.y + R;
@@ -309,19 +308,19 @@ public class Utility
         zmax = nodePos.z + R;
         zmin = nodePos.z - R;
 
-        xmax = xmax - pG.XMIN;  //×ø˜Ë×ƒ“Q£¬È¡ÏàŒ¦ÓÚ´ËcubeµÄposition£¬Ïà®”ÓÚ°ÑcubeµÄ(xmin,ymin,zmin)À­µ½(0,0,0)
+        xmax = xmax - pG.XMIN;  //ï¿½ï¿½ï¿½ï¿½×ƒï¿½Qï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½cubeï¿½ï¿½positionï¿½ï¿½ï¿½à®”ï¿½Ú°ï¿½cubeï¿½ï¿½(xmin,ymin,zmin)ï¿½ï¿½ï¿½ï¿½(0,0,0)
         xmin = xmin - pG.XMIN;
         ymax = ymax - pG.YMIN;
         ymin = ymin - pG.YMIN;
         zmax = zmax - pG.ZMIN;
         zmin = zmin - pG.ZMIN;
-        if (xmax > pG.XMAX - pG.XMIN)//ÅÐ”àÉÏ½ç¼ÓÍêsL³ö½ç
+        if (xmax > pG.XMAX - pG.XMIN)//ï¿½Ð”ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½sLï¿½ï¿½ï¿½ï¿½
             xmax = pG.XMAX - pG.XMIN - 1;
         if (ymax > pG.YMAX - pG.YMIN)
             ymax = pG.YMAX - pG.XMIN - 1;
         if (zmax > pG.ZMAX - pG.ZMIN)
             zmax = pG.ZMAX - pG.XMIN - 1;
-        if (xmin < 0)//ÅÐ”àÏÂ½çœpÈ¥ÍêsL³ö½ç
+        if (xmin < 0)//ï¿½Ð”ï¿½ï¿½Â½ï¿½pÈ¥ï¿½ï¿½sLï¿½ï¿½ï¿½ï¿½
             xmin = 1;
         if (ymin < 0)
             ymin = 1;
@@ -370,7 +369,7 @@ public class Utility
         return L;
     }
 
-   public static List<int> GetExtendedNodes(List<int> nodes, DensityField dF, ParticleGroup pG) //»ñÈ¡ËùÓÐnodeµÄÖÜ±ß°üÎ§£¬ÎªMC×ö×¼±¸
+   public static List<int> GetExtendedNodes(List<int> nodes, DensityField dF, ParticleGroup pG) //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½nodeï¿½ï¿½ï¿½Ü±ß°ï¿½Î§ï¿½ï¿½ÎªMCï¿½ï¿½×¼ï¿½ï¿½
     {
         List<int> extended = new List<int>();
         foreach (var n in nodes)
@@ -500,4 +499,5 @@ public class Utility
         return neighbours;
     }
 
+}
 }

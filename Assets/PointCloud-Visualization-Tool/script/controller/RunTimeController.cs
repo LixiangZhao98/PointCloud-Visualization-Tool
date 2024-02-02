@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static Enum;
-
+namespace LixaingZhao.PointcloudTool{
 public class RunTimeController : MonoBehaviour
 {
 
         private void Start()
     {   
+
         SwitchDatasetFromFile(dataset.ToString());
 
     }
@@ -15,7 +16,7 @@ public class RunTimeController : MonoBehaviour
 
 
   [SerializeField, SetProperty("DATASET")]
-    private Dataset dataset;
+    protected Dataset dataset;
     public Dataset DATASET
         {
             get { return dataset; }
@@ -32,12 +33,12 @@ public class RunTimeController : MonoBehaviour
     [SerializeField]
     public List<FlagNamesCollection> LoadFlagNames;
 
-    private List<string> dataset_generator = new List<string> { "random_sphere" };
+    protected List<string> dataset_generator = new List<string> { "random_sphere" };
+      protected List<string> dataset_ply = new List<string> { "dragon_vrip"};
   public bool LoadFlag;
 
     public string StoreFlagName;
   
-    
 
 
 
@@ -48,27 +49,27 @@ public class RunTimeController : MonoBehaviour
       DataMemory.StoreFlags(StoreFlagName);
     }
 
-    public void SwitchDatasetFromFile(string name)
+    public virtual void  SwitchDatasetFromFile(string name)
     {
         DataMemory.StacksInitialize();
       
-        if (!dataset_generator.Contains(name))
+        if (dataset_generator.Contains(name))
         {
-                   DataMemory.LoadDataByByte(name);
-                    if (LoadFlagNames.Count!=0&&LoadFlag)
-            DataMemory.LoadFlagsToStack(LoadFlagNames);
-           
+                  DataMemory.LoadDataByVec3s(DataGenerator.Generate(name), name);    
+        }
+        else if(dataset_ply.Contains(name))
+        {        
+                  DataMemory.LoadDataByPly(name);    
         }
         else
         {
-                    DataMemory.LoadDataByVec3s(DataGenerator.Generate(name), name);
-                 if (LoadFlagNames.Count!=0&&LoadFlag)
-            DataMemory.LoadFlagsToStack(LoadFlagNames);
+               DataMemory.LoadDataByByte(name);
         }
-        
+                            
+        if (LoadFlagNames.Count!=0&&LoadFlag)
+            DataMemory.LoadFlagsToStack(LoadFlagNames);
 
        
-
         RenderDataRunTime_demo.GenerateMesh();
    
 
@@ -78,4 +79,4 @@ public class RunTimeController : MonoBehaviour
 
 
 
-
+}

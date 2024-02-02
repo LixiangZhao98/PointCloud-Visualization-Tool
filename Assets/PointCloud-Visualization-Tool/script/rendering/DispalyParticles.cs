@@ -1,6 +1,9 @@
-using ParticleProperty;
+
 using System.Collections.Generic;
 using UnityEngine;
+namespace LixaingZhao.PointcloudTool
+{
+
 
  public class DisplayParticles
 {
@@ -241,4 +244,5 @@ using UnityEngine;
         return true;
     }
  
+}
 }

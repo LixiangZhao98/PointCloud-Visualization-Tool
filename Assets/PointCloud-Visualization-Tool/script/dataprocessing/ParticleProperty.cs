@@ -1,12 +1,13 @@
 ﻿
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
-
-
-namespace ParticleProperty
+namespace LixaingZhao.PointcloudTool
 {
+
+
 
     [System.Serializable]
     public class ParticleGroup
@@ -20,6 +21,10 @@ namespace ParticleProperty
         private float xmin, ymin, zmin;
         [SerializeField]
         private float xmax, ymax, zmax;
+                        [SerializeField]
+        private float maxDen;
+                [SerializeField]
+        private float minDen;
         [SerializeField]
         Vector3 smoothLength;
         public float XMIN { get { return xmin; } set { xmin = value; } }
@@ -29,6 +34,8 @@ namespace ParticleProperty
         public float ZMIN { get { return zmin; } set { zmin = value; } }
         public float ZMAX { get { return zmax; } set { zmax = value; } }
 
+        public float MAXDEN { get { return maxDen; } set { maxDen = value; } }
+        public float MINDEN { get { return minDen; } set { minDen = value; } }
         #endregion
         #region Get Property
         public Vector3 GetMinParPos()
@@ -144,7 +151,116 @@ namespace ParticleProperty
 
         #endregion
         #region load and save
-       
+          public void LoadDatasetsByPly(string path,string dataname)
+        {  
+            
+
+          List<Vector3> pointList = new List<Vector3>();
+    
+
+                  string filePath = path + dataname;
+            if (!File.Exists(filePath))
+            {
+                Debug.LogError("file does not exist: " + filePath);
+                return;
+            }
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
+                using (BinaryReader br = new BinaryReader(fs,System.Text. Encoding.ASCII))
+                {
+                    int vertexCount = 0;
+                    bool isBinary = false;
+
+                    // Read and parse the header
+                    while (true)
+                    {
+                        string line = ReadLine(br);
+                        if (line.StartsWith("format"))
+                        {
+                            if (line.Contains("binary_big_endian 1.0"))
+                                isBinary = true;
+                            else if (line.Contains("ascii"))
+                                isBinary = false;
+                            else
+                                throw new System.Exception("Unsupported PLY format");
+                        }
+                        else if (line.StartsWith("element vertex"))
+                        {
+                            var tokens = line.Split(' ');
+                            vertexCount = int.Parse(tokens[2]);
+                        }
+                        else if (line.StartsWith("end_header"))
+                        {
+                            break;
+                        }
+                    }
+
+                    if (isBinary)
+                    {
+                        // Process binary format
+                        for (int i = 0; i < vertexCount; i++)
+                        {
+                            float x = ReadBigEndianFloat(br);
+                            float y = ReadBigEndianFloat(br);
+                            float z = ReadBigEndianFloat(br);
+                            pointList.Add(new Vector3(x, y, z));
+                        }
+                    }
+                    else
+                    {
+                        // Process ASCII format
+                        br.BaseStream.Seek(0, SeekOrigin.Begin); // Reset stream to beginning
+                        using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.ASCII))
+                        {
+                            // Skip header lines
+                            for (int i = 0; i < vertexCount + 10; i++) // '+10' assumes the header is less than 10 lines
+                            {
+                                string line = sr.ReadLine();
+                                if (i >= 10) // Start reading vertices after header
+                                {
+                                    var tokens = line.Split(' ');
+                                    float x = float.Parse(tokens[0]);
+                                    float y = float.Parse(tokens[1]);
+                                    float z = float.Parse(tokens[2]);
+                                    pointList.Add(new Vector3(x, y, z));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+                        Vector3[] vs = DataPosPreProcessing(pointList.ToArray());
+            particleGroup = new List<Particle>();
+            this.name = dataname;
+            for (int i=0;i<vs.Length;i++)
+            {
+                Particle p = new Particle(vs[i]);
+                this.AddParticle(p);
+            }
+        }
+
+         private string ReadLine(BinaryReader br)
+        {
+            List<byte> byteList = new List<byte>();
+            byte readByte;
+            while ((readByte = br.ReadByte()) != '\n')
+            {
+                if (readByte != '\r') // Ignore carriage return if present
+                {
+                    byteList.Add(readByte);
+                }
+            }
+            return System.Text.Encoding.ASCII.GetString(byteList.ToArray());
+        }
+        private float ReadBigEndianFloat(BinaryReader br)
+        {
+            byte[] bytes = br.ReadBytes(4);
+            System.Array.Reverse(bytes); // Convert to little endian
+            return System.BitConverter.ToSingle(bytes, 0);
+        }
+
         public void LoadDatasetByByte(string path, string dataname)
         {
            this. name=dataname;
@@ -412,7 +528,6 @@ namespace ParticleProperty
         }
         #endregion
     }
-
 
 
    
