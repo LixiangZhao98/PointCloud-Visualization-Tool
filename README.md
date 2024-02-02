@@ -24,7 +24,7 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 - `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity` is a demo to show color mapping based on density information.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
-- `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` is a demo to show halo visualization for point cloud data[10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos"). 
+- `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` is a demo to show halo visualization for point cloud data([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")). 
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
 - To switch `datasets`, click the gameobject `script/RunTime` in Hierarchy and switch them in the inspector window
 
@@ -47,7 +47,7 @@ The size of pointcloud data can be set by:
 ```c#
 RenderDataRunTime.visSize=20f;
 ```
-The binary files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. They stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
+The data files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. The .bin format stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
 Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
 
 ### Load data by point positions and visualize
@@ -96,7 +96,9 @@ for(int i=0;i<DataMemory.allParticle.GetParticlenum();i++)
 }
 ```
 
-
+# Thanks
+Many thanks to the authors of open-source repository:
+[unity-marching-cubes-gpu](https://github.com/pavelkouril/unity-marching-cubes-gpu "unity-marching-cubes-gpu")
 
 
 
