@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Enum;
+using static LixaingZhao.PointcloudTool.Enum;
 namespace LixaingZhao.PointcloudTool{
 public class RunTimeController_Halo : RunTimeController
 {
@@ -36,14 +36,14 @@ public class RunTimeController_Halo : RunTimeController
             DataMemory.LoadFlagsToStack(LoadFlagNames);
 
        
-        RenderDataRunTime_demo.GenerateMesh();
+        RenderDataRunTime.GenerateMesh();
      this.transform.parent.GetComponentInChildren<HaloDrawIndirectCsHelper>(). Init(DataMemory.allParticle.GetParticlenum());
  Vector3[] lp=new Vector3[DataMemory.allParticle.GetParticlenum()];
            for (int i = 0; i < DataMemory.allParticle.GetParticlenum(); i++)
         {
           lp[i]=new Vector3((float)(DataMemory.allParticle.GetParticleDensity(i)-DataMemory.allParticle.MINDEN)/(DataMemory.allParticle.MAXDEN-DataMemory.allParticle.MINDEN),0f,0f);
         }
-       this.transform.parent.GetComponentInChildren<RenderDataRunTime_demo>(). SetBuffer(lp);
+       this.transform.parent.GetComponentInChildren<RenderDataRunTime>(). SetUnselectedUV1(lp);
     }
 
     }

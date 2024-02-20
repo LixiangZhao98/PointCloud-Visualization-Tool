@@ -10,7 +10,7 @@ using UnityEngine;
         public float MCGPUThreshold;
         public ComputeShader MarchingCubesCS;
         public Material meshMaterial;
-        public GameObject map;
+        public GameObject origin;
         public Texture3D DensityTexture { get; set; }
         public Texture3D PosTexture { get; set; }
         public Texture3D McFlagTexture { get; set; }
@@ -77,44 +77,9 @@ using UnityEngine;
             argBuffer.GetData(args);
            
             
-            meshMaterial.SetMatrix("_LocalToWorld", map.transform.localToWorldMatrix);
-            meshMaterial.SetMatrix("_WorldToLocal", map. transform.worldToLocalMatrix);
+            meshMaterial.SetMatrix("_LocalToWorld", origin.transform.localToWorldMatrix);
+            meshMaterial.SetMatrix("_WorldToLocal", origin. transform.worldToLocalMatrix);
             Graphics.DrawProcedural(meshMaterial, bounds, MeshTopology.Triangles, args[0]*3, 1);
-            //m = null;
-            //ts = new Triangle[args[0]];
-            //index = new int[3 * ts.Length];
-            //norm = new Vector3[3 * ts.Length];
-            //vertex = new Vector3[3 * ts.Length];
-            //m = new Mesh();
-
-
-
-            //  appendVertexBuffer.GetData(ts);
-
-
-
-            //for (int i = 0; i < args[0]; i++)
-            //{
-            //    norm[3 * i] = ts[i].v1.Norm;
-            //    norm[3 * i + 1] = ts[i].v2.Norm;
-            //    norm[3 * i + 2] = ts[i].v3.Norm;
-            //    vertex[3 * i] = ts[i].v1.point;
-            //    vertex[3 * i + 1] = ts[i].v2.point;
-            //    vertex[3 * i + 2] = ts[i].v3.point;
-
-            //}
-            //for (int i = 0; i < 3 * args[0]; i++)
-            //{
-            //    index[i] = i;
-            //}
-            //m.Clear();
-            //m.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-
-            //m.vertices = vertex;
-            //m.normals = norm;
-            //m.SetIndices(index, MeshTopology.Triangles, 0);
-            //m.RecalculateNormals();
-
            
 
             args[0] *= 3;
@@ -122,16 +87,7 @@ using UnityEngine;
           
         }
 
-        //private void OnRenderObject ()
-        //{
-        //  //  DrawMCNow(r.map, r.ratio);
-        //}
-        //public void  DrawMCNow(GameObject g, float s)
-        //{
-        //    Matrix4x4 mm = Matrix4x4.TRS(g.transform.position, g.transform.rotation, new Vector3(s,s,s));
-        //    Graphics.DrawMesh (m, mm, meshMaterial, 0);
-        //}
-
+    
         struct Vertex_
         {
             public Vector3 point;
@@ -145,9 +101,10 @@ using UnityEngine;
         };
         private void OnDestroy()
         {
+        if(!this.enabled)
+            return;
             appendVertexBuffer.Release();
             argBuffer.Release();
-            //m=null;
      
         }
 

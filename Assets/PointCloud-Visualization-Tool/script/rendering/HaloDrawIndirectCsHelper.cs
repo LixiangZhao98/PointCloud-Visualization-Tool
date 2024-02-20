@@ -45,7 +45,7 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
         Vector4[] positions = new Vector4[instanceCount];
         for (int i = 0; i < instanceCount; i++) {
             float lp=(float)(DataMemory.allParticle.GetParticleDensity(i)-DataMemory.allParticle.MINDEN)/(DataMemory.allParticle.MAXDEN-DataMemory.allParticle.MINDEN);
-            Vector3 v= origin.transform.TransformPoint(DataMemory.allParticle.GetParticlePosition(i))*RenderDataRunTime_demo.ratio;
+            Vector3 v= origin.transform.TransformPoint(DataMemory.allParticle.GetParticlePosition(i))*RenderDataRunTime.ratio;
             positions[i] = new Vector4(v.x,v.y,v.z,lp);
         }
         positionBuffer.SetData(positions);

@@ -19,15 +19,16 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 # Install the project and Play the demo
 - Download Unity3D  and Create a new project. Here is a tutorial for [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
-- `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity` is a demo to read and visualize point cloud data.
-- `Assets/PointCloud-Visualization-Tool/Scenes/Density estimation.unity` is a demo to calculate the density field of pint cloud by KDE and generate iso-surface. To change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window.
+- `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity` is a demo to read, visualize and calculate the field density of point cloud data. 
+- To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
+- To calculate the density field of point cloud by KDE and generate iso-surface, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window. To change threshold, click the gameobject `script/RenderDataRunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
-- `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity` is a demo to show color mapping based on density information.
+- `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity` is a demo to show color mapping based on density information. In this demo, `CalculateDensity` is set to true by default. The effect is as follows:
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
-- `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` is a code replication of halo visualization in Unity for point cloud data([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")). The point cloud data can be downloaded from 
-[https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/).
+- `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` is a code replication of halo visualization in Unity for point cloud data([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")). The .ply can be downloaded from 
+[https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/). In this demo, `CalculateDensity` is set to false by default.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
-- To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window.
+
 
 # Scripting
 - Copy `Asset/PointCloud-Visualization-Tool` folder in this repo to your `Asset` folder.

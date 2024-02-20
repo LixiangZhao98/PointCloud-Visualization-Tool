@@ -1,23 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static Enum;
-namespace LixaingZhao.PointcloudTool{
-public class RunTimeController : MonoBehaviour
+using UnityEngine.Events;
+
+
+namespace LixaingZhao.PointcloudTool
+{
+    public class RunTimeController : MonoBehaviour
 {
 
-        private void Start()
-    {   
+        #region variables
 
-        SwitchDatasetFromFile(dataset.ToString());
-
-    }
-
-
-
-
-  [SerializeField, SetProperty("DATASET")]
-    protected Dataset dataset;
-    public Dataset DATASET
+        [SerializeField, SetProperty("DATASET")]
+    protected Enum.Dataset dataset;
+    public Enum.Dataset DATASET
         {
             get { return dataset; }
             set { 
@@ -27,29 +22,52 @@ public class RunTimeController : MonoBehaviour
                     
             }
         }
+        protected List<string> dataset_generator = new List<string> { "random_sphere" };
+        protected List<string> dataset_ply = new List<string> { "dragon_vrip" };
 
-
-    
+    public bool LoadFlag;
     [SerializeField]
     public List<FlagNamesCollection> LoadFlagNames;
-
-    protected List<string> dataset_generator = new List<string> { "random_sphere" };
-      protected List<string> dataset_ply = new List<string> { "dragon_vrip"};
-  public bool LoadFlag;
-
     public string StoreFlagName;
-  
 
 
 
-
-    [ContextMenu("StoreFlags")]
-    public void StoreFlages()
+    public bool CalculateDensity;
+    public ComputeShader kde_shader;
+    private int gridNum = 64;
+    [SerializeField, SetProperty("GRIDNUM")]
+    private Enum.GRIDNum gRIDNum;
+    public Enum.GRIDNum GRIDNUM
     {
-      DataMemory.StoreFlags(StoreFlagName);
-    }
+        get { return gRIDNum; }
+        set
+        {
+            gRIDNum = value;
 
-    public virtual void  SwitchDatasetFromFile(string name)
+            if (value == Enum.GRIDNum.grid64)
+                gridNum = 64;
+            if (value == Enum.GRIDNum.grid100)
+            { gridNum = 99; }
+            if (value == Enum.GRIDNum.grid200)
+                gridNum = 200;
+            if (Application.isPlaying)
+                SwitchDatasetFromFile(dataset.ToString());
+
+        }
+    }
+        public UnityAction myAction;
+        public UnityEvent myEvent;
+
+        #endregion
+
+        private void Start()
+        {
+            SwitchDatasetFromFile(dataset.ToString());
+
+        }
+
+
+        public virtual void  SwitchDatasetFromFile(string name)
     {
         DataMemory.StacksInitialize();
       
@@ -69,11 +87,21 @@ public class RunTimeController : MonoBehaviour
         if (LoadFlagNames.Count!=0&&LoadFlag)
             DataMemory.LoadFlagsToStack(LoadFlagNames);
 
-       
-        RenderDataRunTime_demo.GenerateMesh();
-   
+           if( CalculateDensity)
+            {
+                DataMemory.CreateDensityField(gridNum);
+                GPUKDECsHelper.StartGpuKDE(DataMemory.allParticle, DataMemory.densityField, kde_shader);
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
+            }
+           else
+            {
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
+            }
+        RenderDataRunTime.GenerateMesh();
+            myEvent?.Invoke();
 
-    }
+        }
 
     }
 
