@@ -31,7 +31,6 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 
 # Scripting
-- Copy `Asset/PointCloud-Visualization-Tool` folder in this repo to your `Asset` folder.
 - Add `RenderDataRunTime` script to an empty GameObject (you can name it whatever you like, here we call it "scriptObj"). Assign the `particleMat` and `Vis center` in the public field. The visualization will always follow the `Vis center` when start. 
 - Create a new script and add it to GamoObject "scriptObj". And we can write the C# code in it. The following are some examples to visualize the point cloud data.
 ### Load data from binary files and visualize
