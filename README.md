@@ -21,7 +21,8 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions higher than 2020.3.38f1 have been tested).
 - `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity` is a demo to read, visualize and calculate the field density of point cloud data. 
 - To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
-- To calculate the density field of point cloud by KDE and generate iso-surface, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window. To change threshold, click the gameobject `script/RenderDataRunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
+- To calculate the density field of point cloud by the modified Breiman kernel density estimation with a finite-support adaptive Epanechnikov kernel, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window. 
+- To generate iso-surface and change threshold, click the gameobject `script/RenderDataRunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 - `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity` is a demo to show color mapping based on density information. In this demo, `CalculateDensity` is set to true by default. The effect is as follows:
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
@@ -31,8 +32,8 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 
 # Scripting
-- Add `RenderDataRunTime` script to an empty GameObject (you can name it whatever you like, here we call it "scriptObj"). Assign the `particleMat` and `Vis center` in the public field. The visualization will always follow the `Vis center` when start. 
-- Create a new script and add it to GamoObject "scriptObj". And we can write the C# code in it. The following are some examples to visualize the point cloud data.
+- Add `RenderDataRunTime` script to an empty GameObject (you can name it whatever you like, here we call it "scriptObj"). Assign the `particleMat` and `Vis center` in the public field. The visualization will always follow the `Vis center` when start the game. 
+- Create a new script and add it to "scriptObj". And we can write the C# code in this script. The following are some examples to read and visualize the point cloud data.
 ### Load data from binary files and visualize
 To load data from binary files, we can simply call `DataMemory.LoadDataByByte(fileName)`. An example is as follows:
 ```c#
