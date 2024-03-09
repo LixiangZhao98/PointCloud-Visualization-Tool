@@ -23,16 +23,11 @@ using UnityEngine;
         ComputeBuffer appendVertexBuffer;
         ComputeBuffer argBuffer;
         int[] args;
-        RunTimeController r;
         Bounds bounds;
-        //Triangle[] ts;
-        //Mesh m;
-        //int[] index; Vector3[] norm; Vector3[] vertex;
 
 
         public void Init()
         {
-            r = transform.parent.GetComponentInChildren<RunTimeController>();
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
             ResolutionX = DataMemory.densityField.XNUM;
             ResolutionY = DataMemory.densityField.YNUM;
