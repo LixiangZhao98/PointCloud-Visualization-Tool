@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
- namespace  LixaingZhao.PointcloudTool{
-
-
+ 
 public class DataMemory : MonoBehaviour
 {
 
@@ -189,5 +187,4 @@ public class DataMemory : MonoBehaviour
     }
 
 
-}
 }

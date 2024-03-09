@@ -1,6 +1,6 @@
 
 using UnityEngine;
-namespace LixaingZhao.PointcloudTool{
+
 public class RenderDataRunTime : MonoBehaviour
 {
     public GameObject visCenter;
@@ -80,4 +80,3 @@ public class RenderDataRunTime : MonoBehaviour
 }
 
 
-}

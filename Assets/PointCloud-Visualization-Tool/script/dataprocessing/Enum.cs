@@ -1,7 +1,6 @@
 using System;
 
-namespace LixaingZhao.PointcloudTool
-{
+
     public class Enum
     {
         [Serializable]
@@ -9,4 +8,3 @@ namespace LixaingZhao.PointcloudTool
         [Serializable]
         public enum GRIDNum { grid64, grid100, grid200 };
     }
-}

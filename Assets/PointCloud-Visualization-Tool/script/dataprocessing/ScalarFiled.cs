@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-namespace LixaingZhao.PointcloudTool
-{
+
 
     [System.Serializable]
     public class FieldNode
@@ -281,4 +280,4 @@ namespace LixaingZhao.PointcloudTool
             return LUTUnit_;
         }
     }
-}
+

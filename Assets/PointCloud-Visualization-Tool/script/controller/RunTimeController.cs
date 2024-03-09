@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace LixaingZhao.PointcloudTool
-{
+
     public class RunTimeController : MonoBehaviour
 {
 
@@ -107,4 +106,3 @@ namespace LixaingZhao.PointcloudTool
 
 
 
-}

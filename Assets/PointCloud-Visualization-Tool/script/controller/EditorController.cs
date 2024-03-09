@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-namespace LixaingZhao.PointcloudTool
-{
+
 
 
 public class EditorController : MonoBehaviour
@@ -48,4 +47,4 @@ public class EditorController : MonoBehaviour
 
 }
 
-}
+

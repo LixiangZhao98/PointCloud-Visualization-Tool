@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static LixaingZhao.PointcloudTool.Enum;
-namespace LixaingZhao.PointcloudTool{
+
 public class RunTimeController_Halo : RunTimeController
 {
 
@@ -49,5 +48,3 @@ public class RunTimeController_Halo : RunTimeController
     }
 
 
-
-}

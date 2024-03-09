@@ -10,7 +10,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace LixaingZhao.PointcloudTool{
+
 public class GPUKDECsHelper
 {
     static ComputeShader KDE_Cs;
@@ -188,7 +188,6 @@ float minDen=float.MaxValue;float maxDen=float.MinValue;
     }
 
 
-}
 }
 
 

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LixaingZhao.PointcloudTool{
 public class Utility 
 {
     static public void q_sort(float[] f, int begin, int end)
@@ -499,5 +498,4 @@ public class Utility
         return neighbours;
     }
 
-}
 }

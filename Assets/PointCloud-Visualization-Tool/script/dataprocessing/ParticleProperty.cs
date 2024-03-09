@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace LixaingZhao.PointcloudTool
-{
 
 
 
@@ -424,7 +422,7 @@ namespace LixaingZhao.PointcloudTool
             
                
             }
-        }
+        
 
 
         

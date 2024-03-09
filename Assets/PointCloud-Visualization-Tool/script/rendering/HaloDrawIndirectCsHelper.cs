@@ -2,9 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 
-namespace LixaingZhao.PointcloudTool
-{
-    
+
 public class HaloDrawIndirectCsHelper : MonoBehaviour {
     int instanceCount = 100000;
     public Mesh instanceMesh;
@@ -83,4 +81,4 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
             argsBuffer.Release();
         argsBuffer = null;
     }
-}}
+}
