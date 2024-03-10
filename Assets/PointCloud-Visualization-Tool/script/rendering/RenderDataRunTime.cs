@@ -4,22 +4,21 @@ using UnityEngine;
 public class RenderDataRunTime : MonoBehaviour
 {
     public GameObject visCenter;
-    public static float  visRealSize=100f; //real size of wim
-    
+    public static float  visRealSize=100f; //real size in VR of visualization
     public static float ratio;
-   public Material unselected_mat;
+    public Material unselected_mat;
     public Material selected_mat;
     
     [SerializeField]
-   public static Mesh unselected_mesh;
+    [HideInInspector] public static Mesh unselected_mesh;
     [SerializeField]
-  public static Mesh selected_mesh;
+    [HideInInspector] public static Mesh selected_mesh;
     [SerializeField]
-  public static Mesh[] target_mesh;
+    [HideInInspector] public static Mesh[] target_mesh;
   
     public static bool drawEnable;
-       private RunTimeController RC;
-   static int tarMeshNum;
+    private RunTimeController RC;
+    static int tarMeshNum;
      Matrix4x4 m;
     void Start()
     {
@@ -54,7 +53,6 @@ public class RenderDataRunTime : MonoBehaviour
 
    public  void SetUnselectedUV1(Vector3[] lp)
    {
-
        unselected_mesh.SetUVs(1,lp);
    }
        private void Update()

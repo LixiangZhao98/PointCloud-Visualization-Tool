@@ -104,10 +104,6 @@ using UnityEngine;
 
 
 
-        public void GenerateMCMesh(int numOFTri)
-        {
-
-        }
         public void SetMCGPUThreshold(float f)
         {
             MCGPUThreshold = f;

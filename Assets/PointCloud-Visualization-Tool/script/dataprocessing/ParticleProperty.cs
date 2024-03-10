@@ -376,60 +376,79 @@ using UnityEngine;
             this.SetSmoothLength(new Vector3((float)smoothingLengthX, (float)smoothingLengthY, (float)smoothingLengthZ));
             return vsRevised;
         }
-        public void StoreFlags(string name)
-        {
-            List<int> flagtrue = DataMemory.GetpStack().ToList();
+    public void StoreFlags(string name)
+    {
+        List<int> flagtrue = DataMemory.GetpStack().ToList();
 
-            if (flagtrue.Count == 0)
-                Debug.Log("No marked particles");
-            else
-            {
-                SaveData.FlagsToFile(name, flagtrue.ToArray());
-            }
+        if (flagtrue.Count == 0)
+            Debug.Log("No marked particles");
+        else
+        {
+            SaveData.FlagsToFile(name, flagtrue.ToArray());
         }
+    }
 
-                public void SaveSelectedAsNewData(string name)
+    public void SaveSelectedAsNewData(string name)
+    {
+        List<int> flagtrue = DataMemory.GetpStack().ToList();
+
+
+        if (flagtrue.Count == 0)
+            Debug.Log("No marked particles");
+        else
         {
-            List<int> flagtrue = DataMemory.GetpStack().ToList();
-
-
-            if (flagtrue.Count == 0)
-                Debug.Log("No marked particles");
-            else
-            {            List<Vector3> dataPos=new List<Vector3>();
-            foreach(var d in flagtrue)
+            List<Vector3> dataPos = new List<Vector3>();
+            foreach (var d in flagtrue)
             {
                 dataPos.Add(DataMemory.allParticle.GetParticlePosition(d));
             }
-                SaveData.Vec3sToFile(name, dataPos.ToArray());
-            }
+            SaveData.Vec3sToFile(name, dataPos.ToArray());
+        }
+    }
+
+    public void SaveTargetAsNewData(string name)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < DataMemory.allParticle.GetParticlenum(); i++)
+        {
+            if (DataMemory.allParticle.GetTarget(i))
+                dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
         }
 
-               public void SaveTargetAsNewData(string name)
-        {
-              List<Vector3> dataPos=new List<Vector3>();
-             for(int i=0;i< DataMemory.allParticle.GetParticlenum();i++)
-            {
-                if(DataMemory.allParticle.GetTarget(i))
-                dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
-            }
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
 
-            if (dataPos.Count == 0)
-                Debug.Log("No Target particles");
-            else
-                     
-                 SaveData.Vec3sToFile(name, dataPos.ToArray());
-            
-               
-            }
-        
+            SaveData.Vec3sToFile(name, dataPos.ToArray());
 
-
-        
-      
-#endregion
 
     }
+
+
+    public void SaveDataAsNewData(string name)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < DataMemory.allParticle.GetParticlenum(); i++)
+        {
+            dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
+        }
+
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
+
+            SaveData.Vec3sToFile(name, dataPos.ToArray());
+
+
+    }
+
+
+
+
+
+    #endregion
+
+}
     [System.Serializable]
     public class Particle
     {

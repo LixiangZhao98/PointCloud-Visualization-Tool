@@ -9,7 +9,7 @@ namespace UnityVolumeRendering
     public class CameraController : MonoBehaviour
     {
         // Normal movement speed
-        public float movementSpeed = 1.2f;
+        public float movementSpeed = 5f;
         // Rotation speed
         public float rotationSpeed = 2.0f;
         // Mouse wheel scroll speed

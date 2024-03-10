@@ -10,8 +10,8 @@ using UnityEngine.Events;
         #region variables
 
         [SerializeField, SetProperty("DATASET")]
-    protected Enum.Dataset dataset;
-    public Enum.Dataset DATASET
+    protected EnumVariables.Dataset dataset;
+    public EnumVariables.Dataset DATASET
         {
             get { return dataset; }
             set { 
@@ -35,19 +35,19 @@ using UnityEngine.Events;
     public ComputeShader kde_shader;
     private int gridNum = 64;
     [SerializeField, SetProperty("GRIDNUM")]
-    private Enum.GRIDNum gRIDNum;
-    public Enum.GRIDNum GRIDNUM
+    private EnumVariables.GRIDNum gRIDNum;
+    public EnumVariables.GRIDNum GRIDNUM
     {
         get { return gRIDNum; }
         set
         {
             gRIDNum = value;
 
-            if (value == Enum.GRIDNum.grid64)
+            if (value == EnumVariables.GRIDNum.grid64)
                 gridNum = 64;
-            if (value == Enum.GRIDNum.grid100)
+            if (value == EnumVariables.GRIDNum.grid100)
             { gridNum = 99; }
-            if (value == Enum.GRIDNum.grid200)
+            if (value == EnumVariables.GRIDNum.grid200)
                 gridNum = 200;
             if (Application.isPlaying)
                 SwitchDatasetFromFile(dataset.ToString());
@@ -59,14 +59,17 @@ using UnityEngine.Events;
 
         #endregion
 
-        private void Start()
-        {
-            SwitchDatasetFromFile(dataset.ToString());
+    private void Start()
+    {
+        SwitchDatasetFromFile(dataset.ToString());
 
-        }
+    }
 
-
-        public virtual void  SwitchDatasetFromFile(string name)
+     public void SetGRIDNum(int g)
+    {
+        gridNum = g;
+    }
+    public void  SwitchDatasetFromFile(string name)
     {
         DataMemory.StacksInitialize();
       
