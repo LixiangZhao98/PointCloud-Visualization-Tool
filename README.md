@@ -32,10 +32,11 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 
 # Scripting
-The demo is shown in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.
+
 ## Load data
-- Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime"). Create a new script (you can name it whatever you like, here we call it `MyPointCloud.cs`) and add it to GameObject "Runtime". We can write the C# code in MyPointCloud.cs. The following are some examples to read and visualize the point cloud data.
-#### Load data from binary files and visualize
+Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime"). Create a new script (you can name it whatever you like, here we call it `MyPointCloud.cs`) and add it to GameObject "Runtime". We can write the C# code in MyPointCloud.cs. The following examples show how to read and visualize the point cloud data. The demo is in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.
+
+- Load data from binary files and visualize
 We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.
 ```c#
 public Material particleMat;  // the material of the points
@@ -60,7 +61,7 @@ public class MyPointCloud : MonoBehaviour
 The data files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. The .bin format stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
 Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
 
-#### Load data by point positions and visualize
+- Load data by point positions and visualize
 To load data by point positions, we can build a `Vector3[]` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
 ```c#
 public class MyPointCloud : MonoBehaviour
@@ -91,7 +92,8 @@ public class MyPointCloud : MonoBehaviour
 }
 ```
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/LoadVec3s.png "Image")
-#### Load data from ply files and visualize
+
+- Load data from ply files and visualize
 
 ```c#
 public class MyPointCloud : MonoBehaviour
