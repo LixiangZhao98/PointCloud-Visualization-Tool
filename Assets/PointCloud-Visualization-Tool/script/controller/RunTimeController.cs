@@ -7,9 +7,9 @@ using UnityEngine.Events;
     public class RunTimeController : MonoBehaviour
 {
 
-        #region variables
-
-        [SerializeField, SetProperty("DATASET")]
+    #region variables
+    public  GameObject visCenter;
+    [SerializeField, SetProperty("DATASET")]
     protected EnumVariables.Dataset dataset;
     public EnumVariables.Dataset DATASET
         {
@@ -24,7 +24,10 @@ using UnityEngine.Events;
         protected List<string> dataset_generator = new List<string> { "random_sphere" };
         protected List<string> dataset_ply = new List<string> { "dragon_vrip" };
 
-    public bool LoadFlag;
+   
+    public Material unselected_mat;
+    public Material selected_mat;
+    public bool LoadTarget;
     [SerializeField]
     public List<FlagNamesCollection> LoadFlagNames;
     public string StoreFlagName;
@@ -86,7 +89,7 @@ using UnityEngine.Events;
                DataMemory.LoadDataByByte(name);
         }
                             
-        if (LoadFlagNames.Count!=0&&LoadFlag)
+        if (LoadFlagNames.Count!=0&&LoadTarget)
             DataMemory.LoadFlagsToStack(LoadFlagNames);
 
            if( CalculateDensity)
@@ -100,7 +103,7 @@ using UnityEngine.Events;
             {
                 this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
             }
-        RenderDataRunTime.GenerateMesh();
+            RenderDataRunTime.Init(visCenter,unselected_mat,selected_mat,LoadFlagNames);
             myEvent?.Invoke();
 
         }

@@ -15,7 +15,7 @@ public class MyEvent : MonoBehaviour
         {
             lp[i] = new Vector3((float)(DataMemory.allParticle.GetParticleDensity(i) - DataMemory.allParticle.MINDEN) / (DataMemory.allParticle.MAXDEN - DataMemory.allParticle.MINDEN), 0f, 0f);
         }
-        this.transform.parent.GetComponentInChildren<RenderDataRunTime>().SetUnselectedUV1(lp);
+        RenderDataRunTime.SetUnselectedUV1(lp);
     }
 
     public void HaloMapping()
@@ -26,6 +26,6 @@ public class MyEvent : MonoBehaviour
         {
             lp[i] = new Vector3((float)(DataMemory.allParticle.GetParticleDensity(i) - DataMemory.allParticle.MINDEN) / (DataMemory.allParticle.MAXDEN - DataMemory.allParticle.MINDEN), 0f, 0f);
         }
-        this.transform.parent.GetComponentInChildren<RenderDataRunTime>().SetUnselectedUV1(lp);
+        RenderDataRunTime.SetUnselectedUV1(lp);
     }
 }

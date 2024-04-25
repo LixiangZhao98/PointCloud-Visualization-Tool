@@ -6,7 +6,7 @@ namespace UnityVolumeRendering
     /// <summary>
     /// Camera controller for sample scene.
     /// </summary>
-    public class CameraController : MonoBehaviour
+    public class CameraController_rotation : MonoBehaviour
     {
         // Normal movement speed
         public float movementSpeed = 5f;

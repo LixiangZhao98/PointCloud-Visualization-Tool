@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 563686086}
   - component: {fileID: 563686087}
+  - component: {fileID: 563686089}
+  - component: {fileID: 563686088}
   m_Layer: 0
   m_Name: Runtime
   m_TagString: Untagged
@@ -166,8 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visCenter: {fileID: 1710863951}
   dataset: 14
-  LoadFlag: 0
+  unselected_mat: {fileID: 2100000, guid: 87b400de2f5f8a149b8cca745ea1e962, type: 2}
+  selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
+  LoadTarget: 0
   LoadFlagNames: []
   StoreFlagName: 
   CalculateDensity: 0
@@ -188,6 +193,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &563686088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563686085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ce26223e8109a4ab82acb1dc1c968b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MCGPUThreshold: 0
+  MarchingCubesCS: {fileID: 7200000, guid: 28fbb9e52d9d84841ac2cff38b1dab37, type: 3}
+  meshMaterial: {fileID: 2100000, guid: af9ca79a410623a4b8a3cf23affa813f, type: 2}
+  origin: {fileID: 1710863951}
+--- !u!114 &563686089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563686085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5b1741d3214634db242c8772d6fbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,74 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab620692a8991848b93e6a649f4be5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 2
-  scrollSpeed: 100
-  shiftSpeedMultiplier: 3
-  smoothingSpeed: 15
---- !u!1 &1202793184
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1202793185}
-  - component: {fileID: 1202793187}
-  - component: {fileID: 1202793186}
-  m_Layer: 0
-  m_Name: RenderDataRunTime
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1202793185
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202793184}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1986968503}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1202793186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202793184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ce26223e8109a4ab82acb1dc1c968b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MCGPUThreshold: 0
-  MarchingCubesCS: {fileID: 7200000, guid: 28fbb9e52d9d84841ac2cff38b1dab37, type: 3}
-  meshMaterial: {fileID: 2100000, guid: af9ca79a410623a4b8a3cf23affa813f, type: 2}
-  origin: {fileID: 1710863951}
---- !u!114 &1202793187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202793184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5b1741d3214634db242c8772d6fbc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visCenter: {fileID: 1710863951}
-  unselected_mat: {fileID: 2100000, guid: 87b400de2f5f8a149b8cca745ea1e962, type: 2}
-  selected_mat: {fileID: 2100000, guid: 8b39315642498344fbe22374ebffe734, type: 2}
 --- !u!1 &1611960094
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +347,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1986968503}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1611960096
 MonoBehaviour:
@@ -471,7 +436,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 563686086}
-  - {fileID: 1202793185}
   - {fileID: 1611960095}
   m_Father: {fileID: 0}
   m_RootOrder: 2
