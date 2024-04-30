@@ -16,18 +16,26 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 - Color-coded based on point cloud density
 - Halo Visualization for point cloud
 
-# Install the project and Play the demo
+# Install the project and Play the demos
+
+## Install the project
 - Download Unity3D  and Create a new project. Here is a tutorial for [Unity3D Setup](https://github.com/LixiangZhao98/MeTACAST/blob/master/Assets/my/file/UnitySetup.pdf "Unity Setup").
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions equal to/higher than 2019 have been tested).
-- `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity` is a demo to read, visualize and calculate the field density of point cloud data. 
+
+## Demo1: Read data, visualize data, calculate density field
+- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
 - To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
 - To calculate the density field of point cloud by the modified Breiman kernel density estimation with a finite-support adaptive Epanechnikov kernel, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
 - To generate iso-surface and change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
-- Color mapping based on density from blue to red (`Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`) 
+
+## Demo2: Color mapping
+- Color mapping based on density from blue to red (demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`) 
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
-- Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos") (`Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`). The .ply can be downloaded from 
-[https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/).
+
+## Demo3: Halo visualization
+- Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos") (demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`). 
+- The .ply can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/).
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
 
 
