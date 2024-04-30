@@ -30,12 +30,14 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 
 ## Demo2: Color mapping
-- Color mapping based on density from blue to red (demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`) 
+- Color mapping based on density from lwo (blue) to high (red)
+- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
 
 ## Demo3: Halo visualization
-- Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos") (demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`). 
-- The .ply can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/).
+- Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")
+- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` 
+- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/)
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
 
 
