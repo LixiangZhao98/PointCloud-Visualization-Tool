@@ -108,6 +108,10 @@ public class GPUKDECsHelper
 
                 dF.SetNodeGradient(i, new Vector3(gradx, grady, gradz));
             }
+            else
+            {
+                dF.SetNodeDensity(i, 0f);
+            }
         });
 
         float minDen=float.MaxValue;float maxDen=float.MinValue;
