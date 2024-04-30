@@ -30,7 +30,7 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 
 ## Demo2: Color mapping
-- Color mapping based on density from lwo (blue) to high (red)
+- Color mapping based on density from low (blue) to high (red)
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
 
@@ -43,15 +43,17 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 # Scripting
 
+Demo in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`
+  
 ## Load data from binary files
-Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime"). Create a new script (you can name it whatever you like, here we call it `MyPointCloud.cs`) and add it to GameObject "Runtime". We can write the C# code in MyPointCloud.cs. The following examples show how to read and visualize the point cloud data. The demo is in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.
-
-We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.
+- Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime").
+- Create a new script (you can name it whatever you like, here we call it `MyPointCloud.cs`) and add it to GameObject "Runtime".
+- In `MyPointCloud.cs`, We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.
 ```c#
 public Material particleMat;  // the material of the points
 public GameObject visCenter; //The visualization will always follow this GameObject when starting the game. 
 ``` 
-To load data from binary files, we can simply call `DataMemory.LoadDataByByte(fileName)`. An example code is as follows:
+- To load data from binary files, we can simply call `DataMemory.LoadDataByByte(fileName)`. An example code is as follows:
 ```c#
 public class MyPointCloud : MonoBehaviour
 {
@@ -67,11 +69,10 @@ public class MyPointCloud : MonoBehaviour
 }
 ```
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/LoadBinary.png "Image")
-The data files are stored in `Asset/PointCloud-Visualization-Tool/data/data` folder. The .bin format stores x,y,z coordinates for each point in binary. Each coordinate is stored in single (32bits) format. \
-Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
+- The binary files stores x,y,z coordinates (32bits for each coordinate) for each point in binary located in `Asset/PointCloud-Visualization-Tool/data/data` folder. Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
 
 ## Load data by point positions
-To load data by point positions, we can build a `Vector3[]` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
+- To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
 ```c#
 public class MyPointCloud : MonoBehaviour
 {
