@@ -5,7 +5,7 @@ using UnityEngine;
 public class RenderDataRunTime : MonoBehaviour
 {
     private static GameObject visCenter;
-    public static float  visSize=100f; //real size in VR of visualization
+    public static float  visSize=64f; //real size in VR of visualization
     public static float ratio;
     private static Material unselected_mat;
     private static Material selected_mat;

@@ -143,28 +143,19 @@ public class DataMemory : MonoBehaviour
   
     static public DensityField densityField = new DensityField();
     [SerializeField]
-    
-    static public DensityField densityField2 = new DensityField();
-
     static public void CreateDensityField(int gridNum)
     {
-
+        float scalingFactor = 0f;
         float step = (allParticle.XMAX - allParticle.XMIN) / gridNum;
-        allParticle.XMAX += step;
-        allParticle.XMIN -= step;
-        allParticle.YMAX += step;
-        allParticle.YMIN -= step;
-        allParticle.ZMAX += step;
-        allParticle.ZMIN -= step;
+        allParticle.XMAX += scalingFactor*step;
+        allParticle.XMIN -= scalingFactor*step;
+        allParticle.YMAX += scalingFactor*step;
+        allParticle.YMIN -= scalingFactor*step;
+        allParticle.ZMAX += scalingFactor*step;
+        allParticle.ZMIN -= scalingFactor*step;
         densityField.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
-        densityField2.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
-        Debug.Log("Create density field success");
+    }
 
-    }
-    public static void ClearDensityMemory()
-    {
-        densityField = new DensityField(); densityField2 = new DensityField();
-    }
     #endregion
 
 

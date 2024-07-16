@@ -37,7 +37,6 @@ public class EditorController : MonoBehaviour
     public void ClearMemory()
     {
 
-        DataMemory.ClearDensityMemory();
         DataMemory.ClearParticleMemory();
         DataMemory.StacksInitialize();
 

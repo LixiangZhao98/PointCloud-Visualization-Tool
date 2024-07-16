@@ -1,25 +1,21 @@
-//
-//  KDE.compute
-//  MeTACAST
-//
-//  Copyright (c) 2022, 2023 Lixiang Zhao. All rights reserved.
-//
+
 #pragma kernel Pilot
 #pragma kernel SL_Modified
 #pragma kernel FinalDensity
 
-#define parthreadNum 1024
+#define parthreadNum 256
 #define gridthreadNum 8
 float4 gridStep;
 float4 gridNum;
 float4 SL;
 float4 parMinPos;
+uint parCount;
 
 RWStructuredBuffer<float3> SL_ModifiedRW;
 StructuredBuffer<float3> partiPos;
 StructuredBuffer<float3> gridPos;
-RWStructuredBuffer<float> Gradient;
-RWStructuredBuffer<float> parGradient;
+RWStructuredBuffer<float> Den;
+RWStructuredBuffer<float> parDen;
 float InterpolateVector(float3 pos);
 
 [numthreads(gridthreadNum, gridthreadNum, gridthreadNum)]
@@ -27,24 +23,12 @@ void Pilot(uint3 id : SV_DispatchThreadID)
 {
     int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
     float sum = 0;
-    uint parCount = 0;
-    uint parStep = 0;
-    partiPos.GetDimensions(parCount, parStep);
     for (uint i = 0; i < parCount; i++)
     {
         float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SL.x, (partiPos[i].y - gridPos[idx].y) / SL.y, (partiPos[i].z - gridPos[idx].z) / SL.z);
-        rk.x = abs(rk.x);
-        rk.y = abs(rk.y);
-        rk.z = abs(rk.z);
-        float dis = 1 - dot(rk, rk);
-        if (dis > 0)
-        {
-            sum = sum + dis;
-        }
+        sum+= max(0,1 - dot(rk, rk));
     }
-    Gradient[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
-
-
+    Den[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
 }
 
 
@@ -68,41 +52,38 @@ float InterpolateVector(float3 pos)
     int zbin = (int) z_scaled;
     float zratio = z_scaled - zbin;
 
-    float dens1, dens2, dens3, dens4;
+    
     if (zbin > gridNum.z || ybin > gridNum.y || xbin > gridNum.x || zbin < 0 || xbin < 0 || ybin < 0)
         return 0;
     else
     {
-        dens1 = Gradient[NodePosToIndex(zbin, ybin, xbin)] + (Gradient[NodePosToIndex(zbin, ybin, xbin + 1)] - Gradient[NodePosToIndex(zbin, ybin, xbin)]) * xratio;
-        dens2 = Gradient[NodePosToIndex(zbin, ybin + 1, xbin)] + (Gradient[NodePosToIndex(zbin, ybin + 1, xbin + 1)] - Gradient[NodePosToIndex(zbin, ybin + 1, xbin)]) * xratio;
-        dens3 = dens1 + (dens2 - dens1) * yratio;
+       float dens1 = Den[NodePosToIndex(zbin, ybin, xbin)] + (Den[NodePosToIndex(zbin, ybin, xbin + 1)] - Den[NodePosToIndex(zbin, ybin, xbin)]) * xratio;
+       float dens2 = Den[NodePosToIndex(zbin, ybin + 1, xbin)] + (Den[NodePosToIndex(zbin, ybin + 1, xbin + 1)] - Den[NodePosToIndex(zbin, ybin + 1, xbin)]) * xratio;
+       float dens3 = dens1 + (dens2 - dens1) * yratio;
 
-        dens1 = Gradient[NodePosToIndex(zbin + 1, ybin, xbin)] + (Gradient[NodePosToIndex(zbin + 1, ybin, xbin + 1)] - Gradient[NodePosToIndex(zbin + 1, ybin, xbin)]) * xratio;
-        dens2 = Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)] + (Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)] - Gradient[NodePosToIndex(zbin + 1, ybin + 1, xbin)]) * xratio;
-        dens4 = dens1 + (dens2 - dens1) * yratio;
+        dens1 = Den[NodePosToIndex(zbin + 1, ybin, xbin)] + (Den[NodePosToIndex(zbin + 1, ybin, xbin + 1)] - Den[NodePosToIndex(zbin + 1, ybin, xbin)]) * xratio;
+        dens2 = Den[NodePosToIndex(zbin + 1, ybin + 1, xbin)] + (Den[NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)] - Den[NodePosToIndex(zbin + 1, ybin + 1, xbin)]) * xratio;
+       float dens4 = dens1 + (dens2 - dens1) * yratio;
 
         return dens3 + (dens4 - dens3) * zratio;
-    }
+     }
 }
 
-[numthreads(1024, 1, 1)]
+[numthreads(parthreadNum, 1, 1)]
 void SL_Modified(uint3 id : SV_DispatchThreadID)
 {
 float totalDen=0;
     int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
-    uint parCount = 0;
-    uint parStep = 0;
-    partiPos.GetDimensions(parCount, parStep);
         for (uint i = 0; i < parCount; i++)
     {
         totalDen= InterpolateVector(partiPos[i])+totalDen;
         
     }
     float interp = InterpolateVector(partiPos[idx]);
-    parGradient[idx] = interp;
-    SL_ModifiedRW[idx] =float3(min(SL.x * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.x),
-                               min(SL.y * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.y),
-                               min(SL.z * pow(((double) totalDen / (double) parCount / interp), (1.0 / 3.0)), 5 * gridStep.z));
+    parDen[idx] = interp;
+    SL_ModifiedRW[idx] =float3(min(SL.x * pow(abs(( totalDen /  parCount / interp)), (1.0 / 3.0)), 5 * gridStep.x),
+                               min(SL.y * pow(abs((totalDen / parCount / interp)), (1.0 / 3.0)), 5 * gridStep.y),
+                               min(SL.z * pow(abs(( totalDen / parCount / interp)), (1.0 / 3.0)), 5 * gridStep.z));
 }
 
 
@@ -112,27 +93,141 @@ void FinalDensity(uint3 id : SV_DispatchThreadID)
 {
     int idx = id.x + id.y * gridNum.x + id.z * gridNum.x * gridNum.y;
     float sum = 0;
-    uint parCount = 0;
-    uint parStep = 0;
-    partiPos.GetDimensions(parCount, parStep);
     for (uint i = 0; i < parCount; i++)
     {
         float SLx = SL_ModifiedRW[i].x ;
         float SLy = SL_ModifiedRW[i].y ;
         float SLz = SL_ModifiedRW[i].z ;
         float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SLx, (partiPos[i].y - gridPos[idx].y) / SLy, (partiPos[i].z - gridPos[idx].z) / SLz);
-        rk.x = abs(rk.x);
-        rk.y = abs(rk.y);
-        rk.z = abs(rk.z); 
+
+
         float dis = 1 - dot(rk, rk);
         if (dis > 0)
         {
-            sum = sum + dis / (SLx * SLy * SLz);
+            sum  += dis / (SLx * SLy * SLz);
         }
+        
         
     }
 
-    Gradient[idx] = 0.5968310365946 * sum;
+    Den[idx] = 0.5968310365946 * sum;
 }
+
+
+
+
+
+
+
+// #pragma kernel Pilot
+//
+// #define PARGROUPNUM 512
+// #define GROUPSIZE 8
+// float4 nodeStep_;
+// float4 nodeNum_;
+// float4 SL_;
+// float4 parMinPos_;
+// uint parCount_;
+//
+// RWStructuredBuffer<float3> SL_ModifiedRW_;
+// StructuredBuffer<float3> partiPos_;
+// StructuredBuffer<float3> nodePos_;
+// RWStructuredBuffer<float> nodeDen_;
+// groupshared float3 sharedPartiPos[GROUPSIZE * GROUPSIZE * GROUPSIZE];
+// groupshared float sharedNodeDen[ GROUPSIZE * GROUPSIZE * GROUPSIZE];
+//
+// uint wrap(uint gid, uint gdim) {
+//     return gid < gdim ? gid : gid - gdim;
+// }
+//
+// [numthreads(GROUPSIZE, GROUPSIZE, GROUPSIZE)]
+// void Pilot(	uint3 groupID : SV_GroupID,				
+//     uint3 threadID : SV_GroupThreadID,		
+//     uint3 DTid : SV_DispatchThreadID,
+//     uint GI: SV_GroupIndex)
+// {
+//     uint threadNumInGroup=GROUPSIZE * GROUPSIZE * GROUPSIZE;
+//     float4 nodeStep=nodeStep_;
+//     float4 nodeNum=nodeNum_;
+//     float4 SL=SL_;
+//     // float4 parMinPos=parMinPos_;
+//     uint parCount=parCount_;
+//     uint3 numGroups=uint3(nodeNum.x/GROUPSIZE,nodeNum.y/GROUPSIZE,nodeNum.z/GROUPSIZE);
+//     uint GroupNum=numGroups.x*numGroups.y*numGroups.z;
+//     
+//     uint absoluteIndex = (groupID.x+groupID.y*numGroups.x+groupID.z*numGroups.x*numGroups.y)*threadNumInGroup+GI;
+//     float3 nodePos=nodePos_[absoluteIndex];
+//     float sum = (float)0;
+//
+//     //------------------------------------------------------------------------------------------------pilot
+//     
+//     uint divisor=parCount/(threadNumInGroup*GroupNum)+1;  // full-cycle times, +1 take cares the reminder
+//     
+//     for (uint i = 0; i < divisor; i += 1) 
+//     {
+//         for (uint j = 0; j < GroupNum; j += 1)  //traversal every thread group
+//         {
+//             uint parID=wrap((groupID.x+groupID.y*numGroups.x+groupID.z*numGroups.x * numGroups.y) + j,GroupNum) * threadNumInGroup + GI+      i*GroupNum*threadNumInGroup;
+//
+//             if(parID>parCount)
+//                 sharedPartiPos[GI]=float3(10000,10000,10000);
+//             else
+//                 sharedPartiPos[GI]=partiPos_[parID];
+//             
+//             GroupMemoryBarrierWithGroupSync();
+//             for (uint k = 0; k < threadNumInGroup; k++)
+//             {
+//                 float3 rk = float3((sharedPartiPos[k].x - nodePos.x) / SL.x, (sharedPartiPos[k].y - nodePos.y) / SL.y, (sharedPartiPos[k].z - nodePos.z) / SL.z);
+//                 float dist=max(0,1 - dot(rk, rk));
+//                 sum+=dist;
+//             }
+//         }
+//     }
+//     sharedNodeDen[GI] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
+//     //------------------------------------------------------------------------------------------------compute new SL
+//
+//     
+//     float ave=0;
+//     for (uint i = 0; i < threadNumInGroup; i += 1)
+//     {
+//         ave+=sharedNodeDen[i];
+//     }
+//     ave/=threadNumInGroup;
+//     float under=ave / sharedNodeDen[GI];
+//     float3 SL_Modified=(        min(SL.x * pow(under, (1.0 / 3.0)), 5 * nodeStep.x),
+//                                min(SL.y * pow(under, (1.0 / 3.0)), 5 * nodeStep.y),
+//                                min(SL.z * pow(under, (1.0 / 3.0)), 5 * nodeStep.z)
+//                                );
+//     
+//     //------------------------------------------------------------------------------------------------final density
+//
+//     sum=0;
+//     float SLmultiple=SL_Modified.x * SL_Modified.y * SL_Modified.z;
+//     for (uint i = 0; i < divisor; i += 1) 
+//     {
+//         for (uint j = 0; j < GroupNum; j += 1)  //traversal every thread group
+//         {
+//             uint parID=wrap((groupID.x+groupID.y*numGroups.x+groupID.z*numGroups.x * numGroups.y) + j,GroupNum) * threadNumInGroup + GI+      i*(GroupNum)*threadNumInGroup;
+//
+//             if(parID>parCount)
+//                 sharedPartiPos[GI]=float3(10000,10000,10000);
+//             else
+//                 sharedPartiPos[GI]=partiPos_[parID];
+//             
+//             GroupMemoryBarrierWithGroupSync();
+//             for (uint k = 0; k < threadNumInGroup; k++)
+//             {
+//                 float3 rk = float3((sharedPartiPos[k].x - nodePos.x) / SL_Modified.x, (sharedPartiPos[k].y - nodePos.y) / SL_Modified.y, (sharedPartiPos[k].z - nodePos.z) / SL_Modified.z);
+//                 float dist=max(0,1 - dot(rk, rk));
+//                sum+=dist/ (SLmultiple);
+//             }
+//             // GroupMemoryBarrierWithGroupSync();
+//         }
+//     }
+//     nodeDen_[absoluteIndex] = 0.5968310365946  * sum;
+//     // SL_ModifiedRW_[absoluteIndex] =SL_Modified;
+// }
+//
+
 
 

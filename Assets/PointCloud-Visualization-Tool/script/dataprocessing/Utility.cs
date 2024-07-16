@@ -33,21 +33,21 @@ public class Utility
         double x = pos.x, y = pos.y, z = pos.z;
         if (x < dF.GetNodedPos(0).x || y < dF.GetNodedPos(0).y || z < dF.GetNodedPos(0).z)
             return 0;
-
+    
         double x_scaled = (x - dF.GetNodedPos(0).x) / dF.XSTEP;
         int xbin = (int)x_scaled;
         double xratio = x_scaled - xbin;
-
+    
         double y_scaled = (y - dF.GetNodedPos(0).y) / dF.YSTEP;
         int ybin = (int)y_scaled;
         double yratio = y_scaled - ybin;
-
+    
         double z_scaled = (z - dF.GetNodedPos(0).z) / dF.ZSTEP;
         int zbin = (int)z_scaled;
         double zratio = z_scaled - zbin;
-
+    
         double dens1, dens2, dens3, dens4;
-
+    
         if (zbin >= dF.ZNUM - 1 || ybin >= dF.YNUM - 1 || xbin >= dF.XNUM - 1)
             return 0f;
         else
@@ -55,11 +55,11 @@ public class Utility
             dens1 = dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin, xbin)) + (dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin, xbin + 1)) - dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin, xbin))) * xratio;
             dens2 = dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin + 1, xbin)) + (dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin + 1, xbin + 1)) - dF.GetNodeDensity(dF.NodePosToIndex(zbin, ybin + 1, xbin))) * xratio;
             dens3 = dens1 + (dens2 - dens1) * yratio;
-
+    
             dens1 = dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin, xbin)) + (dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin, xbin + 1)) - dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin, xbin))) * xratio;
             dens2 = dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin + 1, xbin)) + (dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin + 1, xbin + 1)) - dF.GetNodeDensity(dF.NodePosToIndex(zbin + 1, ybin + 1, xbin))) * xratio;
             dens4 = dens1 + (dens2 - dens1) * yratio;
-
+    
             return dens3 + (dens4 - dens3) * zratio;
         }
     }

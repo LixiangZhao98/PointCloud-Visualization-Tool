@@ -2,8 +2,8 @@ PointCloud-Visualization-Tool
 ======
 
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/teaser.png "Image")
-This is a repository for point cloud visualization built on [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
-The point cloud data can be loaded in format .bin (xyz coordinates in binary format) and .ply.\
+Kernel density estimation algrithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
+Based on the density field, the repo support to reconstruct the 3D geometric shape by Marching Cube algorithm and implement color encoding.
 Any pull requests and issues are welcome. If you find it useful, could you please leave a star here? Thanks in advance.
 
 ### Projects built based on this repo
@@ -25,7 +25,7 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 ## Demo1: Read data, visualize data, calculate density field
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
 - To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
-- To calculate the density field of point cloud by the modified Breiman kernel density estimation with a finite-support adaptive Epanechnikov kernel, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
+- To enable the density calculation, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
 - To generate iso-surface and change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
 ![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
 
@@ -43,7 +43,7 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 
 # Scripting
 
-Demo in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`
+The following are all in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.
   
 ## Load data from binary files
 - Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime").

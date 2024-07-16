@@ -45,13 +45,7 @@ using UnityEngine.Events;
         set
         {
             gRIDNum = value;
-
-            if (value == EnumVariables.GRIDNum.grid64)
-                gridNum = 64;
-            if (value == EnumVariables.GRIDNum.grid100)
-            { gridNum = 99; }
-            if (value == EnumVariables.GRIDNum.grid200)
-                gridNum = 200;
+            gridNum = (int)(value); 
             if (Application.isPlaying)
                 SwitchDatasetFromFile(dataset.ToString());
 
@@ -65,13 +59,8 @@ using UnityEngine.Events;
     private void Start()
     {
         SwitchDatasetFromFile(dataset.ToString());
-
     }
-
-     public void SetGRIDNum(int g)
-    {
-        gridNum = g;
-    }
+    
     public void  SwitchDatasetFromFile(string name)
     {
         DataMemory.StacksInitialize();
@@ -95,7 +84,7 @@ using UnityEngine.Events;
            if( CalculateDensity)
             {
                 DataMemory.CreateDensityField(gridNum);
-                GPUKDECsHelper.StartGpuKDE(DataMemory.allParticle, DataMemory.densityField, kde_shader);
+                GPUKDECsHelper.KDEGpu(DataMemory.allParticle, DataMemory.densityField, kde_shader);
                 this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
                 this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
             }

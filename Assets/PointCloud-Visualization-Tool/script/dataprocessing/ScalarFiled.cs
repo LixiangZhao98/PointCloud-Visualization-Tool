@@ -67,8 +67,6 @@ using UnityEngine;
         [SerializeField]
         private List<FieldNode> fieldNode;
         [SerializeField]
-        private int[] boxDensity;
-        [SerializeField]
         private List<LUTUnit> LUT_;
         [SerializeField]
         private int xNum;  //total nodes number on x axis
@@ -110,83 +108,44 @@ using UnityEngine;
                 return a;
         }
         public void InitializeDensityFieldByGapDis(string pgName,float xmin, float xmax, int xAxisNum, float ymin, float ymax, int yAxisNum, float zmin, float zmax, int zAxisNum)
-        {name = pgName;
+        {   
+            name = pgName+"_DF";
             fieldNode = new List<FieldNode>();
-            int xindex = 0, yindex = 0, zindex = 0;
-            xStep = GetProcessedFloat((xmax - xmin) / xAxisNum);
-            yStep = GetProcessedFloat((ymax - ymin) / yAxisNum);
-            zStep = GetProcessedFloat((zmax - zmin) / zAxisNum);
 
-            for (float i = zmin; i <= zmax; i += zStep)
+            xStep = (xmax - xmin) / (xAxisNum-1);
+            yStep = (ymax - ymin) / (yAxisNum-1);
+            zStep = (zmax - zmin) / (zAxisNum-1);
+
+            for (int k = 0; k < zAxisNum; k ++)
             {
-                yindex = 0;
-                for (float j = ymin; j <= ymax; j += yStep)
+                for (int j = 0; j < yAxisNum; j ++)
                 {
-                    xindex = 0;
-                    for (float k = xmin; k <= xmax; k += xStep)
+                    for (int i = 0; i <xAxisNum; i ++)
                     {
-                        FieldNode fd = new FieldNode(new Vector3(k, j, i), new Vector3(xindex, yindex, zindex));
+                        FieldNode fd = new FieldNode(new Vector3(xmin+i*xStep,ymin+j*yStep,zmin+k*zStep), new Vector3(i, j, k));
                       
                         fieldNode.Add(fd);
-                        xindex++;
                     }
-                    yindex++;
-                }
-                zindex++;
-            }
-
-
-            xNum = xindex;
-            yNum = yindex;
-            zNum = zindex;
-
-            DiscreteClear();
-
-        }
-        public float GetProcessedFloat(float f)
-        {
-            int EffectiveCount = 2;
-            string SNumber = f.ToString();
-            char[] CNumberArr = SNumber.ToCharArray();
-            int DotIndex = SNumber.IndexOf('.');
-            double value = 0;
-            int TempPrecision = 0;
-            for (int i = DotIndex + 1; i < SNumber.Length; i++)
-            {
-                TempPrecision++;
-                if (CNumberArr[i] != '0')
-                {
-                    value = Math.Round(f, TempPrecision + EffectiveCount - 1);
-                    break;
                 }
             }
-            return (float)value;
-        }
 
-        public void NodeDensityPlusDis(int i, double dis)
-        {
-            fieldNode[i].NodeDensityPlusDis(dis);
-        }
-       
 
+            xNum = xAxisNum;
+            yNum = yAxisNum;
+            zNum = zAxisNum;
+            Debug.Log("Create density field "+name+" success. xNodeNum: "+xNum+" yNodeNum: "+yNum+" zNodeNum: "+zNum+ " xStep: "+xStep+" yStep: "+yStep+" zStep: "+zStep);
+        }
         public int NodePosToIndex(int z, int y, int x)
         {
             return (z) * xNum * yNum + (y) * xNum + x;
 
         }
 
-        public void DiscreteClear()
+        public void LUTInit()
         {
-            boxDensity = new int[xNum * yNum * zNum];
-
             LUT_ = new List<LUTUnit>();
             for (int i = 0; i < xNum*yNum*zNum; i++)
                 LUT_.Add(new LUTUnit());
-
-        }
-        public void BoxDensityPlus(int i)
-        {
-            boxDensity[i] = boxDensity[i] + 1;
         }
 
         public void AddToLUT(int index, int targetint)
@@ -228,14 +187,7 @@ using UnityEngine;
         {
             return LUT_[index].GetLTUnit();
         }
-        public int GetBoxNum()
-        {
-            return boxDensity.Length;
-        }
-        public int GetBoxDensity(int i)
-        {
-            return boxDensity[i];
-        }
+        
         #endregion
 
         #region Set
