@@ -30,8 +30,6 @@ using UnityEngine.Events;
     public bool LoadTarget;
     [SerializeField]
     public List<FlagNamesCollection> LoadFlagNames;
-    public string StoreFlagName;
-
 
 
     public bool CalculateDensity;
@@ -48,17 +46,15 @@ using UnityEngine.Events;
             gridNum = (int)(value); 
             if (Application.isPlaying)
                 SwitchDatasetFromFile(dataset.ToString());
-
         }
     }
-        public UnityAction myAction;
         public UnityEvent myEvent;
 
         #endregion
 
     private void Start()
     {
-        SwitchDatasetFromFile(dataset.ToString());
+        GRIDNUM = GRIDNUM;
     }
     
     public void  SwitchDatasetFromFile(string name)

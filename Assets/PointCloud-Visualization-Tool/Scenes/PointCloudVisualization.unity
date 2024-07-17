@@ -177,7 +177,6 @@ MonoBehaviour:
   - FlagNames:
     - 1
     target_mat: {fileID: 2100000, guid: 12015c000f8df92478d03ac3925b85b3, type: 2}
-  StoreFlagName: 1
   CalculateDensity: 1
   kde_shader: {fileID: 7200000, guid: 7d44401c25017ec45be53bdd3d032382, type: 3}
   gRIDNum: 64

@@ -35,10 +35,10 @@ using UnityEngine;
 
             SetDensityTexture(DataMemory.densityField);
             SetPosTexture(DataMemory.densityField);
-            List<int> a = new List<int>();
+            List<int> denList = new List<int>();
             for (int i = 0; i < DataMemory.densityField.GetNodeNum(); i++)
-                a.Add(i);
-            SetMCFlagTexture(a);
+                denList.Add(i);
+            SetMCFlagTexture(denList);
 
             appendVertexBuffer = new ComputeBuffer((ResolutionX) * (ResolutionY) * (ResolutionZ) * 5, sizeof(float) * 18, ComputeBufferType.Append);
           
