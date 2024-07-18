@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class MyEvent : MonoBehaviour
 {
-  public void Nothing()
+  public void MarchingCubeGpuCsHelperInit()
     {
-
+        if(transform.parent.GetComponentInChildren<RunTimeController>().calDen)  
+        {
+            this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
+            this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
+        }
+        else
+        {
+            this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
+        }
     }
     public void ColorMapping()
     {

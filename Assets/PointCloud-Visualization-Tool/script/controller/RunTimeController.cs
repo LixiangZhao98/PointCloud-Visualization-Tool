@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-  
 
-    public class RunTimeController : MonoBehaviour
+public class RunTimeController : MonoBehaviour
 {
 
     #region variables
@@ -17,7 +17,7 @@ using UnityEngine.Events;
             set { 
               dataset=value;
               if(Application.isPlaying)
-            SwitchDatasetFromFile(dataset.ToString());
+            LoadData(dataset.ToString());
                     
             }
         }
@@ -27,12 +27,12 @@ using UnityEngine.Events;
    
     public Material unselected_mat;
     public Material selected_mat;
-    public bool LoadTarget;
-    [SerializeField]
-    public List<FlagNamesCollection> LoadFlagNames;
+    
+    // public bool loadTarget;
+    // public List<FlagNamesCollection> loadTargetNames;
 
 
-    public bool CalculateDensity;
+    public bool calDen;
     public ComputeShader kde_shader;
     private int gridNum = 64;
     [SerializeField, SetProperty("GRIDNUM")]
@@ -45,7 +45,7 @@ using UnityEngine.Events;
             gRIDNum = value;
             gridNum = (int)(value); 
             if (Application.isPlaying)
-                SwitchDatasetFromFile(dataset.ToString());
+                LoadData(dataset.ToString());
         }
     }
         public UnityEvent myEvent;
@@ -57,43 +57,48 @@ using UnityEngine.Events;
         GRIDNUM = GRIDNUM;
     }
     
-    public void  SwitchDatasetFromFile(string name)
+    public void  LoadData(string name)
     {
         DataMemory.StacksInitialize();
-      
-        if (dataset_generator.Contains(name))
-        {
-                  DataMemory.LoadDataByVec3s(DataGenerator.Generate(name), name);    
-        }
-        else if(dataset_ply.Contains(name))
-        {        
-                  DataMemory.LoadDataByPly(name);    
-        }
-        else
-        {
-               DataMemory.LoadDataByByte(name);
-        }
-                            
-        if (LoadFlagNames.Count!=0&&LoadTarget)
-            DataMemory.LoadFlagsToStack(LoadFlagNames);
 
-           if( CalculateDensity)
-            {
-                DataMemory.CreateDensityField(gridNum);
-                GPUKDECsHelper.KDEGpu(DataMemory.allParticle, DataMemory.densityField, kde_shader);
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
-            }
-           else
-            {
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
-            }
-            RenderDataRunTime.Init(visCenter,unselected_mat,selected_mat,LoadFlagNames);
-            myEvent?.Invoke();
-
-        }
+        Load(name); //load data
+        
+        // if (loadTargetNames.Count!=0&&loadTarget)  //load target points with highlighted color
+        //     DataMemory.LoadFlagsToStack(loadTargetNames);
+        // RenderDataRunTime.Init(visCenter,unselected_mat,selected_mat,loadTargetNames);  
+        
+        RenderDataRunTime.Init(visCenter,unselected_mat,selected_mat); // set rendering parameters
+        
+        if(calDen)   CalDen(); //calculate density
+        
+        myEvent?.Invoke(); //actions after data load
 
     }
 
+    public void Load(string name)
+    {
+        if (dataset_generator.Contains(name)) 
+        {
+            DataMemory.LoadDataByVec3s(DataGenerator.Generate(name), name);    
+        }
+        else if(dataset_ply.Contains(name))
+        {        
+            DataMemory.LoadDataByPly(name);    
+        }
+        else
+        {
+            DataMemory.LoadDataByByte(name);
+        }
+    }
+    
+    public void CalDen()
+    {
+            DataMemory.CreateDensityField(gridNum);
+            GPUKDECsHelper.KDEGpu(DataMemory.allParticle, DataMemory.densityField, kde_shader);
+    }
+
+}
 
 
+
+ 
