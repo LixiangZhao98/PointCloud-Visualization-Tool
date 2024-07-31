@@ -69,8 +69,8 @@ public class MyPointCloud : MonoBehaviour
     }
 }
 ```
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/LoadBinary.png "Image")
-- The binary files stores x,y,z coordinates (32bits for each coordinate) for each point in binary located in `Asset/PointCloud-Visualization-Tool/data/data` folder. Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/files/Data.pdf "Data").
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadBinary.png "Image")
+- The binary files stores x,y,z coordinates (32bits for each coordinate) for each point in binary located in `Asset/PointCloud-Visualization-Tool/data/data` folder. Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data").
 
 ## Load data by point positions
 - To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
@@ -102,7 +102,7 @@ public class MyPointCloud : MonoBehaviour
     }
 }
 ```
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/LoadVec3s.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadVec3s.png "Image")
 
 ## Load data from ply files
 
@@ -120,7 +120,7 @@ public class MyPointCloud : MonoBehaviour
     }
 }
 ```
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/LoadPly.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadPly.png "Image")
 ### Traversal of points
 To get information of each point, such as the position. We can simply do as following:
 ```c#
