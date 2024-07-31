@@ -36,7 +36,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/FieldColor.png "Image")
 
 ## Demo3: Halo visualization
-- Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")
+- Replication of Halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` 
 - The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/)
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/halos.png "Image")
