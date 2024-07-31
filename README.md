@@ -27,7 +27,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
 - To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
 - To enable the density calculation, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
-- To generate iso-surface and change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
+- To generate iso-surface and change threshold, click the gameobject `script/MCGPUCSHelper` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/marchingcube.png "Image")
 
 ## Demo2: Color mapping
@@ -62,10 +62,10 @@ public class MyPointCloud : MonoBehaviour
     public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. 
     void Start()
     {
-        DataMemory.StacksInitialize();  //Initialize
-        DataMemory.LoadDataByByte("Flocculentcube2");  //load the data from the the binary file; the input is the name of the binary file
-        RenderDataRunTime.visSize = 1f;  //Set the size of the visualization as 1 meter
-        RenderDataRunTime.Init(visCenter,particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
+        DataStorage.StacksInitialize();  //Initialize
+        DataStorage.LoadByte("Flocculentcube2");  //load the data from the the binary file; the input is the name of the binary file
+        RenderDataRunTime.visSize = 1f;  //the size of the visualization
+        RenderDataRunTime.Init(visCenter, particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
     }
 }
 ```
@@ -82,8 +82,8 @@ public class MyPointCloud : MonoBehaviour
     void Start()
     {
         Vector3[] v = Generate_Cube();  // Generate random points in Cubic shape
-        DataMemory.StacksInitialize();//Initialize
-        DataMemory.LoadDataByVec3s(v, "cube");  // the first input is Vector[], the second is the name of the data (you can name it as you like)
+        DataStorage.StacksInitialize();//Initialize
+        DataStorage.LoadVec3s(v, "cube");  // the first input is Vector[], the second is the name of the data (you can name it as you like)
         RenderDataRunTime.visSize = 1f;  //the size of the visualization
         RenderDataRunTime.Init(visCenter,particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
     }
@@ -113,10 +113,10 @@ public class MyPointCloud : MonoBehaviour
     public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. 
     void Start()
     {
-        DataMemory.StacksInitialize();  //Initialize
-        DataMemory.LoadDataByPly("dragon_vrip");  //load the data from the the ply file; the input is the name of the binary file
-        RenderDataRunTime.visSize = 1f;  //Set the size of the visualization as 1 meter
-        RenderDataRunTime.Init(visCenter,particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
+        DataStorage.StacksInitialize();  //Initialize
+        DataStorage.LoadPly("dragon_vrip");  //load the data from the the ply file; the input is the name of the binary file
+        RenderDataRunTime.visSize = 1f;
+        RenderDataRunTime.Init(visCenter, particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
     }
 }
 ```
