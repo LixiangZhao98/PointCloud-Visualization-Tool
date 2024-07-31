@@ -4,7 +4,7 @@ PointCloud-Visualization-Tool
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/teaser.png "Image")
 Kernel density estimation algrithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
 Based on the density field, the repo support to reconstruct the 3D geometric shape by Marching Cube algorithm and implement color encoding.
-Any pull requests and issues are welcome. If you find it useful, could you please leave a star here? Thanks in advance.
+Any pull requests and issues are welcome. If you have any questions about the project or the data, please feel free to email me (Lixiang.Zhao17@student.xjtlu.edu.cn).
 
 ### Projects built based on this repo
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
@@ -70,7 +70,7 @@ public class MyPointCloud : MonoBehaviour
 }
 ```
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadBinary.png "Image")
-- The binary files stores x,y,z coordinates (32bits for each coordinate) for each point in binary located in `Asset/PointCloud-Visualization-Tool/data/data` folder. Here is a full review of the [Point Cloud Dataset included in this repo](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data").
+- The data files stores x,y,z coordinates in binary format located in `Asset/PointCloud-Visualization-Tool/data/data` folder. To use them, you need to convert the binary sequence to single-precision floating-point (32bits) sequence. Then, the 1st, 2nd, and 3rd floats are the x,y, and z coordinates for the first point. The 4th, 5th and 6th floats are the x,y, and z coordinates for the second point...  Here is a full list of the [Point Cloud Dataset](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data"). Some are not in this repo. If you need them, please feel free to email me.
 
 ## Load data by point positions
 - To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
