@@ -12,11 +12,11 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
 
     public void HaloDrawIndirectCsHelperInit()
     {
-        Init(DataMemory.particles.GetParticlenum());
-        Vector3[] lp = new Vector3[DataMemory.particles.GetParticlenum()];
-        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
+        Init(DataStorage.particles.GetParticlenum());
+        Vector3[] lp = new Vector3[DataStorage.particles.GetParticlenum()];
+        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
         {
-            lp[i] = new Vector3((float)(DataMemory.particles.GetParticleDensity(i) - DataMemory.particles.MINDEN) / (DataMemory.particles.MAXDEN - DataMemory.particles.MINDEN), 0f, 0f);
+            lp[i] = new Vector3((float)(DataStorage.particles.GetParticleDensity(i) - DataStorage.particles.MINDEN) / (DataStorage.particles.MAXDEN - DataStorage.particles.MINDEN), 0f, 0f);
         }
         RenderDataRunTime.SetUnselectedUV1(lp);
     }
@@ -32,8 +32,8 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
         positionBuffer = new ComputeBuffer(instanceCount, 16);
         Vector4[] positions = new Vector4[instanceCount];
         for (int i = 0; i < instanceCount; i++) {
-            float lp=(float)(DataMemory.particles.GetParticleDensity(i)-DataMemory.particles.MINDEN)/(DataMemory.particles.MAXDEN-DataMemory.particles.MINDEN);
-            Vector3 v= origin.transform.TransformPoint(DataMemory.particles.GetParticleObjectPos(i))*RenderDataRunTime.ratio;
+            float lp=(float)(DataStorage.particles.GetParticleDensity(i)-DataStorage.particles.MINDEN)/(DataStorage.particles.MAXDEN-DataStorage.particles.MINDEN);
+            Vector3 v= origin.transform.TransformPoint(DataStorage.particles.GetParticleObjectPos(i))*RenderDataRunTime.ratio;
             positions[i] = new Vector4(v.x,v.y,v.z,lp);
         }
         positionBuffer.SetData(positions);

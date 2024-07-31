@@ -99,7 +99,7 @@ using UnityEngine;
 
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-            if (!InViewCube(pG.GetParticleObjectPos(i), center, length))
+            if (!InsideView(pG.GetParticleObjectPos(i), center, length))
                 continue;
             if (pG.GetFlag(i))
                 selected.Add(pG.GetParticleObjectPos(i) - center);
@@ -165,7 +165,7 @@ using UnityEngine;
         }
 
        
-            List<int> pStack = DataMemory.GetpStack();
+            List<int> pStack = DataStorage.GetpStack();
             for (int i = 0; i < pStack.Count; i++)                 // load flag
             {
                 pG.SetFlag(pStack[i], true);
@@ -224,7 +224,7 @@ using UnityEngine;
 
     }
 
-        static public bool InViewCube(Vector3 pos, Vector3 center, float length)
+        static public bool InsideView(Vector3 pos, Vector3 center, float length)
     {
         if (pos.x > (center.x + length / 2))
             return false;

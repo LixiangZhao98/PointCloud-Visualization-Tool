@@ -40,14 +40,14 @@ using UnityEngine;
         public void LoadBuffer()
         {
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
-            ResolutionX = DataMemory.densityField.XNUM;
-            ResolutionY = DataMemory.densityField.YNUM;
-            ResolutionZ = DataMemory.densityField.ZNUM;
+            ResolutionX = DataStorage.densityField.XNUM;
+            ResolutionY = DataStorage.densityField.YNUM;
+            ResolutionZ = DataStorage.densityField.ZNUM;
 
-            SetDensityTexture(DataMemory.densityField);
-            SetPosTexture(DataMemory.densityField);
+            SetDensityTexture(DataStorage.densityField);
+            SetPosTexture(DataStorage.densityField);
             List<int> denList = new List<int>();
-            for (int i = 0; i < DataMemory.densityField.GetNodeNum(); i++)
+            for (int i = 0; i < DataStorage.densityField.GetNodeNum(); i++)
                 denList.Add(i);
             SetMCFlagTexture(denList);
 

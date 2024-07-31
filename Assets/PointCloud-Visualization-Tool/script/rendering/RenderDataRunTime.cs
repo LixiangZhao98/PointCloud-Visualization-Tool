@@ -62,8 +62,8 @@ public class RenderDataRunTime : MonoBehaviour
         {
             target_mesh = new Mesh[0];
         }
-        DisplayParticles.GenerateMeshFromPg( unselected_mesh, selected_mesh, target_mesh, DataMemory.particles, fromStarck);
-        ratio = 1f / (DataMemory.particles.XMAX - DataMemory.particles.XMIN) * visSize;
+        DisplayParticles.GenerateMeshFromPg( unselected_mesh, selected_mesh, target_mesh, DataStorage.particles, fromStarck);
+        ratio = 1f / (DataStorage.particles.XMAX - DataStorage.particles.XMIN) * visSize;
     }
 
 

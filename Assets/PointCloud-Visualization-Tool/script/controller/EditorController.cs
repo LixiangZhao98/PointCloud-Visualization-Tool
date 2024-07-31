@@ -18,18 +18,18 @@ public class EditorController : MonoBehaviour
     {
 
         if (loadFlagNames.Count!=0&&LoadFlag)
-        DataMemory.LoadDataByCsv(loadFileName);
-        DataMemory.CreateDensityField(gridNum);
-        DataMemory.DisplayAllParticle(LoadFlag, loadFlagNames);
+        DataStorage.LoadCsv(loadFileName);
+        DataStorage.CreateField(gridNum);
+        DataStorage.DisplayAllParticle(LoadFlag, loadFlagNames);
 
     }
     [ContextMenu("LoadByte and CreateField")]
     public void LoadByteandCreateField()
     {
         if (loadFlagNames.Count!=0&&LoadFlag)
-        DataMemory.LoadDataByByte(loadFileName);
-        DataMemory.CreateDensityField(gridNum);
-        DataMemory. DisplayAllParticle(LoadFlag, loadFlagNames);
+        DataStorage.LoadByte(loadFileName);
+        DataStorage.CreateField(gridNum);
+        DataStorage. DisplayAllParticle(LoadFlag, loadFlagNames);
 
     }
 
@@ -37,8 +37,8 @@ public class EditorController : MonoBehaviour
     public void ClearMemory()
     {
 
-        DataMemory.ClearParticleMemory();
-        DataMemory.StacksInitialize();
+        DataStorage.ClearParticleMemory();
+        DataStorage.StacksInitialize();
 
 
     }

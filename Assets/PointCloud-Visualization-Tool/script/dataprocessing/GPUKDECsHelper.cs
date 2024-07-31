@@ -190,8 +190,8 @@ public class GPUKDECsHelper:MonoBehaviour
     private DensityField dF;
     private void Start()
     {
-        pG = DataMemory.particles;
-        dF = DataMemory.densityField;
+        pG = DataStorage.particles;
+        dF = DataStorage.densityField;
     }
     
     private void Update()

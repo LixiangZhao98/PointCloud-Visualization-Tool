@@ -153,7 +153,7 @@ using UnityEngine;
 
         #endregion
         #region load and save
-          public void LoadDatasetsByPly(string path,string dataname)
+          public void LoadPly(string path,string dataname)
         {  
             
 
@@ -263,7 +263,7 @@ using UnityEngine;
             return System.BitConverter.ToSingle(bytes, 0);
         }
 
-        public void LoadDatasetByByte(string path, string dataname)
+        public void LoadByte(string path, string dataname)
         {
            this. name=dataname;
             Vector3[] vs = DataPosPreProcessing(LoadDataBybyte.StartLoad(path));
@@ -275,7 +275,7 @@ using UnityEngine;
             }
          
         }
-        public void LoadDatasetByVec3s(Vector3[] v, string dataname,bool forSimulation=false)
+        public void LoadVec3s(Vector3[] v, string dataname,bool forSimulation=false)
         {
             this.name = dataname;
             if(!forSimulation)
@@ -287,7 +287,7 @@ using UnityEngine;
                 this.AddParticle(p);
             }
         }
-        public void LoadDatasetByCsv(string path,string dataname)
+        public void LoadCsv(string path,string dataname)
         {
             this.name = dataname;
             Vector3[] vs = DataPosPreProcessing(csvController.GetInstance().StartLoad(path));
@@ -382,7 +382,7 @@ using UnityEngine;
         }
     public void StoreFlags(string name)
     {
-        List<int> flagtrue = DataMemory.GetpStack().ToList();
+        List<int> flagtrue = DataStorage.GetpStack().ToList();
 
         if (flagtrue.Count == 0)
             Debug.Log("No marked particles");
@@ -394,7 +394,7 @@ using UnityEngine;
 
     public void SaveSelectedAsNewData(string name)
     {
-        List<int> flagtrue = DataMemory.GetpStack().ToList();
+        List<int> flagtrue = DataStorage.GetpStack().ToList();
 
 
         if (flagtrue.Count == 0)
@@ -404,7 +404,7 @@ using UnityEngine;
             List<Vector3> dataPos = new List<Vector3>();
             foreach (var d in flagtrue)
             {
-                dataPos.Add(DataMemory.particles.GetParticleObjectPos(d));
+                dataPos.Add(DataStorage.particles.GetParticleObjectPos(d));
             }
             SaveData.Vec3sToFile(name, dataPos.ToArray());
         }
@@ -413,10 +413,10 @@ using UnityEngine;
     public void SaveTargetAsNewData(string name)
     {
         List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
+        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
         {
-            if (DataMemory.particles.GetTarget(i))
-                dataPos.Add(DataMemory.particles.GetParticleObjectPos(i));
+            if (DataStorage.particles.GetTarget(i))
+                dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
         }
 
         if (dataPos.Count == 0)
@@ -432,9 +432,9 @@ using UnityEngine;
     public void SaveDataAsNewData(string name)
     {
         List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
+        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
         {
-            dataPos.Add(DataMemory.particles.GetParticleObjectPos(i));
+            dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
         }
 
         if (dataPos.Count == 0)

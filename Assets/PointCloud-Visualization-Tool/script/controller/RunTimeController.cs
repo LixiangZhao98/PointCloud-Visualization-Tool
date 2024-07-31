@@ -58,7 +58,7 @@ public class RunTimeController : MonoBehaviour
     
     public void  LoadData(string name)
     {
-        DataMemory.StacksInitialize();
+        DataStorage.StacksInitialize();
 
         Load(name); //load data
         
@@ -80,22 +80,22 @@ public class RunTimeController : MonoBehaviour
     {
         if (dataset_generator.Contains(name)) 
         {
-            DataMemory.LoadDataByVec3s(DataGenerator.Generate(name), name);    
+            DataStorage.LoadVec3s(DataGenerator.Generate(name), name);    
         }
         else if(dataset_ply.Contains(name))
         {        
-            DataMemory.LoadDataByPly(name);    
+            DataStorage.LoadPly(name);    
         }
         else
         {
-            DataMemory.LoadDataByByte(name);
+            DataStorage.LoadByte(name);
         }
     }
     
     public void CalDen()
     {
-            DataMemory.CreateDensityField(gridNum);
-            GPUKDECsHelper.KDEGpu(DataMemory.particles, DataMemory.densityField, kde_shader);
+            DataStorage.CreateField(gridNum);
+            GPUKDECsHelper.KDEGpu(DataStorage.particles, DataStorage.densityField, kde_shader);
     }
 
 }
