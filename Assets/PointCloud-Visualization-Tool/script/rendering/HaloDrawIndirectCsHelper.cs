@@ -1,8 +1,4 @@
-using System;
 using UnityEngine;
-using System.Collections;
-
-
 public class HaloDrawIndirectCsHelper : MonoBehaviour {
     int instanceCount = 100000;
     public Mesh instanceMesh;
@@ -10,46 +6,39 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
     public int subMeshIndex = 0;
     public Transform origin;
     public Camera cam;
-    private int cachedInstanceCount = -1;
-    private int cachedSubMeshIndex = -1;
     private ComputeBuffer positionBuffer;
     private ComputeBuffer argsBuffer;
     private uint[] args = new uint[5] { 0, 0, 0, 0, 0 };
 
+    public void HaloDrawIndirectCsHelperInit()
+    {
+        Init(DataMemory.particles.GetParticlenum());
+        Vector3[] lp = new Vector3[DataMemory.particles.GetParticlenum()];
+        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
+        {
+            lp[i] = new Vector3((float)(DataMemory.particles.GetParticleDensity(i) - DataMemory.particles.MINDEN) / (DataMemory.particles.MAXDEN - DataMemory.particles.MINDEN), 0f, 0f);
+        }
+        RenderDataRunTime.SetUnselectedUV1(lp);
+    }
+    
    public void Init(int pointcount) {
         instanceCount=pointcount;
         argsBuffer = new ComputeBuffer(1, args.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
-        UpdateBuffers();
-    }
-
-    void Update() {
-
-
-        // Render
-        Graphics.DrawMeshInstancedIndirect(instanceMesh, subMeshIndex, instanceMaterial, new Bounds(Vector3.zero, new Vector3(1000.0f, 1000.0f, 1000.0f)), argsBuffer);
-    }
-
-
-
-    void UpdateBuffers() {
-        // Ensure submesh index is in range
         if (instanceMesh != null)
             subMeshIndex = Mathf.Clamp(subMeshIndex, 0, instanceMesh.subMeshCount - 1);
 
-        // Positions
         if (positionBuffer != null)
             positionBuffer.Release();
         positionBuffer = new ComputeBuffer(instanceCount, 16);
         Vector4[] positions = new Vector4[instanceCount];
         for (int i = 0; i < instanceCount; i++) {
-            float lp=(float)(DataMemory.allParticle.GetParticleDensity(i)-DataMemory.allParticle.MINDEN)/(DataMemory.allParticle.MAXDEN-DataMemory.allParticle.MINDEN);
-            Vector3 v= origin.transform.TransformPoint(DataMemory.allParticle.GetParticlePosition(i))*RenderDataRunTime.ratio;
+            float lp=(float)(DataMemory.particles.GetParticleDensity(i)-DataMemory.particles.MINDEN)/(DataMemory.particles.MAXDEN-DataMemory.particles.MINDEN);
+            Vector3 v= origin.transform.TransformPoint(DataMemory.particles.GetParticleObjectPos(i))*RenderDataRunTime.ratio;
             positions[i] = new Vector4(v.x,v.y,v.z,lp);
         }
         positionBuffer.SetData(positions);
         instanceMaterial.SetBuffer("positionBuffer", positionBuffer);
 
-        // Indirect args
         if (instanceMesh != null) {
             args[0] = (uint)instanceMesh.GetIndexCount(subMeshIndex);
             args[1] = (uint)instanceCount;
@@ -62,10 +51,19 @@ public class HaloDrawIndirectCsHelper : MonoBehaviour {
         }
         argsBuffer.SetData(args);
 
-        cachedInstanceCount = instanceCount;
-        cachedSubMeshIndex = subMeshIndex;
-        
+
     }
+
+    void Update() {
+
+
+        // Render
+        Graphics.DrawMeshInstancedIndirect(instanceMesh, subMeshIndex, instanceMaterial, new Bounds(Vector3.zero, new Vector3(1000.0f, 1000.0f, 1000.0f)), argsBuffer);
+    }
+
+
+
+   
 
     private void LateUpdate()
     {

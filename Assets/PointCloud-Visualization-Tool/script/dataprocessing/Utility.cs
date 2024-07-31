@@ -226,7 +226,7 @@ public class Utility
 
     public static List<int> GetNodesInArea(ParticleGroup pG, DensityField dF, float dRatio, int parIndex)  //Input by particle position,related to the elipse
     {
-        Vector3 nodePos = pG.GetParticlePosition(parIndex);
+        Vector3 nodePos = pG.GetParticleObjectPos(parIndex);
         Vector3 sL = pG.GetMySmoothLength(parIndex);
         List<int> lint = new List<int>();
         float sLx = sL[0] * dRatio;

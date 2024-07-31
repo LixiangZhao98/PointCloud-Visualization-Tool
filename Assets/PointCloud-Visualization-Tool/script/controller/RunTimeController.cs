@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 
 public class RunTimeController : MonoBehaviour
@@ -48,7 +47,7 @@ public class RunTimeController : MonoBehaviour
                 LoadData(dataset.ToString());
         }
     }
-        public UnityEvent myEvent;
+         public UnityEvent eventAfterDensityEstimation;
 
         #endregion
 
@@ -71,9 +70,11 @@ public class RunTimeController : MonoBehaviour
         
         if(calDen)   CalDen(); //calculate density
         
-        myEvent?.Invoke(); //actions after data load
-
+        eventAfterDensityEstimation?.Invoke(); //actions after data load
+        
     }
+
+
 
     public void Load(string name)
     {
@@ -94,7 +95,7 @@ public class RunTimeController : MonoBehaviour
     public void CalDen()
     {
             DataMemory.CreateDensityField(gridNum);
-            GPUKDECsHelper.KDEGpu(DataMemory.allParticle, DataMemory.densityField, kde_shader);
+            GPUKDECsHelper.KDEGpu(DataMemory.particles, DataMemory.densityField, kde_shader);
     }
 
 }

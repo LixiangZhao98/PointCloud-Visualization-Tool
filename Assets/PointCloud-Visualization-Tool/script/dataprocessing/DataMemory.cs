@@ -25,11 +25,11 @@ public class DataMemory : MonoBehaviour
         {
           for(int n=0;n<name.FlagNames.Length;n++)
         {
-        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/flags/" + allParticle.name+"_"+ name.FlagNames[n]);
+        int[] flags = LoadDataBybyte.StartLoadFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/flags/" + particles.name+"_"+ name.FlagNames[n]);
         for (int i = 0; i < flags.Length; i++)
         {
 
-            DataMemory.allParticle.SetTarget(flags[i], true, names.IndexOf(name)); 
+            DataMemory.particles.SetTarget(flags[i], true, names.IndexOf(name)); 
         }
         }
         }
@@ -89,7 +89,7 @@ public class DataMemory : MonoBehaviour
     {
         StacksInitialize();
             LoadFlagsToStack(LoadFlagNames);
-        DisplayParticles.DisplayMesh(GameObject.Find("PointCloudMesh"), allParticle);
+        DisplayParticles.DisplayMesh(GameObject.Find("PointCloudMesh"), particles);
     }
     #endregion
 
@@ -97,42 +97,42 @@ public class DataMemory : MonoBehaviour
     [SerializeField]
     [HideInInspector] public List<Vector3> particleflow_dest;
     [SerializeField]
-    static public ParticleGroup allParticle = new ParticleGroup();
+    static public ParticleGroup particles = new ParticleGroup();
     static public void LoadDataByPly(string loadFileName)
     {
 
-        allParticle.LoadDatasetsByPly(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/",loadFileName);
+        particles.LoadDatasetsByPly(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/",loadFileName);
 
-        Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
+        Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
 
     }
     public static void LoadDataByByte(string loadFileName)
     {
 
-        allParticle.LoadDatasetByByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
-        Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength().x + " " + allParticle.GetSmoothLength().y + " " + allParticle.GetSmoothLength().z);
+        particles.LoadDatasetByByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
+        Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength().x + " " + particles.GetSmoothLength().y + " " + particles.GetSmoothLength().z);
     }
     static public void LoadDataByCsv(string loadFileName)
     {
 
-        allParticle.LoadDatasetByCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
-        Debug.Log("Load success" + " " + loadFileName + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
+        particles.LoadDatasetByCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
+        Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
     }
    
     static public void LoadDataByVec3s(Vector3[] v, string dataname, bool forSimulation = false)
     {
 
 
-        allParticle.LoadDatasetByVec3s(v, dataname, forSimulation);
+        particles.LoadDatasetByVec3s(v, dataname, forSimulation);
 
-        Debug.Log("Load success" + " " + dataname + " with " + allParticle.GetParticlenum() + " particles." + " SmoothLength: " + allParticle.GetSmoothLength());
+        Debug.Log("Load success" + " " + dataname + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
 
     }
 
    
     public static void ClearParticleMemory()
     {
-        allParticle = new ParticleGroup();
+        particles = new ParticleGroup();
     }
 
     
@@ -146,14 +146,14 @@ public class DataMemory : MonoBehaviour
     static public void CreateDensityField(int gridNum)
     {
         float scalingFactor = 0f;
-        float step = (allParticle.XMAX - allParticle.XMIN) / gridNum;
-        allParticle.XMAX += scalingFactor*step;
-        allParticle.XMIN -= scalingFactor*step;
-        allParticle.YMAX += scalingFactor*step;
-        allParticle.YMIN -= scalingFactor*step;
-        allParticle.ZMAX += scalingFactor*step;
-        allParticle.ZMIN -= scalingFactor*step;
-        densityField.InitializeDensityFieldByGapDis(allParticle.name, allParticle.XMIN, allParticle.XMAX, gridNum, allParticle.YMIN, allParticle.YMAX, gridNum, allParticle.ZMIN, allParticle.ZMAX, gridNum);
+        float step = (particles.XMAX - particles.XMIN) / gridNum;
+        particles.XMAX += scalingFactor*step;
+        particles.XMIN -= scalingFactor*step;
+        particles.YMAX += scalingFactor*step;
+        particles.YMIN -= scalingFactor*step;
+        particles.ZMAX += scalingFactor*step;
+        particles.ZMIN -= scalingFactor*step;
+        densityField.InitializeDensityFieldByGapDis(particles.name, particles.XMIN, particles.XMAX, gridNum, particles.YMIN, particles.YMAX, gridNum, particles.ZMIN, particles.ZMAX, gridNum);
     }
 
     #endregion
@@ -161,19 +161,19 @@ public class DataMemory : MonoBehaviour
 
         public static void StoreFlags(string ExtendstoreFileName)
     {
-        allParticle.StoreFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/Flags/" + allParticle.name+"_"+ ExtendstoreFileName);
+        particles.StoreFlags(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/Flags/" + particles.name+"_"+ ExtendstoreFileName);
 
     }
 
         public static void SaveSelectedAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveSelectedAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        particles.SaveSelectedAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + particles.name+"_"+ ExtendstoreFileName);
 
     }
 
             public static void SaveTargetAsNewData(string ExtendstoreFileName)
     {
-        allParticle.SaveTargetAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + allParticle.name+"_"+ ExtendstoreFileName);
+        particles.SaveTargetAsNewData(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/data/" + particles.name+"_"+ ExtendstoreFileName);
 
     }
 

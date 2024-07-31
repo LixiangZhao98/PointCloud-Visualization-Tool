@@ -22,13 +22,13 @@ using UnityEngine;
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
             if (pG.GetFlag(i))
-                selected.Add(pG.GetParticlePosition(i));
+                selected.Add(pG.GetParticleObjectPos(i));
             if (!pG.GetFlag(i))
             {
                 if(pG.GetTarget(i))
-                     targets[pG.GetTargetType(i)].Add(pG.GetParticlePosition(i));
+                     targets[pG.GetTargetType(i)].Add(pG.GetParticleObjectPos(i));
                 else
-                    unselected.Add(pG.GetParticlePosition(i));
+                    unselected.Add(pG.GetParticleObjectPos(i));
             }
                
         }
@@ -99,16 +99,16 @@ using UnityEngine;
 
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-            if (!InViewCube(pG.GetParticlePosition(i), center, length))
+            if (!InViewCube(pG.GetParticleObjectPos(i), center, length))
                 continue;
             if (pG.GetFlag(i))
-                selected.Add(pG.GetParticlePosition(i) - center);
+                selected.Add(pG.GetParticleObjectPos(i) - center);
             if (!pG.GetFlag(i))
             {
                 if (pG.GetTarget(i))
-                    targets[pG.GetTargetType(i)].Add(pG.GetParticlePosition(i)-center);
+                    targets[pG.GetTargetType(i)].Add(pG.GetParticleObjectPos(i)-center);
                 else
-                    unselected.Add(pG.GetParticlePosition(i) - center);
+                    unselected.Add(pG.GetParticleObjectPos(i) - center);
             }
 
         }
@@ -187,9 +187,9 @@ using UnityEngine;
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
             if (pG.GetFlag(i))
-                selected.Add(pG.GetParticlePosition(i));
+                selected.Add(pG.GetParticleObjectPos(i));
             if (!pG.GetFlag(i))
-                unselected.Add(pG.GetParticlePosition(i));
+                unselected.Add(pG.GetParticleObjectPos(i));
         }
         DisplayMeshByKind(m_mesh.transform.GetChild(0).gameObject, unselected, 0);
         DisplayMeshByKind(m_mesh.transform.GetChild(1).gameObject, selected, 1);

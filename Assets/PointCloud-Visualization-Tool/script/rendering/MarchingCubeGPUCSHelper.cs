@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-    public class MarchingCubeGPU : MonoBehaviour
+    public class MarchingCubeGPUCSHelper : MonoBehaviour
     {
         public float MCGPUThreshold;
         public ComputeShader MarchingCubesCS;
@@ -29,15 +29,15 @@ using UnityEngine;
         {
             if(transform.parent.GetComponentInChildren<RunTimeController>().calDen)  
             {
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
+                this.enabled=true;
+                this.LoadBuffer();
             }
             else
             {
-                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
+                this.enabled = false;
             }
         }
-        public void Init()
+        public void LoadBuffer()
         {
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
             ResolutionX = DataMemory.densityField.XNUM;

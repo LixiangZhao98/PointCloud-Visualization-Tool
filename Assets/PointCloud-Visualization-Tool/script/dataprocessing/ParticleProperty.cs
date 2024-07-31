@@ -76,9 +76,13 @@ using UnityEngine;
         {
             return particleGroup.Count;
         }
-        public Vector3 GetParticlePosition(int i)
+        public Vector3 GetParticleObjectPos(int i)
         {
             return this.particleGroup[i].GetPosition();
+        }
+        public Vector3 GetParticleWorldPos(int i,Transform origin )
+        {
+            return origin.transform.TransformPoint(particleGroup[i].GetPosition());
         }
         #endregion
         #region Set Property /Add
@@ -400,7 +404,7 @@ using UnityEngine;
             List<Vector3> dataPos = new List<Vector3>();
             foreach (var d in flagtrue)
             {
-                dataPos.Add(DataMemory.allParticle.GetParticlePosition(d));
+                dataPos.Add(DataMemory.particles.GetParticleObjectPos(d));
             }
             SaveData.Vec3sToFile(name, dataPos.ToArray());
         }
@@ -409,10 +413,10 @@ using UnityEngine;
     public void SaveTargetAsNewData(string name)
     {
         List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataMemory.allParticle.GetParticlenum(); i++)
+        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
         {
-            if (DataMemory.allParticle.GetTarget(i))
-                dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
+            if (DataMemory.particles.GetTarget(i))
+                dataPos.Add(DataMemory.particles.GetParticleObjectPos(i));
         }
 
         if (dataPos.Count == 0)
@@ -428,9 +432,9 @@ using UnityEngine;
     public void SaveDataAsNewData(string name)
     {
         List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataMemory.allParticle.GetParticlenum(); i++)
+        for (int i = 0; i < DataMemory.particles.GetParticlenum(); i++)
         {
-            dataPos.Add(DataMemory.allParticle.GetParticlePosition(i));
+            dataPos.Add(DataMemory.particles.GetParticleObjectPos(i));
         }
 
         if (dataPos.Count == 0)

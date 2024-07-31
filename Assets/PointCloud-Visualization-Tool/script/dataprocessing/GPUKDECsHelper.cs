@@ -51,7 +51,7 @@ public class GPUKDECsHelper:MonoBehaviour
 
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-            parPos_[i] = pG.GetParticlePosition(i);
+            parPos_[i] = pG.GetParticleObjectPos(i);
         }
         for (int i = 0; i < dF.GetNodeNum(); i++)
         {
@@ -90,7 +90,7 @@ public class GPUKDECsHelper:MonoBehaviour
             
         sw.Stop();
         
-        UnityEngine.Debug.Log("Density estimation finish in " + sw.ElapsedMilliseconds);
+        UnityEngine.Debug.Log("Density estimation finish in " + sw.ElapsedMilliseconds+" ms");
 
         for (int i = 0; i < dF.GetNodeNum(); i++)
         {
@@ -119,7 +119,7 @@ public class GPUKDECsHelper:MonoBehaviour
         float sum = 0f;
         for (int i=0;i<pG.GetParticlenum(); i++)
         {
-            float density=(float)Utility.InterpolateVector(pG.GetParticlePosition(i), pG, dF);
+            float density=(float)Utility.InterpolateVector(pG.GetParticleObjectPos(i), pG, dF);
             sum += density;
             pG.SetParticleDensity(i,density);//set particle density
             if(density>maxDen)
@@ -177,9 +177,9 @@ public class GPUKDECsHelper:MonoBehaviour
 
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-                int x = Mathf.FloorToInt((pG.GetParticlePosition(i).x - pG.XMIN) / dF.XSTEP);
-                int y = Mathf.FloorToInt((pG.GetParticlePosition(i).y - pG.YMIN) / dF.YSTEP);
-                int z = Mathf.FloorToInt((pG.GetParticlePosition(i).z - pG.ZMIN) / dF.ZSTEP);
+                int x = Mathf.FloorToInt((pG.GetParticleObjectPos(i).x - pG.XMIN) / dF.XSTEP);
+                int y = Mathf.FloorToInt((pG.GetParticleObjectPos(i).y - pG.YMIN) / dF.YSTEP);
+                int z = Mathf.FloorToInt((pG.GetParticleObjectPos(i).z - pG.ZMIN) / dF.ZSTEP);
                 int index = z * dF.XNUM * dF.YNUM + y * dF.XNUM + x;
                 dF.AddToLUT(index, i);
         }
@@ -190,7 +190,7 @@ public class GPUKDECsHelper:MonoBehaviour
     private DensityField dF;
     private void Start()
     {
-        pG = DataMemory.allParticle;
+        pG = DataMemory.particles;
         dF = DataMemory.densityField;
     }
     
