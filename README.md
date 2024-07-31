@@ -1,7 +1,7 @@
 PointCloud-Visualization-Tool
 ======
 
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/teaser.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/teaser.png "Image")
 Kernel density estimation algrithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
 Based on the density field, the repo support to reconstruct the 3D geometric shape by Marching Cube algorithm and implement color encoding.
 Any pull requests and issues are welcome. If you find it useful, could you please leave a star here? Thanks in advance.
