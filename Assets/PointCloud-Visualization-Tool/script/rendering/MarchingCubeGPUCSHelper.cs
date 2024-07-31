@@ -25,7 +25,18 @@ using UnityEngine;
         int[] args;
         Bounds bounds;
 
-
+        public void MarchingCubeGpuCsHelperInit()
+        {
+            if(transform.parent.GetComponentInChildren<RunTimeController>().calDen)  
+            {
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled=true;
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().Init();
+            }
+            else
+            {
+                this.transform.parent.GetComponentInChildren<MarchingCubeGPU>().enabled = false;
+            }
+        }
         public void Init()
         {
             kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
