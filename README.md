@@ -28,18 +28,18 @@ Any pull requests and issues are welcome. If you find it useful, could you pleas
 - To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
 - To enable the density calculation, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
 - To generate iso-surface and change threshold, click the gameobject `script/RunTime` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/marchingcube.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/marchingcube.png "Image")
 
 ## Demo2: Color mapping
 - Color mapping based on density from low (blue) to high (red)
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/FieldColor.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/FieldColor.png "Image")
 
 ## Demo3: Halo visualization
 - Halo visualization published in [10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")
 - Demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` 
 - The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/)
-![Image](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/blob/master/Assets/pic/halos.png "Image")
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/halos.png "Image")
 
 
 # Scripting
