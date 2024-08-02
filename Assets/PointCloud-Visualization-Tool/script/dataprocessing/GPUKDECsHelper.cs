@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -185,24 +184,7 @@ public class GPUKDECsHelper:MonoBehaviour
         }
 
     }
-
-    private ParticleGroup pG;
-    private DensityField dF;
-    private void Start()
-    {
-        pG = DataStorage.particles;
-        dF = DataStorage.densityField;
-    }
     
-    private void Update()
-    {
-        {
-            kde_Cs.Dispatch(0, dF.XNUM / GROUPSIZE, dF.YNUM / GROUPSIZE, dF.ZNUM / GROUPSIZE);  
-            // KDE_Cs.Dispatch(1, pG.GetParticlenum() / PARGROUPSIZE, 1, 1);
-            // KDE_Cs.Dispatch(2, pG.GetParticlenum()  / PARGROUPSIZE, 1, 1);
-            // KDE_Cs.Dispatch(3, dF.XNUM / GROUPSIZE, dF.YNUM / GROUPSIZE, dF.ZNUM / GROUPSIZE);
-        }
-    }
 }
 
 

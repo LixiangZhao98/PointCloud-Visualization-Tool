@@ -103,13 +103,7 @@ public class DataStorage : MonoBehaviour
         Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
     }
     
-    static public void LoadPly(ParticleGroup pG, string loadFileName)
-    {
 
-        pG.LoadPly(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/",loadFileName);
-        Debug.Log("Load success" + " " + loadFileName + " with " + pG.GetParticlenum() + " particles." + " SmoothLength: " + pG.GetSmoothLength());
-
-    }
     
 
     static public void LoadByte(string loadFileName)
@@ -117,12 +111,7 @@ public class DataStorage : MonoBehaviour
         particles.LoadByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength().x + " " + particles.GetSmoothLength().y + " " + particles.GetSmoothLength().z);
     }
-    public static void LoadByte(ParticleGroup pG, string loadFileName)
-    {
 
-        pG.LoadByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
-        Debug.Log("Load success" + " " + loadFileName + " with " + pG.GetParticlenum() + " particles." + " SmoothLength: " + pG.GetSmoothLength().x + " " + pG.GetSmoothLength().y + " " + pG.GetSmoothLength().z);
-    }
     
     
     static public void LoadCsv(string loadFileName)
@@ -130,13 +119,7 @@ public class DataStorage : MonoBehaviour
         particles.LoadCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
     }
-    static public void LoadCsv(ParticleGroup pG, string loadFileName)
-    {
 
-        pG.LoadCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
-        Debug.Log("Load success" + " " + loadFileName + " with " + pG.GetParticlenum() + " particles." + " SmoothLength: " + pG.GetSmoothLength());
-    }
-   
     
     
     static public void LoadVec3s( Vector3[] v, string dataname,bool forSimulation = false)
@@ -145,15 +128,7 @@ public class DataStorage : MonoBehaviour
 
         Debug.Log("Load success" + " " + dataname + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
     }
-    static public void LoadVec3s(ParticleGroup pG, Vector3[] v, string dataname, bool forSimulation = false)
-    {
 
-
-        pG.LoadVec3s(v, dataname, forSimulation);
-
-        Debug.Log("Load success" + " " + dataname + " with " + pG.GetParticlenum() + " particles." + " SmoothLength: " + pG.GetSmoothLength());
-
-    }
 
    
     public static void ClearParticleMemory()
@@ -179,21 +154,10 @@ public class DataStorage : MonoBehaviour
         particles.YMIN -= scalingFactor*step;
         particles.ZMAX += scalingFactor*step;
         particles.ZMIN -= scalingFactor*step;
-        densityField.InitializeDensityFieldByGapDis(particles.name, particles.XMIN, particles.XMAX, gridNum, particles.YMIN, particles.YMAX, gridNum, particles.ZMIN, particles.ZMAX, gridNum);
+        densityField.CreateField(particles.name, particles , gridNum,gridNum,gridNum);
     }
     [SerializeField]
-    static public void CreateField(DensityField dF, ParticleGroup pG, int gridNum)
-    {
-        float scalingFactor = 0f;
-        float step = (pG.XMAX - pG.XMIN) / gridNum;
-        pG.XMAX += scalingFactor*step;
-        pG.XMIN -= scalingFactor*step;
-        pG.YMAX += scalingFactor*step;
-        pG.YMIN -= scalingFactor*step;
-        pG.ZMAX += scalingFactor*step;
-        pG.ZMIN -= scalingFactor*step;
-        dF.InitializeDensityFieldByGapDis(pG.name, pG.XMIN, pG.XMAX, gridNum, pG.YMIN, pG.YMAX, gridNum, pG.ZMIN, pG.ZMAX, gridNum);
-    }
+
 
     #endregion
 

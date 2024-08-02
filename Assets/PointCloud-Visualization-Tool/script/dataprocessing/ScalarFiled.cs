@@ -107,6 +107,12 @@ using UnityEngine;
             else
                 return a;
         }
+
+        public void CreateField(string pgName, ParticleGroup pG, int xAxisNum, int yAxisNum, int zAxisNum)
+        {
+            this.InitializeDensityFieldByGapDis(pgName, pG.XMIN, pG.XMAX, xAxisNum, pG.YMIN, pG.YMAX, yAxisNum, pG.ZMIN, pG.ZMAX, zAxisNum);
+        }
+
         public void InitializeDensityFieldByGapDis(string pgName,float xmin, float xmax, int xAxisNum, float ymin, float ymax, int yAxisNum, float zmin, float zmax, int zAxisNum)
         {   
             name = pgName+"_DF";
