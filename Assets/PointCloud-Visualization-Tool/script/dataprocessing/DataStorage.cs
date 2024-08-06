@@ -108,7 +108,7 @@ public class DataStorage : MonoBehaviour
 
     static public void LoadByte(string loadFileName)
     {
-        particles.LoadByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName,loadFileName);
+        particles.LoadByte(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/",loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength().x + " " + particles.GetSmoothLength().y + " " + particles.GetSmoothLength().z);
     }
 
@@ -116,7 +116,7 @@ public class DataStorage : MonoBehaviour
     
     static public void LoadCsv(string loadFileName)
     {
-        particles.LoadCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/" + loadFileName, loadFileName);
+        particles.LoadCsv(Application.dataPath + "/PointCloud-Visualization-Tool/data/data/", loadFileName);
         Debug.Log("Load success" + " " + loadFileName + " with " + particles.GetParticlenum() + " particles." + " SmoothLength: " + particles.GetSmoothLength());
     }
 

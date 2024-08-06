@@ -18,8 +18,6 @@ public class RunTimeController : MonoBehaviour
               dataset=value;
               if(Application.isPlaying)
             LoadData((int)dataset);
-              
-
             }
         }
         protected List<string> dataset_generator = new List<string> { "random_sphere" };
@@ -93,11 +91,15 @@ public class RunTimeController : MonoBehaviour
                 string nthFileExtention = Path.GetExtension(files[n]);
                 if (nthFileExtention == ".bin")
                 {
-                    DataStorage.LoadByte(nthFileName+nthFileExtention);
+                    DataStorage.LoadByte(nthFileName);
                 }
                 else if (nthFileExtention == ".ply")
                 {
-                    DataStorage.LoadPly(nthFileName+nthFileExtention);    
+                    DataStorage.LoadPly(nthFileName);    
+                }
+                else if (nthFileExtention == ".csv")
+                {
+                    DataStorage.LoadCsv(nthFileName);    
                 }
                 
             }

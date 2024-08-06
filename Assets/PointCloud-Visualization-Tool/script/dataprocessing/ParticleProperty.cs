@@ -154,13 +154,12 @@ using UnityEngine;
         #endregion
         #region load and save
           public void LoadPly(string path,string dataname)
-        {  
-            
-
+        {
+            this. name=dataname;
           List<Vector3> pointList = new List<Vector3>();
     
 
-                  string filePath = path + dataname;
+                  string filePath = path + dataname+".ply";
             if (!File.Exists(filePath))
             {
                 Debug.LogError("file does not exist: " + filePath);
@@ -266,7 +265,8 @@ using UnityEngine;
         public void LoadByte(string path, string dataname)
         {
            this. name=dataname;
-            Vector3[] vs = DataPosPreProcessing(LoadDataBybyte.StartLoad(path));
+           string filePath = path + dataname+".bin";
+            Vector3[] vs = DataPosPreProcessing(LoadDataBybyte.StartLoad(filePath));
             particleGroup = new List<Particle>();
             for (int i=0;i<vs.Length;i++)
             {
@@ -290,7 +290,8 @@ using UnityEngine;
         public void LoadCsv(string path,string dataname)
         {
             this.name = dataname;
-            Vector3[] vs = DataPosPreProcessing(csvController.GetInstance().StartLoad(path));
+            string filePath = path + dataname+".csv";
+            Vector3[] vs = DataPosPreProcessing(csvController.GetInstance().StartLoad(filePath));
             particleGroup = new List<Particle>();
             for (int i = 0; i < vs.Length; i++)
             {
