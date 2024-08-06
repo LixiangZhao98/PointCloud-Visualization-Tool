@@ -1,23 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
-
+using System.IO;
+using System;
+using System.Linq;
 public class RunTimeController : MonoBehaviour
 {
 
     #region variables
     public  GameObject visCenter;
     [SerializeField, SetProperty("DATASET")]
-    protected EnumVariables.Dataset dataset;
-    public EnumVariables.Dataset DATASET
+    protected Dataset dataset;
+    public Dataset DATASET
         {
             get { return dataset; }
             set { 
               dataset=value;
               if(Application.isPlaying)
-            LoadData(dataset.ToString());
-                    
+            LoadData((int)dataset);
+              
+
             }
         }
         protected List<string> dataset_generator = new List<string> { "random_sphere" };
@@ -35,8 +37,8 @@ public class RunTimeController : MonoBehaviour
     public ComputeShader kde_shader;
     private int gridNum = 64;
     [SerializeField, SetProperty("GRIDNUM")]
-    private EnumVariables.GRIDNum gRIDNum;
-    public EnumVariables.GRIDNum GRIDNUM
+    private GRIDRes gRIDNum;
+    public GRIDRes GRIDNUM
     {
         get { return gRIDNum; }
         set
@@ -44,7 +46,7 @@ public class RunTimeController : MonoBehaviour
             gRIDNum = value;
             gridNum = (int)(value); 
             if (Application.isPlaying)
-                LoadData(dataset.ToString());
+                LoadData((int)dataset);
         }
     }
          public UnityEvent eventAfterDensityEstimation;
@@ -56,11 +58,11 @@ public class RunTimeController : MonoBehaviour
         GRIDNUM = GRIDNUM;
     }
     
-    public void  LoadData(string name)
+    public void  LoadData(int index)
     {
         DataStorage.StacksInitialize();
 
-        Load(name); //load data
+        Load(index); //load data
         
         // if (loadTargetNames.Count!=0&&loadTarget)  //load target points with highlighted color
         //     DataMemory.LoadFlagsToStack(loadTargetNames);
@@ -76,19 +78,37 @@ public class RunTimeController : MonoBehaviour
 
 
 
-    public void Load(string name)
+    public void Load(int index)
     {
-        if (dataset_generator.Contains(name)) 
+        string dataPath = Application.dataPath+ "/PointCloud-Visualization-Tool/data/data";
+        int n = index*2; //exclude .meta file
+
+        try
         {
-            DataStorage.LoadVec3s(DataGenerator.Generate(name), name);    
+            string[] files = Directory.GetFiles(dataPath).ToArray();
+
+            if (n >= 0 && n < files.Length)
+            {
+                string nthFileName = Path.GetFileNameWithoutExtension(files[n]); 
+                string nthFileExtention = Path.GetExtension(files[n]);
+                if (nthFileExtention == ".bin")
+                {
+                    DataStorage.LoadByte(nthFileName+nthFileExtention);
+                }
+                else if (nthFileExtention == ".ply")
+                {
+                    DataStorage.LoadPly(nthFileName+nthFileExtention);    
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("exceed index. Total {0} files.", files.Length);
+            }
         }
-        else if(dataset_ply.Contains(name))
-        {        
-            DataStorage.LoadPly(name);    
-        }
-        else
+        catch (Exception e)
         {
-            DataStorage.LoadByte(name);
+            Console.WriteLine("error: " + e.Message);
         }
     }
     

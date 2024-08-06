@@ -1,0 +1,25 @@
+public enum Dataset
+{
+    ball_hemisphere,
+    disk,
+    dragon_vrip,
+    fiveellipsold,
+    Flocculentcube1,
+    Flocculentcube2,
+    Flocculentcube3,
+    galaxy,
+    multiEllipsolds,
+    nbody1,
+    nbody2,
+    snap_C02_200_127_animation,
+    stringf,
+    stringf1,
+    strings,
+    three_rings,
+    training_cylinder,
+    training_pyramid,
+    training_sphere,
+    training_torus,
+    uniform_Lines,
+    ununiform_Lines
+}
