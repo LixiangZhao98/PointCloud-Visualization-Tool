@@ -1,20 +1,19 @@
 PointCloud-Visualization-Tool
 ======
 
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/teaser.png "Image")
-Kernel density estimation algrithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
-Based on the density field, the repo support to reconstruct the 3D geometric shape by Marching Cube algorithm and implement color encoding.
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png "Image")
+Kernel density estimation algorithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
 Any pull requests and issues are welcome. If you have any questions about the project or the data, please feel free to email me (Lixiang.Zhao17@student.xjtlu.edu.cn).
 
 ### Projects built based on this repo
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 # Features
-- pointcloud data reader in .bin(xyz coordinates in binary format) and .ply
+- pointcloud reader in .bin(xyz coordinates in binary format) and .ply format
 - Kernal Density Estimation (KDE) of the point cloud density on GPU
-- Iso-surface construction with Marching-Cube algrithm based on point cloud density
+- Iso-surface construction with Marching-Cube algrithm
 - Color-coded based on point cloud density
-- Halo Visualization for point cloud
+- Halo Visualization for pointcloud data
 
 # Install the project and Play the demos
 
@@ -23,115 +22,206 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 - Clone the repo with git lfs installed or download the archive [https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") and open the project using Unity (versions equal to/higher than 2019 have been tested). Please refer to sec.6 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you don't know how to open an existing project.
 
 
-## Demo1: Read data, visualize data, calculate density field
-- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
-- To switch datasets, click the gameobject `script/RunTime` in Hierarchy and change `datasets` in the inspector window. 
-- To enable the density calculation, click the gameobject `script/RunTime` in Hierarchy and set `CalculateDensity` as true in the inspector window before running the game. 
-- To generate iso-surface and change threshold, click the gameobject `script/MCGPUCSHelper` in Hierarchy and adjust `MCGPUThreshold` in the inspector window. Then you can see the iso-surface enclosing the region with density higher than `MCGPUThreshold` just as follows.
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/marchingcube.png "Image")
+## Demo1: Read and visualize data
+- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
+- To switch the dataset, click the corresponding gameobject in hierarchy and change variable `datasets` in the inspector window. 
 
-## Demo2: Color mapping
-- Color mapping based on density from low (blue) to high (red)
-- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/ColorMapping.unity`
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/FieldColor.png "Image")
+
+## Demo2: Kernel Density Estimation
+- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/KernelDensityEstimation.unity`
+- The density estimation results are shown by iso-surface reconstruction (MarchingCube) and color encoding from blue (low density) to red (high density).
+- To change MarchingCube threshold, unfold the corresponding gameobject in hierarchy, click `MarchingCube` and adjust the variable `MC Threshold` in the inspector window.
+- ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/KDE.png "Image")
 
 ## Demo3: Halo visualization
-- Replication of Halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
-- Demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity` 
-- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/)
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/halos.png "Image")
+- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`
+- This is a replication of halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png "Image")
 
+# How to integrate into your project
+1. Place the folder `Asset/PointCloud-Visualization-Tool` in this repo to your Unity project `Asset` folder
+2. Drag the prefab `Assets\PointCloud-Visualization-Tool\Prefab\PointCloud.prefab` into your scene.
 
-# Scripting
+# Data
+- The repo supports to read .bin, .csv and .ply data files.
+- To add your data, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data` and project identifies and updates the file automatically in runtime.
+- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/). The .bin files can be downloaded from the repo (TODO)
+- If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
 
-The following are all in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.
-  
-## Load data from binary files
-- Add `RenderDataRunTime` to an empty GameObject (you can name it whatever you like, here we call it "Runtime").
-- Create a new script (you can name it whatever you like, here we call it `MyPointCloud.cs`) and add it to GameObject "Runtime".
-- In `MyPointCloud.cs`, We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.
-```c#
-public Material particleMat;  // the material of the points
-public GameObject visCenter; //The visualization will always follow this GameObject when starting the game. 
-``` 
-- To load data from binary files, we can simply call `DataMemory.LoadDataByByte(fileName)`. An example code is as follows:
-```c#
-public class MyPointCloud : MonoBehaviour
-{
-    public Material particleMat;  // the material of the points
-    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. 
-    void Start()
-    {
-        DataStorage.StacksInitialize();  //Initialize
-        DataStorage.LoadByte("Flocculentcube2");  //load the data from the the binary file; the input is the name of the binary file
-        RenderDataRunTime.visSize = 1f;  //the size of the visualization
-        RenderDataRunTime.Init(visCenter, particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
-    }
-}
-```
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadBinary.png "Image")
-- The data files stores x,y,z coordinates in binary format located in `Asset/PointCloud-Visualization-Tool/data/data` folder. To use them, you need to convert the binary sequence to single-precision floating-point (32bits) sequence. Then, the 1st, 2nd, and 3rd floats are the x,y, and z coordinates for the first point. The 4th, 5th and 6th floats are the x,y, and z coordinates for the second point...  Here is a full list of the [Point Cloud Dataset](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data"). Some are not in this repo. If you need them, please feel free to email me.
+[//]: # (# Scripting)
 
-## Load data by point positions
-- To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s(vector3Array,name)`. An example to generate a group of points in a cubic range is as follows:
-```c#
-public class MyPointCloud : MonoBehaviour
-{
-    public Material particleMat;  // the material of the points
-    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. 
-    void Start()
-    {
-        Vector3[] v = Generate_Cube();  // Generate random points in Cubic shape
-        DataStorage.StacksInitialize();//Initialize
-        DataStorage.LoadVec3s(v, "cube");  // the first input is Vector[], the second is the name of the data (you can name it as you like)
-        RenderDataRunTime.visSize = 1f;  //the size of the visualization
-        RenderDataRunTime.Init(visCenter,particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
-    }
-    public Vector3[] Generate_Cube()  // Generate random points in Cubic shape
-    {
-        Random.InitState(2);
-        int num = 100000;
-        int i = 0;
-        Vector3[] v = new Vector3[num];
-        while (i < num)
-        {
-            v[i] = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
-            i++;
-        }
-        return v;
-    }
-}
-```
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadVec3s.png "Image")
+[//]: # ()
+[//]: # (The following are all in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.)
 
-## Load data from ply files
+[//]: # (  )
+[//]: # (## Load data from binary files)
 
-```c#
-public class MyPointCloud : MonoBehaviour
-{
-    public Material particleMat;  // the material of the points
-    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. 
-    void Start()
-    {
-        DataStorage.StacksInitialize();  //Initialize
-        DataStorage.LoadPly("dragon_vrip");  //load the data from the the ply file; the input is the name of the binary file
-        RenderDataRunTime.visSize = 1f;
-        RenderDataRunTime.Init(visCenter, particleMat);  // Assign materials and center to the RenderDataRunTime.cs`
-    }
-}
-```
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadPly.png "Image")
-### Traversal of points
-To get information of each point, such as the position. We can simply do as following:
-```c#
-void Start()
-{
-for(int i=0;i<DataMemory.allParticle.GetParticlenum();i++)
-{
-    Debug.Log(DataMemory.allParticle.GetParticlePosition(i));
-}
-}
-```
+[//]: # (- Add `RenderDataRunTime` to an empty GameObject &#40;you can name it whatever you like, here we call it "Runtime"&#41;.)
+
+[//]: # (- Create a new script &#40;you can name it whatever you like, here we call it `MyPointCloud.cs`&#41; and add it to GameObject "Runtime".)
+
+[//]: # (- In `MyPointCloud.cs`, We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.)
+
+[//]: # (```c#)
+
+[//]: # (public Material particleMat;  // the material of the points)
+
+[//]: # (public GameObject visCenter; //The visualization will always follow this GameObject when starting the game. )
+
+[//]: # (``` )
+
+[//]: # (- To load data from binary files, we can simply call `DataMemory.LoadDataByByte&#40;fileName&#41;`. An example code is as follows:)
+
+[//]: # (```c#)
+
+[//]: # (public class MyPointCloud : MonoBehaviour)
+
+[//]: # ({)
+
+[//]: # (    public Material particleMat;  // the material of the points)
+
+[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
+
+[//]: # (    void Start&#40;&#41;)
+
+[//]: # (    {)
+
+[//]: # (        DataStorage.StacksInitialize&#40;&#41;;  //Initialize)
+
+[//]: # (        DataStorage.LoadByte&#40;"Flocculentcube2"&#41;;  //load the data from the the binary file; the input is the name of the binary file)
+
+[//]: # (        RenderDataRunTime.visSize = 1f;  //the size of the visualization)
+
+[//]: # (        RenderDataRunTime.Init&#40;visCenter, particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadBinary.png "Image"&#41;)
+
+[//]: # (- The data files stores x,y,z coordinates in binary format located in `Asset/PointCloud-Visualization-Tool/data/data` folder. To use them, you need to convert the binary sequence to single-precision floating-point &#40;32bits&#41; sequence. Then, the 1st, 2nd, and 3rd floats are the x,y, and z coordinates for the first point. The 4th, 5th and 6th floats are the x,y, and z coordinates for the second point...  Here is a full list of the [Point Cloud Dataset]&#40;https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data"&#41;. Some are not in this repo. If you need them, please feel free to email me.)
+
+[//]: # ()
+[//]: # (## Load data by point positions)
+
+[//]: # (- To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s&#40;vector3Array,name&#41;`. An example to generate a group of points in a cubic range is as follows:)
+
+[//]: # (```c#)
+
+[//]: # (public class MyPointCloud : MonoBehaviour)
+
+[//]: # ({)
+
+[//]: # (    public Material particleMat;  // the material of the points)
+
+[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
+
+[//]: # (    void Start&#40;&#41;)
+
+[//]: # (    {)
+
+[//]: # (        Vector3[] v = Generate_Cube&#40;&#41;;  // Generate random points in Cubic shape)
+
+[//]: # (        DataStorage.StacksInitialize&#40;&#41;;//Initialize)
+
+[//]: # (        DataStorage.LoadVec3s&#40;v, "cube"&#41;;  // the first input is Vector[], the second is the name of the data &#40;you can name it as you like&#41;)
+
+[//]: # (        RenderDataRunTime.visSize = 1f;  //the size of the visualization)
+
+[//]: # (        RenderDataRunTime.Init&#40;visCenter,particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
+
+[//]: # (    })
+
+[//]: # (    public Vector3[] Generate_Cube&#40;&#41;  // Generate random points in Cubic shape)
+
+[//]: # (    {)
+
+[//]: # (        Random.InitState&#40;2&#41;;)
+
+[//]: # (        int num = 100000;)
+
+[//]: # (        int i = 0;)
+
+[//]: # (        Vector3[] v = new Vector3[num];)
+
+[//]: # (        while &#40;i < num&#41;)
+
+[//]: # (        {)
+
+[//]: # (            v[i] = new Vector3&#40;Random.Range&#40;-1.0f, 1.0f&#41;, Random.Range&#40;-1.0f, 1.0f&#41;, Random.Range&#40;-1.0f, 1.0f&#41;&#41;;)
+
+[//]: # (            i++;)
+
+[//]: # (        })
+
+[//]: # (        return v;)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadVec3s.png "Image"&#41;)
+
+[//]: # ()
+[//]: # (## Load data from ply files)
+
+[//]: # ()
+[//]: # (```c#)
+
+[//]: # (public class MyPointCloud : MonoBehaviour)
+
+[//]: # ({)
+
+[//]: # (    public Material particleMat;  // the material of the points)
+
+[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
+
+[//]: # (    void Start&#40;&#41;)
+
+[//]: # (    {)
+
+[//]: # (        DataStorage.StacksInitialize&#40;&#41;;  //Initialize)
+
+[//]: # (        DataStorage.LoadPly&#40;"dragon_vrip"&#41;;  //load the data from the the ply file; the input is the name of the binary file)
+
+[//]: # (        RenderDataRunTime.visSize = 1f;)
+
+[//]: # (        RenderDataRunTime.Init&#40;visCenter, particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
+
+[//]: # (    })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadPly.png "Image"&#41;)
+
+[//]: # (### Traversal of points)
+
+[//]: # (To get information of each point, such as the position. We can simply do as following:)
+
+[//]: # (```c#)
+
+[//]: # (void Start&#40;&#41;)
+
+[//]: # ({)
+
+[//]: # (for&#40;int i=0;i<DataMemory.allParticle.GetParticlenum&#40;&#41;;i++&#41;)
+
+[//]: # ({)
+
+[//]: # (    Debug.Log&#40;DataMemory.allParticle.GetParticlePosition&#40;i&#41;&#41;;)
+
+[//]: # (})
+
+[//]: # (})
+
+[//]: # (```)
 
 # Thanks
 Many thanks to the authors of open-source repository:

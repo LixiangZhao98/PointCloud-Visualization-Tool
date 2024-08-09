@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class ColorMappingHelper : MonoBehaviour
 {
-
+    private ParticleGroup pG;
     public void ColorMappingHelperInit()
     {
-        Vector3[] lp = new Vector3[DataStorage.particles.GetParticlenum()];
-        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
+        pG = transform.parent.GetComponentInChildren<DataLoader>().particles;
+        Vector3[] lp = new Vector3[pG.GetParticlenum()];
+        for (int i = 0; i < pG.GetParticlenum(); i++)
         {
-            lp[i] = new Vector3((float)(DataStorage.particles.GetParticleDensity(i) - DataStorage.particles.MINDEN) / (DataStorage.particles.MAXDEN - DataStorage.particles.MINDEN), 0f, 0f);
+            lp[i] = new Vector3((float)(pG.GetParticleDensity(i) -pG.MINPARDEN) / (pG.MAXPARDEN - pG.MINPARDEN), 0f, 0f);
         }
-        RenderDataRunTime.SetUnselectedUV1(lp);
+        this.transform.parent.GetComponentInChildren<PointRenderer>().SetUnselectedUV1(lp);
     }
 
 

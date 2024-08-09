@@ -1,5 +1,6 @@
 public enum Dataset
 {
+    Armadillo,
     ball_hemisphere,
     disk,
     dragon_vrip,

@@ -75,14 +75,11 @@ Shader "Custom/MCmesh"{
 			fixed4 _Color;
 			 fixed _Cutoff;
 	    float4x4 _LocalToWorld;
-        float4x4 _WorldToLocal;
-        float _CustomRadius;
 			//buffers
 		  StructuredBuffer<Triangle> triangleRW;
                 float4 vert(uint vertex_id: SV_VertexID, uint instance_id: SV_InstanceID) : SV_POSITION{
                     float3 position = triangleRW[vertex_id/3].v[vertex_id%3].vPosition;
 		            unity_ObjectToWorld = _LocalToWorld;
-            unity_WorldToObject = _WorldToLocal;
 					   return mul(UNITY_MATRIX_VP,  mul(unity_ObjectToWorld, float4(position, 1)));
 			}
           

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-
-    public class MarchingCubeGPUCSHelper : MonoBehaviour
+public class MarchingCubeGPUCSHelper : MonoBehaviour
     {
-        public float MCGPUThreshold;
-        public ComputeShader MarchingCubesCS;
-        public Material meshMaterial;
-        public GameObject origin;
-        public Texture3D DensityTexture { get; set; }
-        public Texture3D PosTexture { get; set; }
-        public Texture3D McFlagTexture { get; set; }
+        public float McThreshold;
+        public ComputeShader marchingCubesCS;
+        private ComputeShader marchingCubesCSInstance;
+        private Transform origin;
+        private Texture3D DensityTexture { get; set; }
+        private Texture3D PosTexture { get; set; }
+        private Texture3D McFlagTexture { get; set; }
+        private Material meshMaterial;
+        private PointRenderer pR;
         Color[] colors_den;
         Color[] colors_pos;
         Color[] colors_McFlag;
@@ -25,29 +25,24 @@ using UnityEngine;
         int[] args;
         Bounds bounds;
 
+
         public void MarchingCubeGpuCsHelperInit()
         {
-            if(transform.parent.GetComponentInChildren<RunTimeController>().calDen)  
-            {
-                this.enabled=true;
-                this.LoadBuffer();
-            }
-            else
-            {
-                this.enabled = false;
-            }
-        }
-        public void LoadBuffer()
-        {
-            kernelMC = MarchingCubesCS.FindKernel("MarchingCubes");
-            ResolutionX = DataStorage.densityField.XNUM;
-            ResolutionY = DataStorage.densityField.YNUM;
-            ResolutionZ = DataStorage.densityField.ZNUM;
+            origin = transform.parent;
+            DensityField dF = transform.parent.GetComponentInChildren<GPUKDECsHelper>().densityField;
+            pR = transform.parent.GetComponentInChildren<PointRenderer>();
+            marchingCubesCSInstance =  Instantiate(marchingCubesCS);
+            
+            meshMaterial = new Material(Shader.Find("Custom/MCmesh"));
+            kernelMC = marchingCubesCSInstance.FindKernel("MarchingCubes");
+            ResolutionX = dF.XNUM;
+            ResolutionY = dF.YNUM;
+            ResolutionZ = dF.ZNUM;
 
-            SetDensityTexture(DataStorage.densityField);
-            SetPosTexture(DataStorage.densityField);
+            SetDensityTexture(dF);
+            SetPosTexture(dF);
             List<int> denList = new List<int>();
-            for (int i = 0; i < DataStorage.densityField.GetNodeNum(); i++)
+            for (int i = 0; i < dF.GetNodeNum(); i++)
                 denList.Add(i);
             SetMCFlagTexture(denList);
 
@@ -55,23 +50,24 @@ using UnityEngine;
           
 
             argBuffer = new ComputeBuffer(4, sizeof(int), ComputeBufferType.IndirectArguments);
+            
             meshMaterial.SetPass(0);
             meshMaterial.SetBuffer("triangleRW", appendVertexBuffer);
-            MarchingCubesCS.SetBuffer(kernelMC, "triangleRW", appendVertexBuffer);
-            MarchingCubesCS.SetInt("_gridSize", ResolutionX);
-            SetMCGPUThreshold(0f);
+            
+            marchingCubesCSInstance.SetBuffer(kernelMC, "triangleRW", appendVertexBuffer);
+            marchingCubesCSInstance.SetInt("_gridSize", ResolutionX);
             bounds = new Bounds(Vector3.zero, Vector3.one * 100000);
         }
 
         private void Update()
         {
 
-            MarchingCubesCS.SetFloat("_isoLevel", MCGPUThreshold);
+            marchingCubesCSInstance.SetFloat("_isoLevel", McThreshold);
 
             appendVertexBuffer.SetCounterValue(0);
      
 
-            MarchingCubesCS.Dispatch(kernelMC, ResolutionX / 8, ResolutionY / 8, ResolutionZ / 8);
+            marchingCubesCSInstance.Dispatch(kernelMC, ResolutionX / 8, ResolutionY / 8, ResolutionZ / 8);
            
             args = new int[] { 0, 1, 0, 0 };
             argBuffer.SetData(args);
@@ -81,9 +77,7 @@ using UnityEngine;
 
             argBuffer.GetData(args);
            
-            
-            meshMaterial.SetMatrix("_LocalToWorld", origin.transform.localToWorldMatrix);
-            meshMaterial.SetMatrix("_WorldToLocal", origin. transform.worldToLocalMatrix);
+            meshMaterial.SetMatrix("_LocalToWorld", Matrix4x4.TRS(origin.transform.position, origin.transform.rotation, new Vector3(pR.xRatio,pR.yRatio,pR.zRatio)));
             Graphics.DrawProcedural(meshMaterial, bounds, MeshTopology.Triangles, args[0]*3, 1);
            
 
@@ -117,7 +111,7 @@ using UnityEngine;
 
         public void SetMCGPUThreshold(float f)
         {
-            MCGPUThreshold = f;
+            McThreshold = f;
         }
 
         public void SetDensityTexture(DensityField dF)
@@ -142,7 +136,7 @@ using UnityEngine;
             }
             DensityTexture.SetPixels(colors_den);
             DensityTexture.Apply();
-            MarchingCubesCS.SetTexture(kernelMC, "_densityTexture", DensityTexture);
+            marchingCubesCSInstance.SetTexture(kernelMC, "_densityTexture", DensityTexture);
 
         }
 
@@ -169,7 +163,7 @@ using UnityEngine;
             }
             PosTexture.SetPixels(colors_pos);
             PosTexture.Apply();
-            MarchingCubesCS.SetTexture(kernelMC, "_posTexture", PosTexture);
+            marchingCubesCSInstance.SetTexture(kernelMC, "_posTexture", PosTexture);
 
         }
         public void SetMCFlagTexture(List<int> list)
@@ -185,7 +179,7 @@ using UnityEngine;
             }
             McFlagTexture.SetPixels(colors_McFlag);
             McFlagTexture.Apply();
-            MarchingCubesCS.SetTexture(kernelMC, "_mcFlagTexture", McFlagTexture);
+            marchingCubesCSInstance.SetTexture(kernelMC, "_mcFlagTexture", McFlagTexture);
         }
 
     }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
-
-
-    [System.Serializable]
+[System.Serializable]
     public class ParticleGroup
     {
         #region variables
@@ -19,10 +18,9 @@ using UnityEngine;
         private float xmin, ymin, zmin;
         [SerializeField]
         private float xmax, ymax, zmax;
-                        [SerializeField]
-        private float maxDen;
-                [SerializeField]
-        private float minDen;
+        private float maxParDen;
+        private float minParDen;
+        private float aveParDen;
         [SerializeField]
         Vector3 smoothLength;
         public float XMIN { get { return xmin; } set { xmin = value; } }
@@ -32,8 +30,9 @@ using UnityEngine;
         public float ZMIN { get { return zmin; } set { zmin = value; } }
         public float ZMAX { get { return zmax; } set { zmax = value; } }
 
-        public float MAXDEN { get { return maxDen; } set { maxDen = value; } }
-        public float MINDEN { get { return minDen; } set { minDen = value; } }
+        public float MAXPARDEN { get { return maxParDen; } set { maxParDen = value; } }
+        public float MINPARDEN { get { return minParDen; } set { minParDen = value; } }
+        public float AVEPARDEN { get { return aveParDen; } set { aveParDen = value; } }
         #endregion
         #region Get Property
         public Vector3 GetMinParPos()
@@ -80,10 +79,7 @@ using UnityEngine;
         {
             return this.particleGroup[i].GetPosition();
         }
-        public Vector3 GetParticleWorldPos(int i,Transform origin )
-        {
-            return origin.transform.TransformPoint(particleGroup[i].GetPosition());
-        }
+
         #endregion
         #region Set Property /Add
 
@@ -232,7 +228,7 @@ using UnityEngine;
                 }
             }
 
-                        Vector3[] vs = DataPosPreProcessing(pointList.ToArray());
+            Vector3[] vs = DataPosPreProcessing(pointList.ToArray());
             particleGroup = new List<Particle>();
             this.name = dataname;
             for (int i=0;i<vs.Length;i++)
@@ -240,6 +236,9 @@ using UnityEngine;
                 Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
+            
+            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+
         }
 
          private string ReadLine(BinaryReader br)
@@ -273,7 +272,8 @@ using UnityEngine;
                 Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
-         
+            Debug.Log("Load success" + " " + dataname + " with " +GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength().x + " " + GetSmoothLength().y + " " + GetSmoothLength().z);
+
         }
         public void LoadVec3s(Vector3[] v, string dataname,bool forSimulation=false)
         {
@@ -286,6 +286,8 @@ using UnityEngine;
                 Particle p = new Particle(v[i]);
                 this.AddParticle(p);
             }
+            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+
         }
         public void LoadCsv(string path,string dataname)
         {
@@ -298,6 +300,8 @@ using UnityEngine;
                 Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
+            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+
         }
        public Vector3[]  DataPosPreProcessing( Vector3[] vs)   //put the data near the origin if the data is far
         {
@@ -393,59 +397,59 @@ using UnityEngine;
         }
     }
 
-    public void SaveSelectedAsNewData(string name)
-    {
-        List<int> flagtrue = DataStorage.GetpStack().ToList();
-
-
-        if (flagtrue.Count == 0)
-            Debug.Log("No marked particles");
-        else
-        {
-            List<Vector3> dataPos = new List<Vector3>();
-            foreach (var d in flagtrue)
-            {
-                dataPos.Add(DataStorage.particles.GetParticleObjectPos(d));
-            }
-            SaveData.Vec3sToFile(name, dataPos.ToArray());
-        }
-    }
-
-    public void SaveTargetAsNewData(string name)
-    {
-        List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
-        {
-            if (DataStorage.particles.GetTarget(i))
-                dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
-        }
-
-        if (dataPos.Count == 0)
-            Debug.Log("No Target particles");
-        else
-
-            SaveData.Vec3sToFile(name, dataPos.ToArray());
-
-
-    }
-
-
-    public void SaveDataAsNewData(string name)
-    {
-        List<Vector3> dataPos = new List<Vector3>();
-        for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
-        {
-            dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
-        }
-
-        if (dataPos.Count == 0)
-            Debug.Log("No Target particles");
-        else
-
-            SaveData.Vec3sToFile(name, dataPos.ToArray());
-
-
-    }
+    // public void SaveSelectedAsNewData(string name)
+    // {
+    //     List<int> flagtrue = DataStorage.GetpStack().ToList();
+    //
+    //
+    //     if (flagtrue.Count == 0)
+    //         Debug.Log("No marked particles");
+    //     else
+    //     {
+    //         List<Vector3> dataPos = new List<Vector3>();
+    //         foreach (var d in flagtrue)
+    //         {
+    //             dataPos.Add(DataStorage.particles.GetParticleObjectPos(d));
+    //         }
+    //         SaveData.Vec3sToFile(name, dataPos.ToArray());
+    //     }
+    // }
+    //
+    // public void SaveTargetAsNewData(string name)
+    // {
+    //     List<Vector3> dataPos = new List<Vector3>();
+    //     for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
+    //     {
+    //         if (DataStorage.particles.GetTarget(i))
+    //             dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
+    //     }
+    //
+    //     if (dataPos.Count == 0)
+    //         Debug.Log("No Target particles");
+    //     else
+    //
+    //         SaveData.Vec3sToFile(name, dataPos.ToArray());
+    //
+    //
+    // }
+    //
+    //
+    // public void SaveDataAsNewData(string name)
+    // {
+    //     List<Vector3> dataPos = new List<Vector3>();
+    //     for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
+    //     {
+    //         dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
+    //     }
+    //
+    //     if (dataPos.Count == 0)
+    //         Debug.Log("No Target particles");
+    //     else
+    //
+    //         SaveData.Vec3sToFile(name, dataPos.ToArray());
+    //
+    //
+    // }
 
 
 
