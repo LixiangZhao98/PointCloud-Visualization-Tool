@@ -9,7 +9,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 # Features
-- pointcloud reader in .bin(xyz coordinates in binary format) and .ply format
+- pointcloud reader in .bin (single-precision floating-point in binary format) and .ply format
 - Kernal Density Estimation (KDE) of the point cloud density on GPU
 - Iso-surface construction with Marching-Cube algrithm
 - Color-coded based on point cloud density
@@ -25,7 +25,8 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 ## Demo1: Read and visualize data
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
 - To switch the dataset, click the corresponding gameobject in hierarchy and change variable `datasets` in the inspector window. 
-
+- Enable `Use_Function_Defined_Yourself` to use the function defined by yourself to generate the data.
+- To add new data files or write your generation functions, please refer to Data section in the following.
 
 ## Demo2: Kernel Density Estimation
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/KernelDensityEstimation.unity`
@@ -43,10 +44,10 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 2. Drag the prefab `Assets\PointCloud-Visualization-Tool\Prefab\PointCloud.prefab` into your scene.
 
 # Data
-- The repo supports to read .bin, .csv and .ply data files.
-- To add your data, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data` and project identifies and updates the file automatically in runtime.
-- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/](https://graphics.stanford.edu/data/3Dscanrep/). The .bin files can be downloaded from the repo (TODO)
-- If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
+- The repo supports to read .bin and .ply data files. Refer to (TODO) for more data. If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
+- To add data files, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data` and project identifies and updates the file automatically in runtime.
+- Write your own function to generate the dataset with an output of `Vector3[]` in `Assets\PointCloud-Visualization-Tool\script\dataprocessing\DataGenerator.cs`. Your new function will appear in inspector automatically. Be sure to enable `Use_Function_Defined_Yourself` checkbox to select your function in runtime.
+- [//]: # (- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/]&#40;https://graphics.stanford.edu/data/3Dscanrep/&#41;. The .bin files can be downloaded from the repo &#40;TODO&#41;)
 
 [//]: # (# Scripting)
 
