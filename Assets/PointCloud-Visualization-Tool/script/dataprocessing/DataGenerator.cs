@@ -1,28 +1,9 @@
 using UnityEngine;
 
+
 public class DataGenerator
 {
-    public enum NumParticles
-    {
-        NUM_1K = 1024,
-        NUM_2K = 1024 * 2,
-        NUM_4K = 1024 * 4,
-        NUM_8K = 1024 * 8,
-        NUM_16K = 1024 * 16,
-        NUM_32K = 1024 * 32,
-        NUM_64K = 1024 * 64,
-        NUM_128K = 1024 * 128,
-        NUM_256K = 1024 * 256,
-        NUM_512K = 1024 * 512
-    }
-    static public Vector3[] Generate(string name)
-    {
-        if(name == "random_sphere")
-        return Generate_Random_sphere();
-
-        return null;
-    }
-    static public Vector3[] Generate_Random_sphere()
+    public Vector3[] Random_Sphere()
     {
         float positionScale = 16f;
         Random.InitState(2);
@@ -41,5 +22,32 @@ public class DataGenerator
         return v;
     }
 
+    public Vector3[] Random_Cube()  // Generate random points in Cubic shape
 
+    {
+
+        Random.InitState(2);
+
+        int num = 100000;
+
+        int i = 0;
+
+        Vector3[] v = new Vector3[num];
+
+        while (i < num)
+
+        {
+
+            v[i] = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+
+            i++;
+
+        }
+
+        return v;
+
+    }
 }
+
+
+

@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 
 [InitializeOnLoad]
-public static class EnumUpdater
+public static class DatasetEnumUpdater
 {
     private static string enumName = "Dataset";
     private static string dataPath = Application.dataPath+ "/PointCloud-Visualization-Tool/data/data";
     private static string enumFilePath = Application.dataPath+ "/PointCloud-Visualization-Tool/script/dataprocessing/"+enumName+".cs";
 
-    static EnumUpdater()
+    static DatasetEnumUpdater()
     {
         EditorApplication.update += UpdateEnum;
     }
@@ -50,7 +50,7 @@ public static class EnumUpdater
     private static string GenerateEnumContent(System.Collections.Generic.List<string> values)
     {
         var enumContent = "public enum " + enumName + "\n{\n";
-        enumContent += string.Join(",\n", values.Select(v => "    " + v.Replace(".", "___")));
+        enumContent += string.Join(",\n", values.Select(v => "    " + v.Replace(".", "_")));
         enumContent += "\n}\n";
         return enumContent;
     }

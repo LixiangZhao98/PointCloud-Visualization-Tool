@@ -6,10 +6,10 @@ using UnityEngine;
 {
 
 
-    static public void GenerateMeshFromPg( Mesh m_unsel, Mesh m_sel,Mesh[] m_targets, ParticleGroup pG, bool loadflagFormStack=true)
+    static public void GenerateMeshFromPg( Mesh m_unsel, Mesh m_sel,Mesh[] m_targets, ParticleGroup pG, bool loadflagFormStack=false)
     {
-        // if(loadflagFormStack)
-        // LoadFlagFromStack(pG);
+        if(loadflagFormStack)
+        LoadFlagFromStack(pG);
         List<Vector3> unselected = new List<Vector3>();
         List<Vector3> selected = new List<Vector3>();
         List<List<Vector3>> targets = new List<List<Vector3>>();

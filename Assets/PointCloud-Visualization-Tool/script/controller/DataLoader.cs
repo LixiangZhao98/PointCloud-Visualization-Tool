@@ -3,17 +3,21 @@ using UnityEngine.Events;
 using System.IO;
 using System;
 using System.Linq;
+using System.Reflection;
 public class DataLoader : MonoBehaviour
 {
     [HideInInspector] public ParticleGroup particles;
     public UnityEvent eventAfterLoadData;
     private String dataPath = Application.dataPath + "/PointCloud-Visualization-Tool/data/data/";
     
-    public void  LoadData(int index)
+    public void  LoadData(int datasetIndex,int customIndex, bool custom)
     {
         // DataStorage.StacksInitialize();
         
-        Load(index); //load data
+        if (!custom)
+            LoadDataset(datasetIndex); //load data file
+        else
+            LoadCustomGenerator(customIndex); //load data by function
         
         // if (loadTargetNames.Count!=0&&loadTarget)  //load target points with highlighted color
         //     DataMemory.LoadFlagsToStack(loadTargetNames);
@@ -24,10 +28,9 @@ public class DataLoader : MonoBehaviour
 
     }
 
-    public void Load(int index)
+    public void LoadDataset(int index)
     {
         int n = index*2; //exclude .meta file
-        particles = new ParticleGroup();
         try
         {
             string[] files = Directory.GetFiles(dataPath).ToArray();
@@ -48,6 +51,7 @@ public class DataLoader : MonoBehaviour
                 {
                     particles.LoadCsv(dataPath,nthFileName);    
                 }
+                this.transform.parent. gameObject.name=nthFileName; 
                 this.transform.parent. GetComponentInChildren<PointRenderer>().Init(); // set rendering parameters
             }
             else
@@ -59,5 +63,25 @@ public class DataLoader : MonoBehaviour
         {
             Console.WriteLine("error: " + e.Message);
         }
+    }
+    public void LoadCustomGenerator(int index)
+    {
+        try
+        {
+            MethodInfo[] mi= typeof(DataGenerator).GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
+            particles.LoadVec3s((Vector3[])mi[index].Invoke(new DataGenerator(),null),mi[index].Name);
+            this.transform.parent. gameObject.name="Custom_"+mi[index].Name; 
+            this.transform.parent. GetComponentInChildren<PointRenderer>().Init(); // set rendering parameters
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Destroy(this);
     }
 }

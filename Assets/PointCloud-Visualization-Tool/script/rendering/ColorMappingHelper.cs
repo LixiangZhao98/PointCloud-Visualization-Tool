@@ -6,6 +6,7 @@ public class ColorMappingHelper : MonoBehaviour
     public void ColorMappingHelperInit()
     {
         pG = transform.parent.GetComponentInChildren<DataLoader>().particles;
+        transform.parent.name += "_Color";
         Vector3[] lp = new Vector3[pG.GetParticlenum()];
         for (int i = 0; i < pG.GetParticlenum(); i++)
         {

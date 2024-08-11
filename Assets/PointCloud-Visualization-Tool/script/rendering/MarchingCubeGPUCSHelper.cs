@@ -29,6 +29,7 @@ public class MarchingCubeGPUCSHelper : MonoBehaviour
         public void MarchingCubeGpuCsHelperInit()
         {
             origin = transform.parent;
+            origin.gameObject.name += "_MarchingCube";
             DensityField dF = transform.parent.GetComponentInChildren<GPUKDECsHelper>().densityField;
             pR = transform.parent.GetComponentInChildren<PointRenderer>();
             marchingCubesCSInstance =  Instantiate(marchingCubesCS);

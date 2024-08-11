@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -153,9 +154,10 @@ using UnityEngine.Serialization;
         {
             this. name=dataname;
           List<Vector3> pointList = new List<Vector3>();
-    
 
-                  string filePath = path + dataname+".ply";
+          try
+          {
+string filePath = path + dataname+".ply";
             if (!File.Exists(filePath))
             {
                 Debug.LogError("file does not exist: " + filePath);
@@ -170,9 +172,11 @@ using UnityEngine.Serialization;
                     bool isBinary = false;
 
                     // Read and parse the header
+                    int headerCount = 0;
                     while (true)
                     {
                         string line = ReadLine(br);
+                        headerCount++;
                         if (line.StartsWith("format"))
                         {
                             if (line.Contains("binary_big_endian 1.0"))
@@ -191,6 +195,8 @@ using UnityEngine.Serialization;
                         {
                             break;
                         }
+
+                        
                     }
 
                     if (isBinary)
@@ -211,10 +217,10 @@ using UnityEngine.Serialization;
                         using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.ASCII))
                         {
                             // Skip header lines
-                            for (int i = 0; i < vertexCount + 10; i++) // '+10' assumes the header is less than 10 lines
+                            for (int i = 0; i < vertexCount + headerCount; i++)
                             {
                                 string line = sr.ReadLine();
-                                if (i >= 10) // Start reading vertices after header
+                                if (i >= headerCount) // Start reading vertices after header
                                 {
                                     var tokens = line.Split(' ');
                                     float x = float.Parse(tokens[0]);
@@ -239,6 +245,12 @@ using UnityEngine.Serialization;
             
             Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
 
+          }
+          catch (Exception e)
+          {
+              Debug.Log(e);
+          }
+                  
         }
 
          private string ReadLine(BinaryReader br)

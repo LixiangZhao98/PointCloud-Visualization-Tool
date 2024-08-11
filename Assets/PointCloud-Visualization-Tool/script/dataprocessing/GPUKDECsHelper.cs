@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -35,7 +36,11 @@ public class GPUKDECsHelper:MonoBehaviour
         densityField.KDEGpu(pG,kdeInstance);
         eventAfterDensityEst?.Invoke(); //actions after data load
     }
-   
+
+    private void OnApplicationQuit()
+    {
+        Destroy(this);
+    }
 }
 
 

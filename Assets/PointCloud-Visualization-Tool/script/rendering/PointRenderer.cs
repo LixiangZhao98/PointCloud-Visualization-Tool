@@ -36,7 +36,7 @@ public class PointRenderer : MonoBehaviour
 
         GenerateMesh();
    }
-    private  void GenerateMesh(bool fromStarck=true)
+    private  void GenerateMesh(bool fromStarck=false)
     {
         if(unselected_mesh!=null)
             DestroyImmediate(unselected_mesh, true);
