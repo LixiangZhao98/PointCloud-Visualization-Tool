@@ -24,14 +24,14 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 
 ## Demo1: Read and visualize data
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
-- To switch the dataset, click the corresponding gameobject in hierarchy and change variable `datasets` in the inspector window. 
+- To switch the dataset, click the DataObject in hierarchy and change variable `datasets` in the inspector window. 
 - Enable `Use_Function_Defined_Yourself` to use the function defined by yourself to generate the data.
 - To add new data files or write your generation functions, please refer to Data section in the following.
 
 ## Demo2: Kernel Density Estimation
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/KernelDensityEstimation.unity`
 - The density estimation results are shown by iso-surface reconstruction (MarchingCube) and color encoding from blue (low density) to red (high density).
-- To change MarchingCube threshold, unfold the corresponding gameobject in hierarchy, click `MarchingCube` and adjust the variable `MC Threshold` in the inspector window.
+- To change MarchingCube threshold, unfold the DataObject in hierarchy, click `MarchingCube` and adjust the variable `MC Threshold` in the inspector window.
 - ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/KDE.png "Image")
 
 ## Demo3: Halo visualization
@@ -41,7 +41,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 
 # How to integrate into your project
 1. Place the folder `Asset/PointCloud-Visualization-Tool` in this repo to your Unity project `Asset` folder
-2. Drag the prefab `Assets\PointCloud-Visualization-Tool\Prefab\PointCloud.prefab` into your scene.
+2. Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
 
 # Data
 - The repo supports to read .bin and .ply data files. Refer to (TODO) for more data. If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
