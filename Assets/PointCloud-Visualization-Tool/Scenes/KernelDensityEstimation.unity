@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 63428035}
   - component: {fileID: 63428034}
   m_Layer: 0
-  m_Name: Nbody1MarchingCube
+  m_Name: DataObject2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 223957837}
   - component: {fileID: 223957836}
   m_Layer: 0
-  m_Name: EllipsiodsMarchingCube
+  m_Name: DataObject1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 649375474}
   - component: {fileID: 649375473}
   m_Layer: 0
-  m_Name: GalaxyColor
+  m_Name: DataObject3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1169,7 +1169,7 @@ GameObject:
   - component: {fileID: 1168196839}
   - component: {fileID: 1168196838}
   m_Layer: 0
-  m_Name: Dragon1MarchingCube
+  m_Name: DataObject6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1362,7 +1362,7 @@ GameObject:
   - component: {fileID: 1541196997}
   - component: {fileID: 1541196996}
   m_Layer: 0
-  m_Name: RingsColor
+  m_Name: DataObject5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1651,7 +1651,7 @@ GameObject:
   - component: {fileID: 1785663547}
   - component: {fileID: 1785663546}
   m_Layer: 0
-  m_Name: Flocculent2Color
+  m_Name: DataObject4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

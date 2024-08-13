@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 473705863}
   - component: {fileID: 473705862}
   m_Layer: 0
-  m_Name: Flocculent3
+  m_Name: DataObject2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 494326071}
   - component: {fileID: 494326070}
   m_Layer: 0
-  m_Name: Nbody2
+  m_Name: DataObject6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 664387274}
   - component: {fileID: 664387273}
   m_Layer: 0
-  m_Name: Multi-scale Nbody
+  m_Name: DataObject5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 950706191}
   - component: {fileID: 950706190}
   m_Layer: 0
-  m_Name: Nbody1
+  m_Name: DataObject1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 1137015552}
   - component: {fileID: 1137015551}
   m_Layer: 0
-  m_Name: Galaxy
+  m_Name: DataObject4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 1288432396}
   - component: {fileID: 1288432395}
   m_Layer: 0
-  m_Name: Flocculent1
+  m_Name: DataObject3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
