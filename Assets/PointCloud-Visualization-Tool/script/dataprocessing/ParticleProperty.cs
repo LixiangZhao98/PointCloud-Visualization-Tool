@@ -446,22 +446,22 @@ string filePath = path + dataname+".ply";
     // }
     //
     //
-    // public void SaveDataAsNewData(string name)
-    // {
-    //     List<Vector3> dataPos = new List<Vector3>();
-    //     for (int i = 0; i < DataStorage.particles.GetParticlenum(); i++)
-    //     {
-    //         dataPos.Add(DataStorage.particles.GetParticleObjectPos(i));
-    //     }
-    //
-    //     if (dataPos.Count == 0)
-    //         Debug.Log("No Target particles");
-    //     else
-    //
-    //         SaveData.Vec3sToFile(name, dataPos.ToArray());
-    //
-    //
-    // }
+    public void SaveAsNewData(string filename)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < this.GetParticlenum(); i++)
+        {
+            dataPos.Add(GetParticleObjectPos(i));
+        }
+    
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
+    
+            SaveData.Vec3sToFile(filename, dataPos.ToArray());
+    
+    
+    }
 
 
 

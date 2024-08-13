@@ -82,6 +82,12 @@ public class DataLoader : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Destroy(this);
+        Destroy(this); 
+    }
+    
+    // [ContextMenu("SaveAsNewData")]
+    public void SaveAsNewData(string location)
+    {
+        particles.SaveAsNewData(location);
     }
 }

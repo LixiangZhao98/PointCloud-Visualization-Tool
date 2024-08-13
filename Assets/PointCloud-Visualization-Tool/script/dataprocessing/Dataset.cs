@@ -2,6 +2,7 @@ public enum Dataset
 {
     Armadillo,
     ball_hemisphere,
+    bbb,
     disk,
     dragon_vrip,
     fiveellipsold,
@@ -12,6 +13,8 @@ public enum Dataset
     multiEllipsolds,
     nbody1,
     nbody2,
+    newdata,
+    newdatasamesize,
     snap_C02_200_127_animation,
     stringf,
     stringf1,
