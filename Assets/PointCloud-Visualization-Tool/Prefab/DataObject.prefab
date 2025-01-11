@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2255699958662339306}
   - component: {fileID: 6815277180106455964}
   m_Layer: 0
-  m_Name: PointCloud
+  m_Name: DataObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataset: 10
+  custom: 0
+  custom_LastFrame: 0
+  customGenerator: 0
+  customGenerator_LastFrame: 0
 --- !u!1 &8608398571587883306
 GameObject:
   m_ObjectHideFlags: 0

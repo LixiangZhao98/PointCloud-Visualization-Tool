@@ -8,7 +8,7 @@ public class DataLoader : MonoBehaviour
 {
     [HideInInspector] public ParticleGroup particles;
     public UnityEvent eventAfterLoadData;
-    private String dataPath = Application.dataPath + "/PointCloud-Visualization-Tool/data/data/";
+    private String dataPath;
     
     public void  LoadData(int datasetIndex,int customIndex, bool custom)
     {
@@ -30,6 +30,7 @@ public class DataLoader : MonoBehaviour
 
     public void LoadDataset(int index)
     {
+        dataPath =UnityEngine. Application.dataPath + "/PointCloud-Visualization-Tool/data/data/";
         int n = index*2; //exclude .meta file
         try
         {

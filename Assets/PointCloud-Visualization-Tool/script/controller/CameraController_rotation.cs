@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace UnityVolumeRendering
-{
+// namespace UnityVolumeRendering
+// {
     /// <summary>
     /// Camera controller for sample scene.
     /// </summary>
@@ -51,4 +51,4 @@ namespace UnityVolumeRendering
 
         }
     }
-}
+// }

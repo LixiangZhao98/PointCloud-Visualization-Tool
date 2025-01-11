@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class DataGenerator
 {
-    public Vector3[] Uniform_Sphere()
+    public Vector3[] Sphere3D()
     {
-        int numberOfPoints =  (int)NumParticles.NUM_16K;
+        int numberOfPoints =  (int)NumParticles.NUM_64K;
         float radius = 1.0f; 
         Vector3[] points = new Vector3[numberOfPoints];
 
@@ -27,10 +29,9 @@ public class DataGenerator
         return points;
     }
 
-    public Vector3[] Uniform_Cube()  // Generate random points in Cubic shape
-
+    public Vector3[] Cube3D() 
     {
-
+        
         Random.InitState(2);
 
         int num = 100000;
@@ -52,8 +53,38 @@ public class DataGenerator
         return v;
 
     }
+
+    public Vector3[] Triangle3D()
+    {
+        Vector3 p1 = new Vector3(-Random.Range(0f, 1.0f), -Random.Range(0f, 1.0f), 0f);
+        Vector3 p2 = new Vector3(Random.Range(0f, 1.0f), -Random.Range(0f, 1.0f), 0f);
+        Vector3 p3 = new Vector3(-Random.Range(0f, 1.0f), Random.Range(0f, 1.0f), 0f);
+        // Vector3 p1 = new Vector3(-1f, -1f, 0f);
+        // Vector3 p2 = new Vector3(1f, -1f, 0f);
+        // Vector3 p3 = new Vector3(-1f, 1f, 0f);
+    int numberOfPoints =  (int)NumParticles.NUM_16K;
+    Vector3[] points = new Vector3[numberOfPoints];
+
+
+        for (int i = 0; i < numberOfPoints; i++)
+        {
+            double r1 = Random.Range(0f, 1.0f);
+            double r2 = Random.Range(0f, 1.0f);
+
+            double sqrtR1 = Mathf.Sqrt((float)r1);
+            double b1 = 1 - sqrtR1;
+            double b2 = r2 * sqrtR1;
+            double b3 = 1 - b1 - b2;
+
+            float x = (float)(b1 * p1.x + b2 * p2.x + b3 * p3.x);
+            float y = (float)(b1 * p1.y + b2 * p2.y + b3 * p3.y);
+            points[i]=new Vector3(x,y,Random.Range(0f, 1.0f));
+        }
+        
+    return points;
+    }
     
-    public Vector3[] Three_Sphere()
+    public Vector3[] Three_Sphere_different_size()
     {
         int numberOfPoints =  (int)NumParticles.NUM_16K  *10;
         float radius = 1.0f; 
@@ -123,7 +154,7 @@ public class DataGenerator
         
         return points.ToArray();
     }
-    
+     
     public Vector3[] Three_Sphere_sameSize()
     {
         int numberOfPoints =  (int)NumParticles.NUM_16K  *10;

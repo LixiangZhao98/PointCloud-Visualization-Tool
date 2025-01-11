@@ -33,7 +33,7 @@ public class GPUKDECsHelper:MonoBehaviour
         densityField = new DensityField(); 
         pG = transform.parent.GetComponentInChildren<DataLoader>().particles;
         densityField.CreateFieldFromPg(pG,(int)gridNum,(int)gridNum,(int)gridNum);
-        densityField.KDEGpu(pG,kdeInstance);
+        densityField.KDE(pG,kdeInstance);
         eventAfterDensityEst?.Invoke(); //actions after data load
     }
 

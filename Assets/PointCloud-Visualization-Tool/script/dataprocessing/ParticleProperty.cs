@@ -462,11 +462,7 @@ string filePath = path + dataname+".ply";
     
     
     }
-
-
-
-
-
+    
     #endregion
 
 }

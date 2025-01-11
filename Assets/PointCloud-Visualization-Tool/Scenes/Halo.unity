@@ -257,6 +257,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataset: 3
+  custom: 0
+  custom_LastFrame: 0
+  customGenerator: 0
+  customGenerator_LastFrame: 0
 --- !u!4 &274123725
 Transform:
   m_ObjectHideFlags: 0
@@ -641,6 +645,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataset: 3
+  custom: 0
+  custom_LastFrame: 0
+  customGenerator: 0
+  customGenerator_LastFrame: 0
 --- !u!4 &1946843652
 Transform:
   m_ObjectHideFlags: 0
@@ -733,5 +741,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 416900813}
-  - {fileID: 1946843652}
   - {fileID: 274123725}
+  - {fileID: 1946843652}
