@@ -2,13 +2,13 @@
 #pragma kernel SL_Modified
 #pragma kernel FinalDensity
 
-#define parthreadNum 256
+#define parthreadNum 1024
 #define gridthreadNum 8
 float4 gridStep;
 float4 gridNum;
 float4 SL;
 float4 parMinPos;
-uint parCount;
+float parCount;
 
 RWStructuredBuffer<float3> SL_ModifiedRW;
 StructuredBuffer<float3> partiPos;
@@ -25,6 +25,7 @@ void Pilot(uint3 id : SV_DispatchThreadID)
     for (uint i = 0; i < parCount; i++)
     {
         float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SL.x, (partiPos[i].y - gridPos[idx].y) / SL.y, (partiPos[i].z - gridPos[idx].z) / SL.z);
+        rk.x=abs(rk.x);rk.y=abs(rk.y);rk.z=abs(rk.z);
         sum+= max(0,1 - dot(rk, rk));
     }
     Den[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;

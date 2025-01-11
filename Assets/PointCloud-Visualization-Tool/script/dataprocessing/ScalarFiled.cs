@@ -423,7 +423,7 @@ using UnityEngine.Events;
          //-------------------------------------------------------------------------------------------------kernel 0
          KDE_Cs.Dispatch(kernel_Pilot, XNUM / 8, YNUM / 8, ZNUM / 8);  //pilot density
          //-------------------------------------------------------------------------------------------------kernel 1
-         KDE_Cs.Dispatch(kernel_SL_Modified, pG.GetParticlenum()/256,1,1);//new SL
+         KDE_Cs.Dispatch(kernel_SL_Modified, pG.GetParticlenum()/1024,1,1);//new SL
          //-------------------------------------------------------------------------------------------------kernel 2
          KDE_Cs.Dispatch(kernel_FinalDensity, XNUM / 8, YNUM / 8, ZNUM / 8);  // Final density
          //-------------------------------------------------------------------------------------------------end
