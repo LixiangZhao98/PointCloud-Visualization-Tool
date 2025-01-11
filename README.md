@@ -16,7 +16,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 - Halo Visualization for pointcloud data
 
 # Version Update Info
-- 2025/1/12: Fix bug of KED computation with shared group memory (the program will be broke on some machine)
+- 2025/1/12: Fix bug of KDE computation with shared group memory (the program will be broke on some machine)
 
 
 # Install the project and Play the demos
