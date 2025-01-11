@@ -25,7 +25,6 @@ void Pilot(uint3 id : SV_DispatchThreadID)
     for (uint i = 0; i < parCount; i++)
     {
         float3 rk = float3((partiPos[i].x - gridPos[idx].x) / SL.x, (partiPos[i].y - gridPos[idx].y) / SL.y, (partiPos[i].z - gridPos[idx].z) / SL.z);
-        rk.x=abs(rk.x);rk.y=abs(rk.y);rk.z=abs(rk.z);
         sum+= max(0,1 - dot(rk, rk));
     }
     Den[idx] = 0.5968310365946 / (SL.x * SL.y * SL.z) * sum;
