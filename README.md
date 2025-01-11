@@ -1,7 +1,7 @@
 PointCloud-Visualization-Tool
 ======
 
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png "Image")
+
 Kernel density estimation algorithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
 Any pull requests and issues are welcome. If you have any questions about the project or the data, please feel free to email me (Lixiang.Zhao17@student.xjtlu.edu.cn).
 
@@ -31,6 +31,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 - To switch the dataset, click the DataObject in hierarchy and change variable `datasets` in the inspector window. 
 - Enable `Use_Function_Defined_Yourself` to use the function defined by yourself to generate the data.
 - To add new data files or write your generation functions, please refer to Data section in the following.
+![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png "Image")
 
 ## Demo2: Kernel Density Estimation
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/KernelDensityEstimation.unity`
