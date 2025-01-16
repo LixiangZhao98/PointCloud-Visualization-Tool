@@ -9,8 +9,8 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 # Features
-- Import, visualize, and export the point cloud data in .bin (single-precision floating-point in binary format), .ply, .pcd and .txt format
-- Define your point cloud data with mathematical express easily
+- Import/export and visualize the point cloud data in bin/ply/pcd/txt format
+- Define your point cloud data with mathematical equation easily
 - Kernal Density Estimation (KDE) of the point cloud density on GPU
 - Iso-surface construction with Marching-Cube algorithm
 - Color-coded based on point cloud density
