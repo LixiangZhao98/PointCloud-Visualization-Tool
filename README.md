@@ -32,7 +32,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 ```bash
 git clone https://github.com/tensorflow/magenta.git
 ```
-  Or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
+   Or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
 - Open the project using Unity. Please refer to sec.6 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you don't know how to open an existing project.
 
 
