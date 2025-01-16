@@ -153,131 +153,28 @@ using UnityEngine.Serialization;
           public void LoadPly(string path,string dataname)
         {
             this. name=dataname;
-          List<Vector3> pointList = new List<Vector3>();
+          string filePath = path + dataname+".ply";
 
-          try
+          Vector3[] vs = DataPosPreProcessing(LoadData.LoadPly(filePath));
+          particleGroup = new List<Particle>();
+          this.name = dataname;
+          for (int i=0;i<vs.Length;i++)
           {
-string filePath = path + dataname+".ply";
-            if (!File.Exists(filePath))
-            {
-                Debug.LogError("file does not exist: " + filePath);
-                return;
-            }
-
-            using (FileStream fs = new FileStream(filePath, FileMode.Open))
-            {
-                using (BinaryReader br = new BinaryReader(fs,System.Text. Encoding.ASCII))
-                {
-                    int vertexCount = 0;
-                    bool isBinary = false;
-
-                    // Read and parse the header
-                    int headerCount = 0;
-                    while (true)
-                    {
-                        string line = ReadLine(br);
-                        headerCount++;
-                        if (line.StartsWith("format"))
-                        {
-                            if (line.Contains("binary_big_endian 1.0"))
-                                isBinary = true;
-                            else if (line.Contains("ascii"))
-                                isBinary = false;
-                            else
-                                throw new System.Exception("Unsupported PLY format");
-                        }
-                        else if (line.StartsWith("element vertex"))
-                        {
-                            var tokens = line.Split(' ');
-                            vertexCount = int.Parse(tokens[2]);
-                        }
-                        else if (line.StartsWith("end_header"))
-                        {
-                            break;
-                        }
-
-                        
-                    }
-
-                    if (isBinary)
-                    {
-                        // Process binary format
-                        for (int i = 0; i < vertexCount; i++)
-                        {
-                            float x = ReadBigEndianFloat(br);
-                            float y = ReadBigEndianFloat(br);
-                            float z = ReadBigEndianFloat(br);
-                            pointList.Add(new Vector3(x, y, z));
-                        }
-                    }
-                    else
-                    {
-                        // Process ASCII format
-                        br.BaseStream.Seek(0, SeekOrigin.Begin); // Reset stream to beginning
-                        using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.ASCII))
-                        {
-                            // Skip header lines
-                            for (int i = 0; i < vertexCount + headerCount; i++)
-                            {
-                                string line = sr.ReadLine();
-                                if (i >= headerCount) // Start reading vertices after header
-                                {
-                                    var tokens = line.Split(' ');
-                                    float x = float.Parse(tokens[0]);
-                                    float y = float.Parse(tokens[1]);
-                                    float z = float.Parse(tokens[2]);
-                                    pointList.Add(new Vector3(x, y, z));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            Vector3[] vs = DataPosPreProcessing(pointList.ToArray());
-            particleGroup = new List<Particle>();
-            this.name = dataname;
-            for (int i=0;i<vs.Length;i++)
-            {
-                Particle p = new Particle(vs[i]);
-                this.AddParticle(p);
-            }
+              Particle p = new Particle(vs[i]);
+              this.AddParticle(p);
+          }
             
-            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+          Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
 
-          }
-          catch (Exception e)
-          {
-              Debug.Log(e);
-          }
-                  
         }
 
-         private string ReadLine(BinaryReader br)
-        {
-            List<byte> byteList = new List<byte>();
-            byte readByte;
-            while ((readByte = br.ReadByte()) != '\n')
-            {
-                if (readByte != '\r') // Ignore carriage return if present
-                {
-                    byteList.Add(readByte);
-                }
-            }
-            return System.Text.Encoding.ASCII.GetString(byteList.ToArray());
-        }
-        private float ReadBigEndianFloat(BinaryReader br)
-        {
-            byte[] bytes = br.ReadBytes(4);
-            System.Array.Reverse(bytes); // Convert to little endian
-            return System.BitConverter.ToSingle(bytes, 0);
-        }
 
-        public void LoadByte(string path, string dataname)
+        
+        public void LoadPcd(string path, string dataname)
         {
-           this. name=dataname;
-           string filePath = path + dataname+".bin";
-            Vector3[] vs = DataPosPreProcessing(LoadDataBybyte.StartLoad(filePath));
+            this. name=dataname;
+            string filePath = path + dataname+".pcd";
+            Vector3[] vs = DataPosPreProcessing(LoadData.LoadPcd(filePath));
             particleGroup = new List<Particle>();
             for (int i=0;i<vs.Length;i++)
             {
@@ -287,18 +184,33 @@ string filePath = path + dataname+".ply";
             Debug.Log("Load success" + " " + dataname + " with " +GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength().x + " " + GetSmoothLength().y + " " + GetSmoothLength().z);
 
         }
-        public void LoadVec3s(Vector3[] v, string dataname,bool forSimulation=false)
+        
+        public void LoadBin(string path, string dataname)
         {
-            this.name = dataname;
-            if(!forSimulation)
-            v = DataPosPreProcessing(v);
+           this. name=dataname;
+           string filePath = path + dataname+".bin";
+            Vector3[] vs = DataPosPreProcessing(LoadData.LoadBin(filePath));
             particleGroup = new List<Particle>();
-            for (int i = 0; i < v.Length; i++)
+            for (int i=0;i<vs.Length;i++)
             {
-                Particle p = new Particle(v[i]);
+                Particle p = new Particle(vs[i]);
                 this.AddParticle(p);
             }
-            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+            Debug.Log("Load success" + " " + dataname + " with " +GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength().x + " " + GetSmoothLength().y + " " + GetSmoothLength().z);
+
+        }
+        public void LoadTxt(string path, string dataname)
+        {
+            this. name=dataname;
+            string filePath = path + dataname+".txt";
+            Vector3[] vs = DataPosPreProcessing(LoadData.LoadTxt(filePath));
+            particleGroup = new List<Particle>();
+            for (int i=0;i<vs.Length;i++)
+            {
+                Particle p = new Particle(vs[i]);
+                this.AddParticle(p);
+            }
+            Debug.Log("Load success" + " " + dataname + " with " +GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength().x + " " + GetSmoothLength().y + " " + GetSmoothLength().z);
 
         }
         public void LoadCsv(string path,string dataname)
@@ -315,6 +227,22 @@ string filePath = path + dataname+".ply";
             Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
 
         }
+        
+        public void LoadVec3s(Vector3[] v, string dataname,bool forSimulation=false)
+        {
+            this.name = dataname;
+            if(!forSimulation)
+                v = DataPosPreProcessing(v);
+            particleGroup = new List<Particle>();
+            for (int i = 0; i < v.Length; i++)
+            {
+                Particle p = new Particle(v[i]);
+                this.AddParticle(p);
+            }
+            Debug.Log("Load success" + " " + dataname + " with " + GetParticlenum() + " particles." + " SmoothLength: " + GetSmoothLength());
+
+        }
+        
        public Vector3[]  DataPosPreProcessing( Vector3[] vs)   //put the data near the origin if the data is far
         {
             Vector3 vSum = new Vector3(0f, 0f, 0f);
@@ -405,7 +333,7 @@ string filePath = path + dataname+".ply";
             Debug.Log("No marked particles");
         else
         {
-            SaveData.FlagsToFile(name, flagtrue.ToArray());
+            SaveData.FlagsToBytes(name, flagtrue.ToArray());
         }
     }
 
@@ -446,7 +374,7 @@ string filePath = path + dataname+".ply";
     // }
     //
     //
-    public void SaveAsNewData(string filename)
+    public void SaveAsBin(string filename)
     {
         List<Vector3> dataPos = new List<Vector3>();
         for (int i = 0; i < this.GetParticlenum(); i++)
@@ -458,11 +386,53 @@ string filePath = path + dataname+".ply";
             Debug.Log("No Target particles");
         else
     
-            SaveData.Vec3sToFile(filename, dataPos.ToArray());
+            SaveData.Vec3sToBytes(filename, dataPos.ToArray());
+    }
+    public void SaveAsPly(string filename)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < this.GetParticlenum(); i++)
+        {
+            dataPos.Add(GetParticleObjectPos(i));
+        }
     
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
     
+            SaveData.Vec3sToPly(filename, dataPos.ToArray());
     }
     
+    public void SaveAsTxt(string filename)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < this.GetParticlenum(); i++)
+        {
+            dataPos.Add(GetParticleObjectPos(i));
+        }
+    
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
+    
+            SaveData.Vec3sToTxt(filename, dataPos.ToArray());
+        
+    }
+    public void SaveAsPcd(string filename)
+    {
+        List<Vector3> dataPos = new List<Vector3>();
+        for (int i = 0; i < this.GetParticlenum(); i++)
+        {
+            dataPos.Add(GetParticleObjectPos(i));
+        }
+    
+        if (dataPos.Count == 0)
+            Debug.Log("No Target particles");
+        else
+    
+            SaveData.Vec3sToPcd(filename, dataPos.ToArray());
+        
+    }
     #endregion
 
 }

@@ -235,10 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: 4
+  dataset: 5
   custom: 0
   custom_LastFrame: 0
-  customGenerator: 0
+  customGenerator: 3
   customGenerator_LastFrame: 0
 --- !u!4 &63428035
 Transform:
@@ -471,7 +471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &223957836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: 9
+  dataset: 12
   custom: 0
   custom_LastFrame: 0
   customGenerator: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ce26223e8109a4ab82acb1dc1c968b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  McThreshold: 100000000
+  McThreshold: 100
   marchingCubesCS: {fileID: 7200000, guid: 28fbb9e52d9d84841ac2cff38b1dab37, type: 3}
 --- !u!1 &625894416
 GameObject:
@@ -760,7 +760,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &649375473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: 8
+  dataset: 0
   custom: 0
   custom_LastFrame: 0
   customGenerator: 0
@@ -1187,7 +1187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1168196838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,10 +1200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: 3
-  custom: 0
+  dataset: 6
+  custom: 1
   custom_LastFrame: 0
-  customGenerator: 0
+  customGenerator: 3
   customGenerator_LastFrame: 0
 --- !u!4 &1168196839
 Transform:
@@ -1380,7 +1380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1541196996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,7 +1682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c79df730f2a8a42baf9951a3725048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataset: 6
+  dataset: 3
   custom: 0
   custom_LastFrame: 0
   customGenerator: 0
@@ -1953,7 +1953,7 @@ SceneRoots:
   - {fileID: 54486047}
   - {fileID: 223957837}
   - {fileID: 63428035}
+  - {fileID: 1168196839}
   - {fileID: 649375474}
   - {fileID: 1785663547}
   - {fileID: 1541196997}
-  - {fileID: 1168196839}

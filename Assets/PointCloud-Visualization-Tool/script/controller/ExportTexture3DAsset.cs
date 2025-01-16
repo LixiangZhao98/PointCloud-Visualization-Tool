@@ -35,7 +35,7 @@ public class ExportTexture3DAsset : MonoBehaviour
         texture3D.SetPixels(colors_den);
         texture3D.Apply();
         
-        string directoryPath = "Assets/PointCloud-Visualization-Tool/FieldTexture3D";
+        string directoryPath = "Assets/PointCloud-Visualization-Tool/data/field/Texture3D";
         if (!Directory.Exists(directoryPath))
         {
             Directory.CreateDirectory(directoryPath);

@@ -31,7 +31,7 @@ public static class DatasetEnumUpdater
 
         var files = Directory.GetFiles(dataPath)
             .Where(f => !f.EndsWith(".meta"))
-            .Select(f => Path.GetFileNameWithoutExtension(f))
+            .Select(f => Path.GetFileNameWithoutExtension(f) + "_" + Path.GetExtension(f))
             .Distinct()
             .ToList();
 

@@ -42,11 +42,19 @@ public class DataLoader : MonoBehaviour
                 string nthFileExtention = Path.GetExtension(files[n]);
                 if (nthFileExtention == ".bin")
                 {
-                    particles.LoadByte(dataPath,nthFileName);
+                    particles.LoadBin(dataPath,nthFileName);
                 }
                 else if (nthFileExtention == ".ply")
                 {
                     particles.LoadPly(dataPath,nthFileName);   
+                }
+                else if (nthFileExtention == ".pcd")
+                {
+                    particles.LoadPcd(dataPath,nthFileName);    
+                }
+                else if (nthFileExtention == ".txt")
+                {
+                    particles.LoadTxt(dataPath,nthFileName);    
                 }
                 else if (nthFileExtention == ".csv")
                 {
@@ -86,9 +94,20 @@ public class DataLoader : MonoBehaviour
         Destroy(this); 
     }
     
-    // [ContextMenu("SaveAsNewData")]
-    public void SaveAsNewData(string location)
+    public void SaveAsBin(string location)
     {
-        particles.SaveAsNewData(location);
+        particles.SaveAsBin(location);
+    }
+    public void SaveAsPly(string location)
+    {
+        particles.SaveAsPly(location);
+    }
+    public void SaveAsTxt(string location)
+    {
+        particles.SaveAsTxt(location);
+    }
+    public void SaveAsPcd(string location)
+    {
+        particles.SaveAsPcd(location);
     }
 }

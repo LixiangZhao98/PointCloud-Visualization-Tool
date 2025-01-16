@@ -34,6 +34,14 @@ public class GPUKDECsHelper:MonoBehaviour
         pG = transform.parent.GetComponentInChildren<DataLoader>().particles;
         densityField.CreateFieldFromPg(pG,(int)gridNum,(int)gridNum,(int)gridNum);
         densityField.KDE(pG,kdeInstance);
+        
+        // float[] fs = new float[densityField.GetNodeNum()];
+        // for (int i = 0; i < densityField.GetNodeNum(); i++)
+        // {
+        //     fs[i] = (float)densityField.GetNodeDensity(i);
+        // }
+        // SaveData.FloatsToBytes(Application.dataPath + "/PointCloud-Visualization-Tool/data/" + "/field/Bin/"+pG.name+"_"+densityField.XNUM+".field",fs);
+        //
         eventAfterDensityEst?.Invoke(); //actions after data load
     }
 

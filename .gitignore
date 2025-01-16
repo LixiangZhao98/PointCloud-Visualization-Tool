@@ -12,6 +12,8 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 /.idea/
+/Assets/PointCloud-Visualization-Tool/data/field
+/Assets/PointCloud-Visualization-Tool/data/flags
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

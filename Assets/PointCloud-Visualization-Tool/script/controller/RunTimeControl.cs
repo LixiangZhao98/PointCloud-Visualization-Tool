@@ -8,7 +8,7 @@ public class RunTimeControl : MonoBehaviour
     public bool custom_LastFrame=false;
 
     public CustomGeneratorEnum customGenerator; 
-    public CustomGeneratorEnum customGenerator_LastFrame; 
+    public CustomGeneratorEnum customGenerator_LastFrame;  
     // public bool loadTarget;
     // public List<FlagNamesCollection> loadTargetNames;
 
