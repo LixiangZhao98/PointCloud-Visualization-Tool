@@ -17,7 +17,7 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 - Halo Visualization for point cloud data
 
 # Requirement
-- Unity version >=2019
+Unity version >=2019
 
 # Version Update Info
 - 2025/1/12: Fix bug of KDE computation with shared group memory (the program will be broke on some machine)
@@ -27,12 +27,12 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 # Install the project and Play the demos
 
 ## Install the project
-- Download Unity Hub and Unity (versions equal to/higher than 2019 have been tested). Please refer to sec.1-4 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you are a new Unity user.
-- Clone the repo using command following, or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
+Download Unity Hub and Unity (versions equal to/higher than 2019 have been tested). Please refer to sec.1-4 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you are a new Unity user.
+Clone the repo using command following, or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
 ```bash
 git clone https://github.com/tensorflow/magenta.git
 ```
-- Open the project using Unity. Please refer to sec.6 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you don't know how to open an existing project.
+Open the project using Unity. Please refer to sec.6 in [tutorial](https://github.com/LixiangZhao98/asset/blob/master/Tutorial/Unity_Setup_General.pdf) if you don't know how to open an existing project.
 
 
 ## Demo1: Read and visualize data
