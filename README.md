@@ -9,14 +9,19 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 [MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 # Features
-- pointcloud reader in .bin (single-precision floating-point in binary format) and .ply format
+- Import, visualize, and export the point cloud data in .bin (single-precision floating-point in binary format), .ply, .pcd and .txt format
+- Define your point cloud data with mathematical express easily
 - Kernal Density Estimation (KDE) of the point cloud density on GPU
-- Iso-surface construction with Marching-Cube algrithm
+- Iso-surface construction with Marching-Cube algorithm
 - Color-coded based on point cloud density
-- Halo Visualization for pointcloud data
+- Halo Visualization for point cloud data
+
+# Requirement
+- Unity version >=2020
 
 # Version Update Info
 - 2025/1/12: Fix bug of KDE computation with shared group memory (the program will be broke on some machine)
+- 2025/1/16: Enable import/export pcd/ply/txt files
 
 
 # Install the project and Play the demos
@@ -28,9 +33,9 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 
 ## Demo1: Read and visualize data
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
-- To switch the dataset, click the DataObject in hierarchy and change variable `datasets` in the inspector window. 
+- To switch the dataset, click the DataObject in hierarchy and change variable `datasets in project` in the inspector window. 
 - Enable `Use_Function_Defined_Yourself` to use the function defined by yourself to generate the data.
-- To add new data files or write your generation functions, please refer to Data section in the following.
+- To add new data files or write mathematical equations of data, please refer to the Data section in the following.
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png "Image")
 
 ## Demo2: Kernel Density Estimation
@@ -49,9 +54,10 @@ Any pull requests and issues are welcome. If you have any questions about the pr
 2. Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
 
 # Data
-- The repo supports to read .bin and .ply data files. Refer to (TODO) for more data. If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
-- To add data files, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data` and project identifies and updates the file automatically in runtime.
-- Write your own function to generate the dataset with an output of `Vector3[]` in `Assets\PointCloud-Visualization-Tool\script\dataprocessing\DataGenerator.cs`. Your new function will appear in inspector automatically. Be sure to enable `Use_Function_Defined_Yourself` checkbox to select your function in runtime.
+- The repo supports to read bin/ply/pcd/txt data files. Refer to (TODO) for more data.
+- If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
+- To add data files, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data`, and the project identifies the file automatically.
+- To write your own mathematical equation of data, you need (1) go to `Assets\PointCloud-Visualization-Tool\script\dataprocessing\DataGenerator.cs`, (2) add a new function with an output type of `Vector3[]` (for instance, static public CubicArea(){}), (3) enable `Use_Function_Defined_Yourself` and then you can find CubicArea in Drop-down box `Customized Dataset`.
 - [//]: # (- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/]&#40;https://graphics.stanford.edu/data/3Dscanrep/&#41;. The .bin files can be downloaded from the repo &#40;TODO&#41;)
 
 [//]: # (# Scripting)
