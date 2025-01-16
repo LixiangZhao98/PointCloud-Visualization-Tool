@@ -5,9 +5,6 @@ PointCloud-Visualization-Tool
 Kernel density estimation algorithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
 Any pull requests and issues are welcome. If you have any questions about the project or the data, please feel free to email me (Lixiang.Zhao17@student.xjtlu.edu.cn).
 
-### Projects built based on this repo
-[MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
-
 # Features
 - Import/export and visualize the point cloud data in bin/ply/pcd/txt format
 - Define your point cloud data with mathematical equation easily
@@ -62,6 +59,9 @@ git clone https://github.com/tensorflow/magenta.git
 - To write your own mathematical equation of data, you need (1) go to `Assets\PointCloud-Visualization-Tool\script\dataprocessing\DataGenerator.cs`, (2) add a new function with an output type of `Vector3[]` (for instance, static public CubicArea(){}), (3) enable `Use_Function_Defined_Yourself` and then you can find CubicArea in Drop-down box `Customized Dataset`.
 - Refer to [Pointcloud Dataset](https://github.com/LixiangZhao98/Pointcloud-Dataset) for more data.
 - If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
+
+# Projects built based on this repo
+[MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
 
 [//]: # (- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/]&#40;https://graphics.stanford.edu/data/3Dscanrep/&#41;. The .bin files can be downloaded from the repo &#40;TODO&#41;)
 
