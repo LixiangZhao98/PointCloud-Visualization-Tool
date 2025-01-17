@@ -48,7 +48,7 @@ git clone https://github.com/tensorflow/magenta.git
 ## Demo3: Halo visualization
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`
 - This is a replication of halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png "Image")
+
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
 
