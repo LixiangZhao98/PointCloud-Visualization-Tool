@@ -50,6 +50,13 @@ git clone https://github.com/tensorflow/magenta.git
 - This is a replication of halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
 ![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png "Image")
 
+<div style="display: flex; justify-content: space-between; align-items: center;">
+
+  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png" alt="Image 1" style="width: 45%;"/>
+  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/statuette.png" alt="Image 2" style="width: 45%;"/>
+
+</div>
+
 # How to integrate into your unity project
 1. Place the folder `Asset/PointCloud-Visualization-Tool` in this repo to your Unity project `Asset` folder
 2. Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
