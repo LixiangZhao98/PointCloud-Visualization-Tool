@@ -53,7 +53,7 @@ git clone https://github.com/tensorflow/magenta.git
 <div style="display: flex; justify-content: space-between; align-items: center;">
 
   <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png" alt="Image 1" style="width: 60%;"/>
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/statuette.png" alt="Image 2" style="width: 35%;"/>
+  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/statuette.png" alt="Image 2" style="width: 36%;"/>
 
 </div>
 
