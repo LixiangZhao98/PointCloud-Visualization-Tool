@@ -26,7 +26,7 @@ Unity version >=2019
 ## Install the project
 - Clone the repo using command following, or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
 ```bash
-git clone https://github.com/tensorflow/magenta.git
+git clone git@github.com:LixiangZhao98/PointCloud-Visualization-Tool.git
 ```
 - Open the project using Unity (versions >= 2019). If you are new to Unity, refer to sec.1-4 in [tutorial](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Tutorial/Unity_Setup_General.pdf) for Unity setup and sec.6 to open a project.
 - Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
