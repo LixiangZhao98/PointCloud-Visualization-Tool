@@ -21,7 +21,7 @@ Unity version >=2019
 - 2025/1/16: Enable import/export pcd/ply/txt files
 
 
-# Install the project and Play the demos
+# How to use
 
 ## Install the project
 - Download Unity Hub and Unity (versions equal to/higher than 2019 have been tested). Please refer to sec.1-4 in [tutorial](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Tutorial/Unity_Setup_General.pdf) if you are a new Unity user.
@@ -30,7 +30,7 @@ Unity version >=2019
 git clone https://github.com/tensorflow/magenta.git
 ```
 - Open the project using Unity. Please refer to sec.6 in [tutorial](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Tutorial/Unity_Setup_General.pdf) if you don't know how to open an existing project.
-
+- Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
 
 ## Demo1: Read and visualize data
 - Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
@@ -57,9 +57,6 @@ git clone https://github.com/tensorflow/magenta.git
 
 </div>
 
-# How to integrate into your unity project
-1. Place the folder `Asset/PointCloud-Visualization-Tool` in this repo to your Unity project `Asset` folder
-2. Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
 
 # Data
 - The repo supports to read bin/ply/pcd/txt data files. To add data files, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data`, and the project identifies the file automatically.
