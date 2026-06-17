@@ -1,261 +1,160 @@
-PointCloud-Visualization-Tool
-======
+# PointCloud Visualization Tool
 
+Kernel density estimation and interactive visualization toolkit for point cloud data in [Unity](https://unity.com/download).
 
-Kernel density estimation algorithm for point cloud visualization in [Unity3D](https://unity3d.com/get-unity/download "Unity download").\
-Any pull requests and issues are welcome. If you have any questions about the project or the data, please feel free to email me (Lixiang.Zhao17@student.xjtlu.edu.cn).
+The project can import, render, process, and export point clouds, including GPU-based kernel density estimation (KDE), Marching Cubes iso-surface reconstruction, density color mapping, and halo visualization.
 
-# Features
-- Import/export and visualize the point cloud data in bin/ply/pcd/txt format
-- Define your point cloud data with mathematical equation easily
-- Kernal Density Estimation (KDE) of the point cloud density on GPU
-- Iso-surface construction with Marching-Cube algorithm
-- Color-coded based on point cloud density
-- Halo Visualization for point cloud data
+Pull requests and issues are welcome. For questions about the project or datasets, contact Lixiang Zhao at `Lixiang.Zhao17@student.xjtlu.edu.cn`.
 
-# Requirement
-Unity version >=2019
+![Point cloud examples](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png)
 
-# Version Update Info
-- 2025/1/12: Fix bug of KDE computation with shared group memory (the program will be broke on some machine)
-- 2025/1/16: Enable import/export pcd/ply/txt files
-- 2025/1/23: Support rendering in editor
+## Features
 
+- Import and visualize point cloud data from `.bin`, `.ply`, `.pcd`, `.txt`, and `.csv` files.
+- Export point clouds to `.bin`, `.ply`, `.pcd`, and `.txt`.
+- Generate point clouds from custom mathematical functions.
+- Estimate point cloud density on the GPU with KDE.
+- Reconstruct iso-surfaces with the Marching Cubes algorithm.
+- Color-code point clouds by density.
+- Render depth-dependent halo effects for point cloud visualization.
 
-# How to use
+## Requirements
 
-## Install the project
-- Clone the repo using command following, or download the [archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip "archive") directly
-```bash
-git clone git@github.com:LixiangZhao98/PointCloud-Visualization-Tool.git
+- Recommended Unity version: `2022.3.36f1` LTS.
+- Older Unity versions `>= 2019` may work, but the current project settings were saved with Unity `2022.3.36f1`.
+- A GPU with compute shader support is recommended for KDE and Marching Cubes demos.
+
+## Quick Start
+
+1. Clone this repository or download the [ZIP archive](https://github.com/LixiangZhao98/PointCloud-Visualization-Tool/archive/refs/heads/master.zip).
+
+   ```bash
+   git clone git@github.com:LixiangZhao98/PointCloud-Visualization-Tool.git
+   ```
+
+2. Open the project folder in Unity `2022.3.36f1` LTS or a compatible Unity version.
+3. Open `Assets/PointCloud-Visualization-Tool/scenes/PointCloudVisualization.unity`.
+4. Press Play.
+5. Select the `DataObject` in the Hierarchy and choose a dataset from `Dataset in Project`.
+
+To use the point cloud prefab in your own scene, drag `Assets/PointCloud-Visualization-Tool/prefab/DataObject.prefab` into the scene.
+
+If you are new to Unity, see sections 1-4 of this [Unity setup tutorial](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Tutorial/Unity_Setup_General.pdf), then section 6 for opening a project.
+
+## Demos
+
+### Read and Visualize Data
+
+Scene: `Assets/PointCloud-Visualization-Tool/scenes/PointCloudVisualization.unity`
+
+- Select `DataObject` in the Hierarchy.
+- Use `Dataset in Project` to switch between data files in the project.
+- Enable `Use_Math_Expressed_Dataset` to generate data from a function in `DataGenerator.cs`.
+- Use the `Dataset` dropdown to choose the generated dataset.
+
+### Kernel Density Estimation
+
+Scene: `Assets/PointCloud-Visualization-Tool/scenes/KernelDensityEstimation.unity`
+
+This demo estimates point cloud density, reconstructs an iso-surface with Marching Cubes, and maps density from blue (low) to red (high).
+
+To adjust the Marching Cubes threshold, expand `DataObject` in the Hierarchy, select `MarchingCube`, and edit `Mc Threshold` in the Inspector.
+
+![KDE result](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/KDE.png)
+
+Volume rendering examples at grid resolutions 128, 256, and 512:
+
+<p>
+  <img src="https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF128.png" alt="Volume rendering 128" width="32%">
+  <img src="https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF256.png" alt="Volume rendering 256" width="32%">
+  <img src="https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF512.png" alt="Volume rendering 512" width="32%">
+</p>
+
+### Halo Visualization
+
+Scene: `Assets/PointCloud-Visualization-Tool/scenes/Halo.unity`
+
+This demo replicates depth-dependent halo visualization in Unity, based on [Depth-Dependent Halos](https://ieeexplore.ieee.org/document/5290742).
+
+<p>
+  <img src="https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png" alt="Color halo" width="60%">
+  <img src="https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/pic/statuette.png" alt="Statuette halo" width="36%">
+</p>
+
+## Point Cloud Data
+
+Place point cloud files in:
+
+```text
+Assets/PointCloud-Visualization-Tool/data/data
 ```
-- Open the project using Unity (versions >= 2019). If you are new to Unity, refer to sec.1-4 in [tutorial](https://raw.githubusercontent.com/LixiangZhao98/asset/master/Tutorial/Unity_Setup_General.pdf) for Unity setup and sec.6 to open a project.
-- Drag the DataObject prefab `Assets\PointCloud-Visualization-Tool\Prefab\DataObject.prefab` into your scene.
 
-## Demo1: Read and visualize data
-- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/PointCloudVisualization.unity`
-- To switch the dataset, click the DataObject in hierarchy and change variable `datasets in project` in the inspector window. 
-- Enable `Use_Function_Defined_Yourself` to use the function defined by yourself to generate the data.
-- To add new data files or write mathematical equations of data, please refer to the Data section in the following.
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/PointClouds.png "Image")
+Unity updates the `Dataset in Project` dropdown from the files in this folder.
 
-## Demo2: Kernel Density Estimation
-- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/KernelDensityEstimation.unity`
-- The density estimation results are shown by iso-surface reconstruction (MarchingCube) and color encoding from blue (low density) to red (high density).
-- To change MarchingCube threshold, unfold the DataObject in hierarchy, click `MarchingCube` and adjust the variable `MC Threshold` in the inspector window.
-![Image](https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/KDE.png "Image")
-- The volume rendering of the estimated fields (resolution 128,256,512) are like this:
-  <div style="display: flex; justify-content: space-between; align-items: center;">
+Supported import formats:
 
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF128.png" alt="Image 1" style="width: 32%;"/>
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF256.png" alt="Image 2" style="width: 32%;"/>
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/VolumeRenderingDF512.png" alt="Image 2" style="width: 32%;"/>
-</div>
+- `.bin`: raw 32-bit floating-point values stored as `x, y, z` triples.
+- `.ply`: ASCII PLY and binary big-endian PLY vertex positions.
+- `.pcd`: ASCII and binary PCD files with `x y z` fields.
+- `.txt`: one point per line, with `x y z` separated by spaces, tabs, or commas.
+- `.csv`: loaded through the CSV loader.
 
-## Demo3: Halo visualization
-- Run the demo in `Assets/PointCloud-Visualization-Tool/Scenes/Halo.unity`
-- This is a replication of halo visualization ([10.1109/TVCG.2009.138](https://ieeexplore.ieee.org/document/5290742 "Depth-Dependent Halos")) in Unity 
+Supported export formats from the `DataObject` Inspector:
 
+- `.bin`
+- `.ply`
+- `.pcd`
+- `.txt`
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
+Additional datasets are available in the [Pointcloud Dataset](https://github.com/LixiangZhao98/Pointcloud-Dataset) repository.
 
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/ColorHalo.png" alt="Image 1" style="width: 60%;"/>
-  <img src="https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/statuette.png" alt="Image 2" style="width: 36%;"/>
+## Custom Mathematical Data
 
-</div>
+To generate point clouds from a mathematical function:
 
+1. Open `Assets/PointCloud-Visualization-Tool/script/dataprocessing/DataGenerator.cs`.
+2. Add a public method that returns `Vector3[]`.
 
-# Pointcloud Data
-- The repo supports to read bin/ply/pcd/txt data files. To add data files, you just need to place it to `Assets\PointCloud-Visualization-Tool\data\data`, and the project identifies the file automatically.
-- To write your own mathematical equation of data, you need (1) go to `Assets\PointCloud-Visualization-Tool\script\dataprocessing\DataGenerator.cs`, (2) add a new function with an output type of `Vector3[]` (for instance, static public CubicArea(){}), (3) enable `Use_Function_Defined_Yourself` and then you can find CubicArea in Drop-down box `Customized Dataset`.
-- Refer to [Pointcloud Dataset](https://github.com/LixiangZhao98/Pointcloud-Dataset) for more data.
-- If you want to use the .bin data outside this project, first you need to convert them to `single-precision floating-point` format. Three single-precision floats consist a 3D coordinate of one point.
+   ```csharp
+   public Vector3[] MyDataset()
+   {
+       Vector3[] points = new Vector3[1000];
+       // Fill points here.
+       return points;
+   }
+   ```
 
-# Projects built based on this repo
-[MeTACAST](https://github.com/LixiangZhao98/MeTACAST "MeTACAST")
+3. Save the script and return to Unity.
+4. Select `DataObject`.
+5. Enable `Use_Math_Expressed_Dataset`.
+6. Select your method from the `Dataset` dropdown.
 
-[//]: # (- The .ply files can be downloaded from [https://graphics.stanford.edu/data/3Dscanrep/]&#40;https://graphics.stanford.edu/data/3Dscanrep/&#41;. The .bin files can be downloaded from the repo &#40;TODO&#41;)
+## Project Layout
 
-[//]: # (# Scripting)
+```text
+Assets/PointCloud-Visualization-Tool/
+  data/       Sample point cloud data and generated data
+  material/   Materials used by the renderers
+  prefab/     Reusable DataObject prefab
+  scenes/     Demo scenes
+  script/     Runtime, rendering, data processing, and editor scripts
+  shader/     Rendering, KDE, and Marching Cubes shaders
+```
 
-[//]: # ()
-[//]: # (The following are all in `Assets/PointCloud-Visualization-Tool/Scenes/MyPointCloud.unity`.)
+## Changelog
 
-[//]: # (  )
-[//]: # (## Load data from binary files)
+- `2025-01-12`: Fixed KDE shared group memory computation on machines where it could fail.
+- `2025-01-16`: Enabled `.pcd`, `.ply`, and `.txt` import/export.
+- `2025-01-23`: Added editor rendering support.
 
-[//]: # (- Add `RenderDataRunTime` to an empty GameObject &#40;you can name it whatever you like, here we call it "Runtime"&#41;.)
+## Projects Built With This Repository
 
-[//]: # (- Create a new script &#40;you can name it whatever you like, here we call it `MyPointCloud.cs`&#41; and add it to GameObject "Runtime".)
+- [MeTACAST](https://github.com/LixiangZhao98/MeTACAST)
 
-[//]: # (- In `MyPointCloud.cs`, We first initialize two varaibles `particleMat` and `visCenter`. Remember to assign these two variables in the inspector.)
+## Acknowledgements
 
-[//]: # (```c#)
+Many thanks to the authors of [unity-marching-cubes-gpu](https://github.com/pavelkouril/unity-marching-cubes-gpu).
 
-[//]: # (public Material particleMat;  // the material of the points)
+## License
 
-[//]: # (public GameObject visCenter; //The visualization will always follow this GameObject when starting the game. )
-
-[//]: # (``` )
-
-[//]: # (- To load data from binary files, we can simply call `DataMemory.LoadDataByByte&#40;fileName&#41;`. An example code is as follows:)
-
-[//]: # (```c#)
-
-[//]: # (public class MyPointCloud : MonoBehaviour)
-
-[//]: # ({)
-
-[//]: # (    public Material particleMat;  // the material of the points)
-
-[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
-
-[//]: # (    void Start&#40;&#41;)
-
-[//]: # (    {)
-
-[//]: # (        DataStorage.StacksInitialize&#40;&#41;;  //Initialize)
-
-[//]: # (        DataStorage.LoadByte&#40;"Flocculentcube2"&#41;;  //load the data from the the binary file; the input is the name of the binary file)
-
-[//]: # (        RenderDataRunTime.visSize = 1f;  //the size of the visualization)
-
-[//]: # (        RenderDataRunTime.Init&#40;visCenter, particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
-
-[//]: # (    })
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadBinary.png "Image"&#41;)
-
-[//]: # (- The data files stores x,y,z coordinates in binary format located in `Asset/PointCloud-Visualization-Tool/data/data` folder. To use them, you need to convert the binary sequence to single-precision floating-point &#40;32bits&#41; sequence. Then, the 1st, 2nd, and 3rd floats are the x,y, and z coordinates for the first point. The 4th, 5th and 6th floats are the x,y, and z coordinates for the second point...  Here is a full list of the [Point Cloud Dataset]&#40;https://raw.githubusercontent.com/LixiangZhao98/asset/master/Project/PointCloud-Visualization-Tool/files/Data.pdf "Data"&#41;. Some are not in this repo. If you need them, please feel free to email me.)
-
-[//]: # ()
-[//]: # (## Load data by point positions)
-
-[//]: # (- To load data by point positions, we can build a `Vector3[] vector3Array` and call `DataMemory.LoadDataByVec3s&#40;vector3Array,name&#41;`. An example to generate a group of points in a cubic range is as follows:)
-
-[//]: # (```c#)
-
-[//]: # (public class MyPointCloud : MonoBehaviour)
-
-[//]: # ({)
-
-[//]: # (    public Material particleMat;  // the material of the points)
-
-[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
-
-[//]: # (    void Start&#40;&#41;)
-
-[//]: # (    {)
-
-[//]: # (        Vector3[] v = Generate_Cube&#40;&#41;;  // Generate random points in Cubic shape)
-
-[//]: # (        DataStorage.StacksInitialize&#40;&#41;;//Initialize)
-
-[//]: # (        DataStorage.LoadVec3s&#40;v, "cube"&#41;;  // the first input is Vector[], the second is the name of the data &#40;you can name it as you like&#41;)
-
-[//]: # (        RenderDataRunTime.visSize = 1f;  //the size of the visualization)
-
-[//]: # (        RenderDataRunTime.Init&#40;visCenter,particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
-
-[//]: # (    })
-
-[//]: # (    public Vector3[] Generate_Cube&#40;&#41;  // Generate random points in Cubic shape)
-
-[//]: # (    {)
-
-[//]: # (        Random.InitState&#40;2&#41;;)
-
-[//]: # (        int num = 100000;)
-
-[//]: # (        int i = 0;)
-
-[//]: # (        Vector3[] v = new Vector3[num];)
-
-[//]: # (        while &#40;i < num&#41;)
-
-[//]: # (        {)
-
-[//]: # (            v[i] = new Vector3&#40;Random.Range&#40;-1.0f, 1.0f&#41;, Random.Range&#40;-1.0f, 1.0f&#41;, Random.Range&#40;-1.0f, 1.0f&#41;&#41;;)
-
-[//]: # (            i++;)
-
-[//]: # (        })
-
-[//]: # (        return v;)
-
-[//]: # (    })
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadVec3s.png "Image"&#41;)
-
-[//]: # ()
-[//]: # (## Load data from ply files)
-
-[//]: # ()
-[//]: # (```c#)
-
-[//]: # (public class MyPointCloud : MonoBehaviour)
-
-[//]: # ({)
-
-[//]: # (    public Material particleMat;  // the material of the points)
-
-[//]: # (    public GameObject visCenter; //The visualization will always follow the `Vis center` when starting the game. )
-
-[//]: # (    void Start&#40;&#41;)
-
-[//]: # (    {)
-
-[//]: # (        DataStorage.StacksInitialize&#40;&#41;;  //Initialize)
-
-[//]: # (        DataStorage.LoadPly&#40;"dragon_vrip"&#41;;  //load the data from the the ply file; the input is the name of the binary file)
-
-[//]: # (        RenderDataRunTime.visSize = 1f;)
-
-[//]: # (        RenderDataRunTime.Init&#40;visCenter, particleMat&#41;;  // Assign materials and center to the RenderDataRunTime.cs`)
-
-[//]: # (    })
-
-[//]: # (})
-
-[//]: # (```)
-
-[//]: # (![Image]&#40;https://github.com/LixiangZhao98/asset/blob/master/Project/PointCloud-Visualization-Tool/pic/LoadPly.png "Image"&#41;)
-
-[//]: # (### Traversal of points)
-
-[//]: # (To get information of each point, such as the position. We can simply do as following:)
-
-[//]: # (```c#)
-
-[//]: # (void Start&#40;&#41;)
-
-[//]: # ({)
-
-[//]: # (for&#40;int i=0;i<DataMemory.allParticle.GetParticlenum&#40;&#41;;i++&#41;)
-
-[//]: # ({)
-
-[//]: # (    Debug.Log&#40;DataMemory.allParticle.GetParticlePosition&#40;i&#41;&#41;;)
-
-[//]: # (})
-
-[//]: # (})
-
-[//]: # (```)
-
-# Thanks
-Many thanks to the authors of open-source repository:
-[unity-marching-cubes-gpu](https://github.com/pavelkouril/unity-marching-cubes-gpu "unity-marching-cubes-gpu")
-
-
-
-
-
+This project is licensed under the [MIT License](LICENSE).
